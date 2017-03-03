@@ -7,19 +7,57 @@ fullSize() {
   height: 100%;
 }
 
-absolute() {
+absolute(top, right, bottom, left) {
   position: absolute;
-  top: 0;
-  left: 0;
-  fullSize();
+  top: top;
+  right: right;
+  bottom: bottom;
+  left: left;
 }
 
 html, body {
   fullSize();
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-family: BigNoodleTitling;
+}
+
+h1, h2 {
+  font-size: 7.2rem;
+  margin: 0;
+}
+
+#heroPage {
+  fullSize();
 }
 
 #image {
-  absolute();
+  absolute(0, initial, initial, 0);
+  fullSize();
   background-size: cover;
+  z-index: -2;
+  filter: grayscale(1);
+}
+
+#tint {
+  absolute(0, initial, initial, 0);
+  fullSize();
   z-index: -1;
+  opacity: .25;
+}
+
+#heroResult {
+  absolute(50%, initial, initial,  50%);
+  transform: translate(-50%, -50%);
+}
+#heroName {
+  absolute(initial, 0, 0, initial);
+  transform: translate(-50%, -50%);
 }
