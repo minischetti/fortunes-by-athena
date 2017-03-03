@@ -14,7 +14,7 @@ var genji = {
 }
 var mccree = {
   name: "McCree",
-  line: "When you call high noon everyone steps outside.",
+  line: ["You won't see a soul for the entire duration of your High Noon.", "You will score a triple kill with High Noon."],
   image: "url('assets/mccree.jpg')",
   sound: "assets/mccree.ogg",
   color: "#af595c"
@@ -37,6 +37,8 @@ function updateHero() {
   yourResults();
 }
 
+//make first div selected, if one exists edit hidden one, not visible then move visible one out
+
 function createBackground(hero) {
   // var background = document.createElement('div');
   // document.body.appendChild(background);
@@ -58,7 +60,8 @@ function heroResult(hero) {
   // document.body.appendChild(title);
   // title.id = 'line';
   var result = document.getElementById('heroResult');
-  result.innerHTML = hero.line;
+  var rand = hero.line[Math.floor(Math.random() * hero.line.length)];
+  result.innerHTML = rand;
 }
 function heroName(hero) {
   // var title = document.createElement('h1');
