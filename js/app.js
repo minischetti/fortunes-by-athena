@@ -35,51 +35,49 @@ heroMenu.addEventListener('change', updateHero);
 function updateHero() {
   selectedHero = heroMenu.value;
   console.log(selectedHero);
-  yourResults();
+  view.yourResults();
 }
 
 //make first div selected, if one exists edit hidden one, not visible then move visible one out
 
-function createBackground(hero) {
-  var image = document.getElementById('image');
-  var tint = document.getElementById('tint');
-  image.style.backgroundImage = hero.image;
-  tint.style.backgroundColor = hero.color;
-}
-
-function heroResult(hero) {
-  var result = document.getElementById('heroResult');
-  var randomResult = hero.line[Math.floor(Math.random() * hero.line.length)];
-  result.innerHTML = randomResult;
-}
-function heroName(hero) {
-  var heroName = document.getElementById('heroName');
-  heroName.innerHTML = hero.name;
-}
-
-function playSound(hero) {
-  var playSound = new Audio(hero.sound);
-  playSound.play();
-}
-
-function generateHeroPage(hero) {
-  createBackground(hero);
-  playSound(hero);
-  heroResult(hero);
-  heroName(hero);
-}
-
-function yourResults() {
-  switch (selectedHero) {
-    case 'Genji':
-    if (selectedHero === 'Genji') {
-      generateHeroPage(genji);
+var view = {
+  createBackground: function(hero) {
+    var image = document.getElementById('image');
+    var tint = document.getElementById('tint');
+    image.style.backgroundImage = hero.image;
+    tint.style.backgroundColor = hero.color;
+  },
+  heroResult: function(hero) {
+    var result = document.getElementById('heroResult');
+    var randomResult = hero.line[Math.floor(Math.random() * hero.line.length)];
+    result.innerHTML = randomResult;
+  },
+  heroName: function(hero) {
+    var heroName = document.getElementById('heroName');
+    heroName.innerHTML = hero.name;
+  },
+  playSound: function(hero) {
+    var playSound = new Audio(hero.sound);
+    playSound.play();
+  },
+  generateHeroPage: function(hero) {
+    view.createBackground(hero);
+    view.playSound(hero);
+    view.heroResult(hero);
+    view.heroName(hero);
+  },
+  yourResults: function() {
+    switch (selectedHero) {
+      case 'Genji':
+      if (selectedHero === 'Genji') {
+        view.generateHeroPage(genji);
+      }
+      break;
+      case 'McCree':
+      if (selectedHero === 'McCree') {
+        view.generateHeroPage(mccree);
+      }
+      break;
     }
-    break;
-    case 'McCree':
-    if (selectedHero === 'McCree') {
-      generateHeroPage(mccree);
-    }
-    break;
   }
 }
