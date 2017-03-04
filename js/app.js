@@ -7,7 +7,7 @@ var choose = {
 
 var genji = {
   name: "Genji",
-  line: "Mada mada.",
+  line: ["You will outsmart every Bastion you attempt to deflect.", "You won't deflect a single projectile for the duration of the match."],
   image: "url('assets/genji.jpg')",
   sound: "assets/genji.ogg",
   color: "#96ee42"
@@ -21,6 +21,7 @@ var mccree = {
 }
 
 selectedHero = '';
+
 var heroMenu = document.getElementById('heroMenu');
 
 for (var i = 0; i < heroes.length; i++) {
@@ -40,33 +41,18 @@ function updateHero() {
 //make first div selected, if one exists edit hidden one, not visible then move visible one out
 
 function createBackground(hero) {
-  // var background = document.createElement('div');
-  // document.body.appendChild(background);
-  // background.id = 'image';
   var image = document.getElementById('image');
-  image.style.backgroundImage = hero.image;
-}
-
-function tint(hero) {
-  // var tint = document.createElement('div');
-  // document.body.appendChild(tint);
-  // tint.id = 'tint';
   var tint = document.getElementById('tint');
+  image.style.backgroundImage = hero.image;
   tint.style.backgroundColor = hero.color;
 }
 
 function heroResult(hero) {
-  // var title = document.createElement('h1');
-  // document.body.appendChild(title);
-  // title.id = 'line';
   var result = document.getElementById('heroResult');
-  var rand = hero.line[Math.floor(Math.random() * hero.line.length)];
-  result.innerHTML = rand;
+  var randomResult = hero.line[Math.floor(Math.random() * hero.line.length)];
+  result.innerHTML = randomResult;
 }
 function heroName(hero) {
-  // var title = document.createElement('h1');
-  // document.body.appendChild(title);
-  // title.id = 'line';
   var heroName = document.getElementById('heroName');
   heroName.innerHTML = hero.name;
 }
@@ -76,24 +62,23 @@ function playSound(hero) {
   playSound.play();
 }
 
+function generateHeroPage(hero) {
+  createBackground(hero);
+  playSound(hero);
+  heroResult(hero);
+  heroName(hero);
+}
+
 function yourResults() {
   switch (selectedHero) {
     case 'Genji':
     if (selectedHero === 'Genji') {
-      createBackground(genji);
-      tint(genji);
-      playSound(genji);
-      heroResult(genji);
-      heroName(genji);
+      generateHeroPage(genji);
     }
     break;
     case 'McCree':
     if (selectedHero === 'McCree') {
-      createBackground(mccree);
-      tint(mccree);
-      playSound(mccree);
-      heroResult(mccree);
-      heroName(mccree);
+      generateHeroPage(mccree);
     }
     break;
   }
