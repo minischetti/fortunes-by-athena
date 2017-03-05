@@ -165,6 +165,36 @@ var zenyatta = {
 
 selectedHero = '';
 
+var customHeroMenu = document.getElementById('customHeroMenu');
+var heroList = document.getElementById('heroList');
+
+customHeroMenu.addEventListener('click', toggleMenu);
+
+customHeroMenu.addEventListener('click', function(event) {
+  var elementClicked = event.target;
+  selectedHero = elementClicked.innerHTML;
+  currentHero = document.getElementById('currentHero');
+  currentHero.innerHTML = selectedHero;
+  console.log(selectedHero);
+  updateHero();
+});
+
+function updateHero() {
+  // console.log(selectedHero);
+  view.yourResults();
+}
+
+for (var i = 0; i < heroes.length; i++) {
+  var hero = document.createElement('li');
+  heroList.appendChild(hero);
+  hero.innerHTML = heroNames[i];
+}
+
+function toggleMenu() {
+  var heroList = document.getElementById('heroList');
+  heroList.classList.toggle('open');
+}
+
 var heroMenu = document.getElementById('heroMenu');
 
 for (var i = 0; i < heroes.length; i++) {
@@ -175,12 +205,12 @@ for (var i = 0; i < heroes.length; i++) {
 
 heroMenu.addEventListener('change', updateHero);
 
-function updateHero() {
-  selectedHero = heroMenu.value;
-  console.log(selectedHero);
-  page = document.getElementById('heroPage');
-  view.yourResults();
-}
+// function updateHero() {
+//   selectedHero = heroMenu.value;
+//   console.log(selectedHero);
+//   page = document.getElementById('heroPage');
+//   view.yourResults();
+// }
 
 function randomHero() {
   selectedHero = heroNames[Math.floor(Math.random() * heroNames.length)];
@@ -188,6 +218,7 @@ function randomHero() {
   page = document.getElementById('heroPage');
   view.yourResults();
   heroMenu.value = selectedHero;
+  currentHero.innerHTML = selectedHero;
 }
 
 //make first div selected, if one exists edit hidden one, not visible then move visible one out
