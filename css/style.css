@@ -45,7 +45,7 @@ h2 {
   background-position: right;
   background-repeat: no-repeat;
   z-index: -2;
-  transition: 1s all;
+  transition: 1s opacity;
   opacity: 0;
 }
 #image.animate {
@@ -86,7 +86,7 @@ h2 {
   border: 1px solid #f00;
   animation: loading 1s infinite;
 }
-#heroResult {
+#heroFortune {
   position: absolute;
   top: 45%;
   right: initial;
@@ -100,7 +100,7 @@ h2 {
   opacity: 0;
   transition: 1s all;
 }
-#heroResult.animate {
+#heroFortune.animate {
   opacity: 1;
   top: 50%;
   filter: blur(0);
@@ -108,19 +108,20 @@ h2 {
 #heroName {
   position: absolute;
   top: initial;
-  right: 0;
-  bottom: -5%;
+  right: 4rem;
+  bottom: 4rem;
   left: initial;
-  transform: translate(-50%, -50%);
+  transform: translateY(50%);
   color: rgba(0,0,0,0.9);
   filter: blur(1rem);
   opacity: 0;
   transition: 1s all;
+  transition-delay: 0.1s;
 }
 #heroName.animate {
   opacity: 1;
-  bottom: 0;
   filter: blur(0);
+  transform: translateY(0);
 }
 #randomHeroButton {
   cursor: pointer;
@@ -135,14 +136,14 @@ h2 {
   line-height: 10rem;
   text-align: center;
   border-radius: 50%;
-  border: 2px solid rgba(0,0,0,0.75);
+  border: 2px solid rgba(0,0,0,0.25);
   color: #000;
   font-size: 2rem;
   transition: 0.25s all;
   box-sizing: border-box;
 }
 #randomHeroButton:hover {
-  box-shadow: inset 0 0 2rem rgba(49,141,198,0.9), 0 0 2rem rgba(49,141,198,0.9);
+  box-shadow: inset 0 0 2rem rgba(255,255,255,0.75), 0 0 2rem rgba(255,255,255,0.75);
 }
 @-moz-keyframes loading {
   0% {

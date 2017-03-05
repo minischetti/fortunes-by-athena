@@ -187,6 +187,7 @@ function randomHero() {
   console.log(selectedHero);
   page = document.getElementById('heroPage');
   view.yourResults();
+  heroMenu.value = selectedHero;
 }
 
 //make first div selected, if one exists edit hidden one, not visible then move visible one out
@@ -205,8 +206,8 @@ var view = {
       tint.style.backgroundColor = hero.color;
     }, 1000);
   },
-  heroResult: function(hero) {
-    var result = document.getElementById('heroResult');
+  heroFortune: function(hero) {
+    var result = document.getElementById('heroFortune');
     var randomResult = hero.line[Math.floor(Math.random() * hero.line.length)];
     if (result.classList.contains('animate')) {
       result.classList.remove('animate');
@@ -235,7 +236,7 @@ var view = {
   generateHeroPage: function(hero) {
     view.createBackground(hero);
     //view.playSound(hero);
-    view.heroResult(hero);
+    view.heroFortune(hero);
     view.heroName(hero);
   },
   yourResults: function() {
