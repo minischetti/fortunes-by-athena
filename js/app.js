@@ -165,16 +165,11 @@ var zenyatta = {
 
 selectedHero = '';
 
-var customHeroMenu = document.getElementById('customHeroMenu');
 var heroList = document.getElementById('heroList');
 
-customHeroMenu.addEventListener('click', toggleMenu);
-
-customHeroMenu.addEventListener('click', function(event) {
+heroList.addEventListener('click', function(event) {
   var elementClicked = event.target;
   selectedHero = elementClicked.innerHTML;
-  currentHero = document.getElementById('currentHero');
-  currentHero.innerHTML = selectedHero;
   console.log(selectedHero);
   updateHero();
 });
@@ -195,30 +190,19 @@ function toggleMenu() {
   heroList.classList.toggle('open');
 }
 
-var heroMenu = document.getElementById('heroMenu');
+window.addEventListener("keydown", checkKeyPressed, false);
 
-for (var i = 0; i < heroes.length; i++) {
-  var hero = document.createElement('option');
-  heroMenu.appendChild(hero);
-  hero.value, hero.text = heroNames[i];
+function checkKeyPressed(e) {
+    if (e.keyCode == "72") {
+        toggleMenu();
+    }
 }
-
-heroMenu.addEventListener('change', updateHero);
-
-// function updateHero() {
-//   selectedHero = heroMenu.value;
-//   console.log(selectedHero);
-//   page = document.getElementById('heroPage');
-//   view.yourResults();
-// }
 
 function randomHero() {
   selectedHero = heroNames[Math.floor(Math.random() * heroNames.length)];
   console.log(selectedHero);
   page = document.getElementById('heroPage');
   view.yourResults();
-  heroMenu.value = selectedHero;
-  currentHero.innerHTML = selectedHero;
 }
 
 //make first div selected, if one exists edit hidden one, not visible then move visible one out

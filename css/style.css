@@ -145,22 +145,27 @@ h2 {
 #randomHeroButton:hover {
   box-shadow: inset 0 0 2rem rgba(255,255,255,0.75), 0 0 2rem rgba(255,255,255,0.75);
 }
-#customHeroMenu {
+#heroList {
   font-size: 3.6rem;
   background-color: #fff;
   width: 20rem;
-}
-#heroList {
+  position: absolute;
+  top: 0;
+  right: initial;
+  bottom: initial;
+  left: -100%;
   list-style: none;
-  display: none;
+  display: flex;
   flex-direction: column;
   height: 100vh;
   overflow: auto;
   margin: 0;
   padding: 0;
+  transition: 1s left;
+  z-index: 1;
 }
 #heroList.open {
-  display: flex;
+  left: 0;
 }
 #heroList li {
   font-size: 1.6rem;
