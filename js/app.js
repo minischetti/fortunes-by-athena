@@ -198,12 +198,22 @@ function checkKeyPressed(i) {
         toggleMenu();
         keyButton.classList.toggle('active');
     }
+    if (i.keyCode == "77") {
+        randomHero();
+    }
 }
 
 function randomHero() {
   selectedHero = heroNames[Math.floor(Math.random() * heroNames.length)];
   console.log(selectedHero);
   page = document.getElementById('heroPage');
+  mysteryKey = document.getElementById('mysteryKey');
+  if (mysteryKey.classList.contains('animate')) {
+    mysteryKey.classList.remove('animate');
+  }
+  setTimeout(function() {
+    mysteryKey.classList.add('animate');
+  }, 500);
   view.yourResults();
 }
 
@@ -259,119 +269,73 @@ var view = {
   yourResults: function() {
     switch (selectedHero) {
       case 'Genji':
-      if (selectedHero === 'Genji') {
         view.generateHeroPage(genji);
-      }
       break;
       case 'McCree':
-      if (selectedHero === 'McCree') {
         view.generateHeroPage(mccree);
-      }
       break;
       case 'Pharah':
-      if (selectedHero === 'Pharah') {
         view.generateHeroPage(pharah);
-      }
       break;
       case 'Reaper':
-      if (selectedHero === 'Reaper') {
         view.generateHeroPage(reaper);
-      }
       break;
       case 'Soldier: 76':
-      if (selectedHero === 'Soldier: 76') {
         view.generateHeroPage(soldier76);
-      }
       break;
       case 'Sombra':
-      if (selectedHero === 'Sombra') {
         view.generateHeroPage(sombra);
-      }
       break;
       case 'Tracer':
-      if (selectedHero === 'Tracer') {
         view.generateHeroPage(tracer);
-      }
       break;
       case 'Bastion':
-      if (selectedHero === 'Bastion') {
         view.generateHeroPage(bastion);
-      }
       break;
       case 'Hanzo':
-      if (selectedHero === 'Hanzo') {
         view.generateHeroPage(hanzo);
-      }
       break;
       case 'Junkrat':
-      if (selectedHero === 'Junkrat') {
         view.generateHeroPage(junkrat);
-      }
       break;
       case 'Mei':
-      if (selectedHero === 'Mei') {
         view.generateHeroPage(mei);
-      }
       break;
       case 'Torbjorn':
-      if (selectedHero === 'Torbjorn') {
         view.generateHeroPage(torbjorn);
-      }
       break;
       case 'Widowmaker':
-      if (selectedHero === 'Widowmaker') {
         view.generateHeroPage(widowmaker);
-      }
       break;
       case 'D.VA':
-      if (selectedHero === 'D.VA') {
         view.generateHeroPage(dva);
-      }
       break;
       case 'Reinhardt':
-      if (selectedHero === 'Reinhardt') {
         view.generateHeroPage(reinhardt);
-      }
       break;
       case 'Roadhog':
-      if (selectedHero === 'Roadhog') {
         view.generateHeroPage(roadhog);
-      }
       break;
       case 'Winston':
-      if (selectedHero === 'Winston') {
         view.generateHeroPage(winston);
-      }
       break;
       case 'Zarya':
-      if (selectedHero === 'Zarya') {
         view.generateHeroPage(zarya);
-      }
       break;
       case 'Ana':
-      if (selectedHero === 'Ana') {
         view.generateHeroPage(ana);
-      }
       break;
       case 'Lucio':
-      if (selectedHero === 'Lucio') {
         view.generateHeroPage(lucio);
-      }
       break;
       case 'Mercy':
-      if (selectedHero === 'Mercy') {
         view.generateHeroPage(mercy);
-      }
       break;
       case 'Symmetra':
-      if (selectedHero === 'Symmetra') {
         view.generateHeroPage(symmetra);
-      }
       break;
       case 'Zenyatta':
-      if (selectedHero === 'Zenyatta') {
         view.generateHeroPage(zenyatta);
-      }
       break;
     }
   }
