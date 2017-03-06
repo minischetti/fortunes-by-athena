@@ -24,6 +24,11 @@ absolute(top, right, bottom, left) {
   left: left;
 }
 
+centerElement() {
+  absolute(50%, initial, initial, 50%);
+  transform: translate(-50%, -50%);
+}
+
 html, body {
   fullSize();
   margin: 0;
@@ -36,6 +41,7 @@ html {
 
 body {
   font-family: 'Big Noodle Oblique';
+  font-size: 2.4rem;
   letter-spacing: .1rem;
   // background-color: #000;
   overflow: hidden;
@@ -46,10 +52,27 @@ h1, h2 {
   margin: 0;
 }
 
+#homePage {
+  position: absolute;
+  fullSize();
+  h1 {
+    centerElement();
+    span {
+      opacity: .25;
+    }
+  }
+}
+
 #heroPage {
+  position: absolute;
   fullSize();
   transition: 1s all;
+  background-color: #fff;
   z-index: -1;
+
+  // &.hidden {
+  //   visibility: hidden;
+  // }
 }
 
 #image {
@@ -78,41 +101,6 @@ h1, h2 {
 
   &.animate {
     opacity: .25;
-  }
-}
-
-#loadingFortune {
-  fullSize();
-  absolute(0, 0, 0, 0);
-  background-color: #000;
-  z-index: -3;
-  display: flex;
-}
-
-.progressIndicator {
-  margin: auto;
-  width: 10rem;
-  height: 10rem;
-  border-radius: 50%;
-  border: 1px solid red;
-  animation: loading 1s infinite;
-}
-
-@keyframes loading {
-  0% {
-    transform: scale(1);
-  }
-  25% {
-    transform: scale(.9);
-  }
-  50% {
-    transform: scale(1);
-  }
-  75% {
-    transform: scale(.9);
-  }
-  100% {
-    transform: scale(1);
   }
 }
 
@@ -148,7 +136,7 @@ h1, h2 {
   }
 }
 
-#randomHeroButton {
+#mysteryHeroButton {
   cursor: pointer;
   absolute(4rem, initial, initial, 50%);
   transform: translate(-50%, -2rem);
@@ -170,18 +158,18 @@ h1, h2 {
 }
 
 #heroList {
-  font-size: 3.6rem;
-  background-color: #fff;
-  width: 20rem;
-  absolute(0, initial, initial, -100%);
-  list-style: none;
   display: flex;
-  flex-direction: column;
-  height: 100vh;
-  overflow: auto;
   margin: 0;
   padding: 0;
-  transition: 1s left;
+  width: 20rem;
+  height: 100vh;
+  font-size: 3.6rem;
+  background-color: #fff;
+  absolute(0, initial, initial, -20rem);
+  list-style: none;
+  flex-direction: column;
+  overflow: auto;
+  transition: .5s left;
   z-index: 1;
 
   &.open {
@@ -189,8 +177,39 @@ h1, h2 {
   }
 
   li {
+    cursor: pointer;
     font-size: 1.6rem;
     padding: 1rem;
     border-bottom: 1px solid rgba(0,0,0,.1);
+    box-sizing: border-box;
+    transition: .25s all;
+
+    &:hover {
+      padding-left: 2rem;
+      background-color: #000;
+      color: #fff;
+    }
+  }
+}
+
+.guideText {
+  display: flex;
+  align-items: center;
+  absolute(initial, initial, 25%, 50%);
+  transform: translate(-50%,-50%);
+}
+
+#keyButton {
+  width: 4rem;
+  height: 4rem;
+  line-height: 4rem;
+  text-align: center;
+  margin: 0 1rem;
+  border: 2px solid rgba(0,0,0,.25);
+  border-radius: .4rem;
+  transition: .5s all;
+
+  &.active {
+    border-color: #000;
   }
 }

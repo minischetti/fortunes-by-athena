@@ -11,15 +11,19 @@
     <link rel="icon" href="assets/favicon.png" type="image/png"> -->
   </head>
   <body>
+    <!-- <div id="homePage">
+      <h1>Fortunes <span>by Athena</span></h1>
+    </div> -->
     <ul id="heroList">
     </ul>
-    <div id="heroPage">
+    <div id="heroPage" class="hidden">
       <div id="tint"></div>
       <div id="image"></div>
       <h1 id="heroFortune"></h1>
       <h2 id="heroName"></h2>
     </div>
-    <span id="randomHeroButton" onclick="randomHero()">Mystery</span>
+    <span id="mysteryHeroButton" onclick="randomHero()">Mystery<span id="mysteryKey">M</span></span>
+    <span class="guideText">Press <span id="keyButton">H</span> to choose a hero</span>
     <script src="js/app.js"></script>
   </body>
 </html>

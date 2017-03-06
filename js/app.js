@@ -165,19 +165,19 @@ var zenyatta = {
 
 selectedHero = '';
 
+// if (!selectedHero.length) {
+//   page = document.getElementById('homePage');
+//   page.style.visibility = "hidden";
+// }
+
 var heroList = document.getElementById('heroList');
 
 heroList.addEventListener('click', function(event) {
   var elementClicked = event.target;
   selectedHero = elementClicked.innerHTML;
   console.log(selectedHero);
-  updateHero();
-});
-
-function updateHero() {
-  // console.log(selectedHero);
   view.yourResults();
-}
+});
 
 for (var i = 0; i < heroes.length; i++) {
   var hero = document.createElement('li');
@@ -192,9 +192,11 @@ function toggleMenu() {
 
 window.addEventListener("keydown", checkKeyPressed, false);
 
-function checkKeyPressed(e) {
-    if (e.keyCode == "72") {
+function checkKeyPressed(i) {
+  var keyButton = document.getElementById('keyButton');
+    if (i.keyCode == "72") {
         toggleMenu();
+        keyButton.classList.toggle('active');
     }
 }
 
