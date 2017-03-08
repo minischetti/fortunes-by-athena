@@ -108,7 +108,7 @@ h3 {
   bottom: initial;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%;
+  width: 90%;
   color: rgba(0,0,0,0.9);
   text-align: center;
   filter: blur(1rem);
@@ -137,6 +137,11 @@ h3 {
   opacity: 1;
   filter: blur(0);
   transform: translateY(0);
+}
+#mysteryHeroButton,
+#listKey,
+#heroList {
+  -webkit-backdrop-filter: blur(0.4rem);
 }
 #mysteryHeroButton {
   cursor: pointer;
@@ -248,8 +253,9 @@ h3 {
   }
 }
 @media (max-width: 768px) {
-  #image {
-    background-position: center;
+  #image,
+  .guideText {
+    display: none;
   }
 }
 @-moz-keyframes orbPulse {
