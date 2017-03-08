@@ -172,6 +172,7 @@ selectedHero = '';
 
 var handlers = {
   heroList: document.getElementById('heroList'),
+  homePage: document.getElementById('homePage'),
   toggleMenu: function() {
     heroList.classList.toggle('open');
   },
@@ -179,12 +180,14 @@ var handlers = {
     heroList.addEventListener('click', function(event) {
       var elementClicked = event.target;
       selectedHero = elementClicked.innerHTML;
+      homePage.classList.add('hide');
       view.yourResults();
     });
   },
   mysteryHero: function() {
     selectedHero = heroNames[Math.floor(Math.random() * heroNames.length)];
     mysteryKey = document.getElementById('mysteryKey');
+    homePage.classList.add('hide');
     mysteryKey.classList.remove('animate');
     setTimeout(function() {
       mysteryKey.classList.add('animate');
@@ -210,6 +213,7 @@ var view = {
       }
   },
   createHeroList: function() {
+    heroNames.sort();
     for (var i = 0; i < heroes.length; i++) {
       var hero = document.createElement('li');
       heroList.appendChild(hero);

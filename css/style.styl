@@ -66,9 +66,18 @@ h1, h2, h3 {
 
 #homePage {
   position: absolute;
+  z-index: 1;
+  background-color: #fff;
   fullSize();
+  transition: 2s all;
+  &.hide {
+    opacity: 0;
+    filter: blur(1rem);
+  }
   h1 {
     centerElement();
+    width: 90%;
+    text-align: center;
     span {
       opacity: .25;
     }
@@ -85,6 +94,10 @@ h1, h2, h3 {
   // &.hidden {
   //   visibility: hidden;
   // }
+}
+
+#mysteryHeroButton, .guideText {
+  z-index: 2;
 }
 
 #image {
@@ -134,7 +147,6 @@ h1, h2, h3 {
 }
 #heroName {
   absolute(initial, 4rem, 4rem, initial);
-  transform: translateY(50%);
   color: rgba(0,0,0,.9);
   filter: blur(1rem);
   opacity: 0;
@@ -155,7 +167,7 @@ h1, h2, h3 {
 #mysteryHeroButton {
   cursor: pointer;
   absolute(4rem, initial, initial, 50%);
-  transform: translate(-50%, -2rem);
+  transform: translateX(-50%);
   width: 10rem;
   height: 10rem;
   line-height: 10rem;
@@ -245,8 +257,8 @@ h1, h2, h3 {
 .guideText {
   display: flex;
   align-items: center;
-  absolute(initial, initial, 25%, 50%);
-  transform: translate(-50%,-50%);
+  absolute(initial, initial, 4rem, 50%);
+  transform: translateX(-50%);
 }
 
 #listKey {
@@ -265,6 +277,10 @@ h1, h2, h3 {
 }
 
 @media (max-width: 1440px) {
+  h1 {
+    font-size: 7.2rem;
+  }
+
   h2, h3 {
     font-size: 4.8rem;
   }
