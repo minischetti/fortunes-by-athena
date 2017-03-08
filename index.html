@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Overwatch Hero Evaluator</title>
+    <title>Fortunes by Athena</title>
     <meta name="description" content="">
     <meta name="author" content="Dominic Minischetti">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -11,6 +11,7 @@
     <link rel="icon" href="assets/favicon.png" type="image/png"> -->
   </head>
   <body>
+    <img id="logo" src="assets/athena.svg">
     <!-- <div id="homePage">
       <h1>Fortunes <span>by Athena</span></h1>
     </div> -->
@@ -19,12 +20,12 @@
     <div id="heroPage" class="hidden">
       <div id="tint"></div>
       <div id="image"></div>
-      <h1 id="heroFortune"></h1>
-      <h2 id="heroName"></h2>
+      <h2 id="heroFortune"></h2>
+      <h3 id="heroName"></h3>
     </div>
-    <span id="mysteryHeroButton" onclick="randomHero()">Mystery<span id="mysteryKey">M</span></span>
+    <span id="mysteryHeroButton" onclick="handlers.mysteryHero()">Mystery<span id="mysteryKey">M</span></span>
     <!-- <span id="mysteryProgress" class="border"><span class="orb"></span></span> -->
-    <span class="guideText">Press <span id="keyButton">H</span> to choose a hero</span>
+    <span class="guideText">Press <span id="listKey">H</span> to choose a hero</span>
     <script src="js/app.js"></script>
   </body>
 </html>
