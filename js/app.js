@@ -165,16 +165,13 @@ var zenyatta = {
 
 selectedHero = '';
 
-// if (!selectedHero.length) {
-//   page = document.getElementById('homePage');
-//   page.style.visibility = "hidden";
-// }
-
 var handlers = {
   heroList: document.getElementById('heroList'),
   homePage: document.getElementById('homePage'),
+  listKey: document.getElementById('listKey'),
   toggleMenu: function() {
     heroList.classList.toggle('open');
+    listKey.classList.toggle('active');
   },
   selectHero: function() {
     heroList.addEventListener('click', function(event) {
@@ -203,18 +200,15 @@ var handlers = {
 
 
 var view = {
-  setUpEventListeners: function() {
-    window.addEventListener("keydown", view.checkKeyPressed, false);
-  },
-  checkKeyPressed: function(i) {
-    var listKey = document.getElementById('listKey');
+  checkKeyPressed: function() {
+    window.addEventListener("keydown", function(i) {
       if (i.keyCode == "72") {
           handlers.toggleMenu();
-          listKey.classList.toggle('active');
       }
       if (i.keyCode == "77") {
           handlers.mysteryHero();
       }
+    }, false);
   },
   createHeroList: function() {
     heroNames.sort();
@@ -254,12 +248,14 @@ var view = {
       heroName.innerHTML = hero.name;
     }, 1000);
   },
+  /*
   playSound: function(hero) {
     setTimeout(function() {
       var playSound = new Audio(hero.sound);
       playSound.play();
     }, 1000);
   },
+  */
   generateHeroPage: function(hero) {
     view.createBackground(hero);
     //view.playSound(hero);
@@ -340,6 +336,6 @@ var view = {
     }
   }
 }
-view.setUpEventListeners();
+view.checkKeyPressed();
 view.createHeroList();
 handlers.selectHero();

@@ -7,11 +7,10 @@
     <meta name="author" content="Dominic Minischetti">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="css/style.css">
-    <!-- <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="assets/favicon.png" type="image/png"> -->
+    <link rel="icon" href="assets/favicon.png" type="image/png">
   </head>
   <body>
-    <img id="logo" src="assets/athena.svg">
+    <!-- <img id="logo" src="assets/athena.svg"> -->
     <div id="homePage">
       <h1>Fortunes <span>by Athena</span></h1>
     </div>
@@ -22,10 +21,13 @@
       <div id="image"></div>
       <h2 id="heroFortune"></h2>
       <h3 id="heroName"></h3>
-      <a id="tweetFortuneButton" href="" target="_blank">Share your fortune on Twitter</a>
+      <div class="socialLinks">
+        <a id="tweetFortuneButton" href="" target="_blank"><img src="assets/twitter.svg"><span class="tooltip">Tweet Your Fortune</span></a>
+        <a id="domLink" href="https://twitter.com/DomMinischetti" target="_blank"><img src="assets/dom.png"><span class="tooltip">Follow Me On Twitter</span></a>
+      </div>
     </div>
     <span id="mysteryHeroButton" onclick="handlers.mysteryHero()">Mystery<span id="mysteryKey">M</span></span>
-    <span class="guideText">Press <span id="listKey">H</span> to choose a hero</span>
+    <span class="guideText" onclick="handlers.toggleMenu()">Press <span id="listKey">H</span> to choose a hero</span>
     <script src="js/app.js"></script>
   </body>
 </html>

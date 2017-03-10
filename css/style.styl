@@ -59,13 +59,55 @@ h1, h2, h3 {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
+#domLink img {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+}
+
 #logo {
   centerElement();
   z-index: -1;
 }
 
+.socialLinks {
+  display: flex;
+  absolute(2rem, 2rem, initial, initial);
+}
+
+.socialLinks a:hover .tooltip {
+  opacity: 1;
+  right: 3.4rem;
+  filter: blur(0rem);
+}
+
 #tweetFortuneButton {
-  absolute(initial, initial, 2rem, 2rem);
+  position: relative;
+  color: rgba(0,0,0,.9);
+  margin-right: 2rem;
+}
+
+.tooltip {
+  pointer-events: none;
+  opacity: 0;
+  position: absolute;
+  right: 2.4rem;
+  top: 0;
+  overflow: visible;
+  font-size: 1.2rem;
+  text-align: center;
+  width: 10rem;
+  line-height: 2.4rem;
+  background-color: black;
+  color: white;
+  border-radius: .4rem;
+  padding: 0 1rem;
+  filter: blur(.25rem);
+  transition: .25s all ease-in-out;
   z-index: 1;
 }
 
@@ -75,11 +117,13 @@ h1, h2, h3 {
   background-color: #fff;
   fullSize();
   transition: 2s all;
+
   &.hide {
     pointer-events: none;
     opacity: 0;
     filter: blur(1rem);
   }
+
   h1 {
     centerElement();
     width: 90%;
@@ -94,8 +138,6 @@ h1, h2, h3 {
   position: absolute;
   fullSize();
   transition: 1s all;
-  background-color: #fff;
-  z-index: -1;
 }
 
 #mysteryHeroButton, .guideText {
@@ -148,6 +190,7 @@ h1, h2, h3 {
 }
 #heroName {
   absolute(initial, 4rem, 4rem, initial);
+  transform: translateY(100%);
   color: rgba(0,0,0,.9);
   filter: blur(1rem);
   opacity: 0;
@@ -256,6 +299,7 @@ h1, h2, h3 {
 }
 
 .guideText {
+  cursor: pointer;
   display: flex;
   align-items: center;
   absolute(initial, initial, 4rem, 50%);
@@ -290,6 +334,10 @@ h1, h2, h3 {
     top: 2rem;
   }
 
+  .guideText {
+    bottom: 2rem;
+  }
+
   #heroName {
     right: 2rem;
     bottom: 2rem;
@@ -297,7 +345,7 @@ h1, h2, h3 {
 }
 
 @media (max-width: 768px) {
-  #image, .guideText {
+  #image, #mysteryKey, .guideText {
     display: none;
   }
 }
