@@ -20,6 +20,8 @@ body {
   font-family: 'Big Noodle Oblique';
   font-size: 2.4rem;
   letter-spacing: 0.1rem;
+  background: url("../assets/bg.jpg") no-repeat;
+  background-size: cover;
   overflow: hidden;
 }
 h1 {
@@ -62,7 +64,7 @@ a {
 .socialLinks a:hover .tooltip {
   opacity: 1;
   right: 3.4rem;
-  filter: blur(0rem);
+  filter: blur(0);
 }
 #tweetFortuneButton {
   position: relative;
@@ -88,10 +90,17 @@ a {
   transition: 0.25s all ease-in-out;
   z-index: 1;
 }
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  filter: blur(3px);
+  mix-blend-mode: multiply;
+  transform: scale(1.25) skew(-25deg);
+}
 #homePage {
   position: absolute;
   z-index: 1;
-  background-color: #fff;
   width: 100%;
   height: 100%;
   transition: 2s all;
@@ -223,6 +232,7 @@ a {
   border-color: rgba(0,0,0,0.5);
 }
 #mysteryKey {
+  pointer-events: none;
   display: block;
   position: absolute;
   left: 50%;

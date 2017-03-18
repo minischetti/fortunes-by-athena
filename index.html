@@ -11,6 +11,7 @@
   </head>
   <body>
     <!-- <img id="logo" src="assets/athena.svg"> -->
+    <div id="particles-js"></div>
     <div id="homePage">
       <h1>Fortunes <span>by Athena</span></h1>
     </div>
@@ -19,15 +20,18 @@
     <div id="heroPage">
       <div id="tint"></div>
       <div id="image"></div>
-      <h2 id="heroFortune"></h2>
+      <h2 id="heroFortune" onclick="handlers.copyFortune()"></h2>
       <h3 id="heroName"></h3>
       <div class="socialLinks">
         <a id="tweetFortuneButton" href="" target="_blank"><img src="assets/twitter.svg"><span class="tooltip">Tweet Your Fortune</span></a>
         <a id="domLink" href="https://twitter.com/DomMinischetti" target="_blank"><img src="assets/dom.png"><span class="tooltip">Follow Me On Twitter</span></a>
       </div>
     </div>
-    <span id="mysteryHeroButton" onclick="handlers.mysteryHero()">Mystery<span id="mysteryKey">M</span></span>
+    <span id="mysteryHeroButton" onmouseover="hoverSound.play()" onclick="handlers.mysteryHero()">Mystery<span id="mysteryKey">M</span></span>
     <span class="guideText" onclick="handlers.toggleMenu()">Press <span id="listKey">H</span> to choose a hero</span>
+    <script src="js/howler.core.min.js"></script>
+    <script src="js/particles.min.js"></script>
+    <script src="js/particles.js"></script>
     <script src="js/app.js"></script>
     <script src="js/ga.js"></script>
   </body>

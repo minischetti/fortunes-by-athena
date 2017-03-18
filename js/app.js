@@ -141,6 +141,27 @@ var heroes = [ana, bastion, dva, genji, hanzo, junkrat, lucio, mccree, mei, merc
 
 selectedHero = '';
 
+var hoverSound = new Howl({
+  src: ['assets/audio/hover.mp3'],
+});
+var clickSound = new Howl({
+  src: ['assets/audio/click.mp3'],
+});
+var swooshSound = new Howl({
+  src: ['assets/audio/swoosh.mp3'],
+});
+
+// var xhr = new XMLHttpRequest();
+// xhr.open('GET', "https://api.lootbox.eu/pc/us/Dom-12150/quickplay/hero/Zarya/", true);
+// xhr.send();
+// xhr.addEventListener("readystatechange", processRequest, false);
+// function processRequest(e) {
+//     if (xhr.readyState == 4 && xhr.status == 200) {
+//         var response = JSON.parse(xhr.responseText);
+//         alert(response.DamageBlocked);
+//     }
+// }
+
 var handlers = {
   heroList: document.getElementById('heroList'),
   homePage: document.getElementById('homePage'),
@@ -154,9 +175,13 @@ var handlers = {
       var elementClicked = event.target;
       selectedHero = elementClicked.innerHTML;
       homePage.classList.add('hide');
+      clickSound.play();
       view.yourResults();
     });
   },
+  // copyFortune: function() {
+  //   randomFortune.focus().select();
+  // },
   mysteryHero: function() {
     selectedHero = heroes[Math.floor(Math.random() * heroes.length)].name;
     mysteryKey = document.getElementById('mysteryKey');
@@ -165,6 +190,7 @@ var handlers = {
     setTimeout(function() {
       mysteryKey.classList.add('animate');
     }, 1);
+    clickSound.play();
     view.yourResults();
   },
   tweetFortune: function() {
@@ -196,6 +222,7 @@ var view = {
     var tint = document.getElementById('tint');
     image.classList.remove('animate');
     tint.classList.remove('animate');
+    swooshSound.play();
     setTimeout(function() {
       image.classList.add('animate');
       tint.classList.add('animate');
@@ -204,7 +231,7 @@ var view = {
     }, 1000);
   },
   fetchFortune: function(hero) {
-    var heroFortune = document.getElementById('heroFortune');
+    heroFortune = document.getElementById('heroFortune');
     randomFortune = hero.line[Math.floor(Math.random() * hero.line.length)];
     heroFortune.classList.remove('animate');
     setTimeout(function() {
