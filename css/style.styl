@@ -252,84 +252,6 @@ a {
   }
 }
 
-#mysteryHeroButtonHover {
-  pointer-events: none;
-  absolute(4rem, initial, initial, 50%);
-  transform: translateX(-50%);
-  width: 10rem;
-  height: 10rem;
-  border: 2px solid transparent;
-  border-radius: 50%;
-  box-sizing: border-box;
-  z-index: 2;
-  &.animate {
-    animation: 2s mysteryHoverRotate;
-  }
-
-  // Trail
-  &:before {
-    content: "";
-    absolute(initial, initial, 0, 50%);
-    transform: translate(50%, 50%) scaleX(2);
-    filter: blur(.25rem);
-    background-color: rgba(242,197,61,1);
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    opacity: .5;
-    &.animate {
-      animation: 2s mysteryHoverTrail;
-    }
-  }
-  // Orb
-  &:after {
-    content: "";
-    absolute(initial, initial, 0, 50%);
-    transform: translate(-50%, 50%) scaleX(1.5);
-    // filter: blur(1px);
-    background-image: linear-gradient(to right, rgba(242,197,61,1), #ffdf7f);
-    box-shadow: inset 0 0 4px rgba(242,197,61,1);
-    border: 1px solid rgba(0,0,0,.25);
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-  }
-}
-
-#mysteryHeroButton:hover #mysteryHeroButtonHover {
-}
-
-@keyframes mysteryHoverTrail {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes mysteryHoverGlow {
-  0% {
-  }
-  50% {
-    border-color: rgba(242,197,61,1);
-    box-shadow: 0 0 20px rgba(242,197,61,.5), inset 0 0 20px rgba(242,197,61,.5);
-  }
-  100% {
-  }
-}
-
-@keyframes mysteryHoverRotate {
-  0% {
-    transform: translateX(-50%) rotateZ(0);
-  }
-  100% {
-    transform: translateX(-50%) rotateZ(360deg);
-  }
-}
-
 @keyframes orbPulse {
   50% {
     box-shadow: 0 0 1rem #000;
@@ -447,4 +369,10 @@ a {
   #image, #mysteryKey, #guideText {
     display: none;
   }
+}
+
+#toggleSound {
+  position: absolute;
+  cursor: pointer;
+  z-index: 5;
 }

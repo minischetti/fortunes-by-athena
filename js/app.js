@@ -140,6 +140,7 @@ var zenyatta = {
 var heroes = [ana, bastion, dva, genji, hanzo, junkrat, lucio, mccree, mei, mercy, pharah, reaper, reinhardt, roadhog, soldier76, sombra, symmetra, torbjorn, tracer, widowmaker, winston, zarya, zenyatta];
 
 selectedHero = '';
+enableSound = true;
 
 var hoverSound = new Howl({
   src: ['assets/audio/hover.mp3'],
@@ -166,6 +167,10 @@ var handlers = {
   heroList: document.getElementById('heroList'),
   homePage: document.getElementById('homePage'),
   listKey: document.getElementById('listKey'),
+  toggleSound: function() {
+    enableSound = !enableSound;
+    console.log(enableSound);
+  },
   toggleMenu: function() {
     heroList.classList.toggle('open');
     listKey.classList.toggle('active');
@@ -184,16 +189,10 @@ var handlers = {
   mysteryHero: function() {
     selectedHero = heroes[Math.floor(Math.random() * heroes.length)].name;
     mysteryKey = document.getElementById('mysteryKey');
-    mysteryHeroButton = document.getElementById('mysteryHeroButton');
-    mysteryHeroButtonHover = document.getElementById('mysteryHeroButtonHover');
     homePage.classList.add('hide');
     mysteryKey.classList.remove('animate');
-    mysteryHeroButton.classList.remove('animate');
-    mysteryHeroButtonHover.classList.remove('animate');
     setTimeout(function() {
       mysteryKey.classList.add('animate');
-      mysteryHeroButton.classList.add('animate');
-      mysteryHeroButtonHover.classList.add('animate');
     }, 50);
     view.yourResults();
   },
@@ -213,12 +212,16 @@ var view = {
       // H key for menu
       if (i.keyCode == "72") {
           handlers.toggleMenu();
-          clickSound.play();
+          if (enableSound === true) {
+            clickSound.play();
+          }
       }
       // M key for mystery hero
       if (i.keyCode == "77") {
           handlers.mysteryHero();
-          clickSound.play();
+          if (enableSound === true) {
+            clickSound.play();
+          }
       }
     }, false);
   },
@@ -235,7 +238,9 @@ var view = {
     var tint = document.getElementById('tint');
     image.classList.remove('animate');
     tint.classList.remove('animate');
-    swooshSound.play();
+    if (enableSound ===true) {
+      swooshSound.play();
+    }
     setTimeout(function() {
       image.classList.add('animate');
       tint.classList.add('animate');
@@ -269,12 +274,12 @@ var view = {
   },
   setUpSoundEventListeners: function() {
     document.addEventListener('click', function(event) {
-      if (event.target.className === 'ui') {
+      if (enableSound === true && event.target.className === 'ui') {
         clickSound.play();
       }
     });
     document.addEventListener('mouseover', function(event) {
-      if (event.target.className === 'ui') {
+      if (enableSound === true && event.target.className === 'ui') {
         hoverSound.play();
       }
     });
