@@ -49,11 +49,11 @@ body {
 }
 
 h1 {
-  font-size: 14.4rem;
+  font-size: 9.6rem;
 }
 
 h2, h3 {
-  font-size: 7.2rem;
+  font-size: 6.4rem;
 }
 
 h1, h2, h3 {
@@ -75,12 +75,19 @@ a {
   z-index: -1;
 }
 
-.socialLinks {
+#socialLinks {
   display: flex;
   absolute(2rem, 2rem, initial, initial);
+  opacity: 0;
+  transition: 1s opacity;
+  transition-delay: .5s;
+
+  &.animate {
+    opacity: 1;
+  }
 }
 
-.socialLinks a:hover .tooltip {
+#socialLinks a:hover .tooltip {
   opacity: 1;
   right: 3.4rem;
   filter: blur(0);
@@ -118,6 +125,7 @@ a {
   filter: blur(3px);
   mix-blend-mode: multiply;
   transform: scale(1.25) skew(-25deg);
+  pointer-events: none;
 }
 
 #homePage {
@@ -148,7 +156,7 @@ a {
   transition: 1s all;
 }
 
-#mysteryHeroButton, .guideText {
+#mysteryHeroButton, #guideText {
   z-index: 2;
 }
 
@@ -307,7 +315,7 @@ a {
   }
 }
 
-.guideText {
+#guideText {
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -324,6 +332,7 @@ a {
   border: 2px solid rgba(0,0,0,.25);
   border-radius: .4rem;
   transition: .5s all;
+  pointer-events: none;
 
   &.active {
     border-color: #000;
@@ -343,7 +352,7 @@ a {
     top: 2rem;
   }
 
-  .guideText {
+  #guideText {
     bottom: 2rem;
   }
 
@@ -354,7 +363,7 @@ a {
 }
 
 @media (max-width: 768px) {
-  #image, #mysteryKey, .guideText {
+  #image, #mysteryKey, #guideText {
     display: none;
   }
 }

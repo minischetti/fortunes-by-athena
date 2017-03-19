@@ -175,7 +175,6 @@ var handlers = {
       var elementClicked = event.target;
       selectedHero = elementClicked.innerHTML;
       homePage.classList.add('hide');
-      clickSound.play();
       view.yourResults();
     });
   },
@@ -190,7 +189,6 @@ var handlers = {
     setTimeout(function() {
       mysteryKey.classList.add('animate');
     }, 1);
-    clickSound.play();
     view.yourResults();
   },
   tweetFortune: function() {
@@ -200,13 +198,21 @@ var handlers = {
 }
 
 var view = {
+  showSocialLinks: function() {
+    var socialLinks = document.getElementById('socialLinks');
+    socialLinks.classList.add('animate');
+  },
   checkKeyPressed: function() {
     window.addEventListener("keydown", function(i) {
+      // H key for menu
       if (i.keyCode == "72") {
           handlers.toggleMenu();
+          clickSound.play();
       }
+      // M key for mystery hero
       if (i.keyCode == "77") {
           handlers.mysteryHero();
+          clickSound.play();
       }
     }, false);
   },
@@ -215,6 +221,7 @@ var view = {
       var hero = document.createElement('li');
       heroList.appendChild(hero);
       hero.innerHTML = heroes[i].name;
+      hero.classList.add('ui');
     }
   },
   createBackground: function(hero) {
@@ -249,9 +256,22 @@ var view = {
     }, 1000);
   },
   generateHeroPage: function(hero) {
+    view.showSocialLinks();
     view.createBackground(hero);
     view.fetchFortune(hero);
     view.fetchName(hero);
+  },
+  setUpSoundEventListeners: function() {
+    document.addEventListener('click', function(event) {
+      if (event.target.className === 'ui') {
+        clickSound.play();
+      }
+    });
+    document.addEventListener('mouseover', function(event) {
+      if (event.target.className === 'ui') {
+        hoverSound.play();
+      }
+    });
   },
   yourResults: function() {
     switch (selectedHero) {
@@ -329,4 +349,5 @@ var view = {
 }
 view.checkKeyPressed();
 view.createHeroList();
+view.setUpSoundEventListeners();
 handlers.selectHero();
