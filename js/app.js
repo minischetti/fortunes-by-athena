@@ -140,6 +140,7 @@ var zenyatta = {
 var heroes = [ana, bastion, dva, genji, hanzo, junkrat, lucio, mccree, mei, mercy, pharah, reaper, reinhardt, roadhog, soldier76, sombra, symmetra, torbjorn, tracer, widowmaker, winston, zarya, zenyatta];
 
 selectedHero = '';
+start = false;
 enableSound = true;
 
 var hoverSound = new Howl({
@@ -211,20 +212,42 @@ var view = {
     socialLinks.classList.add('animate');
   },
   checkKeyPressed: function() {
-    window.addEventListener("keydown", function(i) {
-      // H key for menu
-      if (i.keyCode == "72") {
+    window.addEventListener("keydown", function(e) {
+      var key = e.keyCode;
+      switch(key) {
+        // F key for follow
+        case 70:
+          if (start === true) {
+            followLink.click();
+          }
+          break;
+        // H key for menu
+        case 72:
           handlers.toggleMenu();
           if (enableSound === true) {
             clickSound.play();
           }
-      }
-      // M key for mystery hero
-      if (i.keyCode == "77") {
+          break;
+        // M key for mystery hero
+        case 77:
           handlers.mysteryHero();
           if (enableSound === true) {
             clickSound.play();
           }
+          break;
+        // S key for sound
+        case 83:
+          handlers.toggleSound();
+          if (enableSound === true) {
+            clickSound.play();
+          }
+          break;
+        // T key for tweet
+        case 84:
+          if (start === true) {
+            tweetFortuneButton.click();
+          }
+          break;
       }
     }, false);
   },
@@ -288,6 +311,7 @@ var view = {
     });
   },
   yourResults: function() {
+    start = true;
     switch (selectedHero) {
       case 'Genji':
         view.generateHeroPage(genji);
