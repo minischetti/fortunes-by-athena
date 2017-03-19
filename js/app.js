@@ -126,7 +126,7 @@ var mercy = {
 }
 var symmetra = {
   name: "Symmetra",
-  line: ["Your long range sniper beam will result in gold damage and eliminations.", "Your little McCrees frequently scream 'it's mid day', melting your enemies into oblivion.", "Poor placement of your ultimate leads to it being destroyed within seconds. Choose another hero.", "You don't play Symmetra offensively. Choose another hero.", "High Teleporter uptime will pave the way to victory.", "High Shield Generator uptime will give your team a defensive edge."],
+  line: ["Your long range sniper beam will result in gold damage and eliminations.", "Your little McCrees frequently scream 'it's mid day', melting your enemies into oblivion.", "Poor placement of your ultimate leads to it being destroyed within seconds.", "You don't play Symmetra offensively. Choose another hero.", "High Teleporter uptime will pave the way to victory.", "High Shield Generator uptime will give your team a defensive edge."],
   image: "url('assets/symmetra.jpg')",
   color: "#8ebbce"
 }
@@ -184,11 +184,17 @@ var handlers = {
   mysteryHero: function() {
     selectedHero = heroes[Math.floor(Math.random() * heroes.length)].name;
     mysteryKey = document.getElementById('mysteryKey');
+    mysteryHeroButton = document.getElementById('mysteryHeroButton');
+    mysteryHeroButtonHover = document.getElementById('mysteryHeroButtonHover');
     homePage.classList.add('hide');
     mysteryKey.classList.remove('animate');
+    mysteryHeroButton.classList.remove('animate');
+    mysteryHeroButtonHover.classList.remove('animate');
     setTimeout(function() {
       mysteryKey.classList.add('animate');
-    }, 1);
+      mysteryHeroButton.classList.add('animate');
+      mysteryHeroButtonHover.classList.add('animate');
+    }, 50);
     view.yourResults();
   },
   tweetFortune: function() {
