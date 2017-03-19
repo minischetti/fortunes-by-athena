@@ -168,8 +168,11 @@ var handlers = {
   homePage: document.getElementById('homePage'),
   listKey: document.getElementById('listKey'),
   toggleSound: function() {
+    toggleSoundButton = document.getElementById('toggleSound');
+    toggleSoundButton.classList.toggle('animate');
     enableSound = !enableSound;
     console.log(enableSound);
+
   },
   toggleMenu: function() {
     heroList.classList.toggle('open');

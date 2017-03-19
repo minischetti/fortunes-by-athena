@@ -70,8 +70,8 @@ a {
 }
 
 #domLink img {
-  width: 2.4rem;
-  height: 2.4rem;
+  width: 2.3rem;
+  height: 2.3rem;
   border-radius: 50%;
 }
 
@@ -87,21 +87,26 @@ a {
   transition: 1s opacity;
   transition-delay: .5s;
 
+  img {
+    display: block;
+  }
+
   &.animate {
     opacity: 1;
   }
 }
 
-#socialLinks a:hover .tooltip {
+#socialLinks span:hover .tooltip, a:hover .tooltip {
   opacity: 1;
   right: 3.4rem;
   filter: blur(0);
 }
 
 #tweetFortuneButton {
+  display: flex;
   position: relative;
   color: rgba(0,0,0,.9);
-  margin-right: 2rem;
+  margin: 0 2rem;
 }
 
 .tooltip {
@@ -131,6 +136,7 @@ a {
   mix-blend-mode: multiply;
   transform: scale(1.25) skew(-25deg);
   pointer-events: none;
+  z-index: -1;
 }
 
 #homePage {
@@ -372,7 +378,18 @@ a {
 }
 
 #toggleSound {
-  position: absolute;
+  position: relative;
   cursor: pointer;
-  z-index: 5;
+  transform-origin: center;
+
+  img {
+    transform: rotateZ(45deg);
+    transition: .25s transform;
+  }
+
+  &.animate {
+    img {
+      transform: rotateZ(-45deg);
+    }
+  }
 }
