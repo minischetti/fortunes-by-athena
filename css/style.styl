@@ -144,7 +144,7 @@ a {
   position: absolute;
   width: 20rem;
   height: 5rem;
-  z-index: 1;
+  z-index: 2;
   background-color: red;
   border-radius: .4rem;
   visibility: hidden;
@@ -168,27 +168,30 @@ a {
   position: absolute;
   display: flex;
   right: 0;
-  width: 40rem;
-  height: 10rem;
+  fullSize();
   z-index: 1;
   opacity: 0;
   visibility: hidden;
+  background-color: rgba(0,0,0,.5);
+  transition: .5s all;
 
   &.active {
     visibility: visible;
     opacity: 1;
   }
   span {
+    margin: auto;
     width: 10rem;
     height: 10rem;
     border: 1px solid blue;
   }
 }
 
-#homePage {
-  position: absolute;
+#welcomeText {
+  centerElement();
   z-index: 1;
-  fullSize();
+  width: 90%;
+  text-align: center;
   transition: 2s all;
 
   &.hide {
@@ -197,20 +200,20 @@ a {
     filter: blur(1rem);
   }
 
-  h1 {
-    centerElement();
-    width: 90%;
-    text-align: center;
-    span {
-      opacity: .25;
-    }
+  span {
+    opacity: .25;
   }
+}
+
+.blur {
+  filter: blur(.5rem);
+  transition: 1s all;
 }
 
 #heroPage {
   position: absolute;
   fullSize();
-  transition: 1s all;
+  transition: .5s all;
 }
 
 #mysteryHeroButton, #menuButton {

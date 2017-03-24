@@ -166,7 +166,7 @@ var swooshSound = new Howl({
 
 var handlers = {
   heroList: document.getElementById('heroList'),
-  homePage: document.getElementById('homePage'),
+  welcomeText: document.getElementById('welcomeText'),
   listKey: document.getElementById('listKey'),
   toggleSound: function() {
     var toggleSoundTooltip = document.getElementById('toggleSoundTooltip');
@@ -195,6 +195,10 @@ var handlers = {
       if (elementClicked.classList.contains('favorite')) {
         handlers.updateWheel(elementClicked);
       }
+      // If you click outside of the context menu, close it
+      if (elementClicked != 'contextMenu') {
+        contextMenu.classList.remove('active');
+      }
       // Check for IDs, then take the appropriate action
       switch(elementClicked) {
         case mysteryHeroButton:
@@ -212,9 +216,9 @@ var handlers = {
         case addFavoriteButton:
           handlers.addFavorite();
           break;
-        case favoriteWheel:
-          handlers.updateWheel(elementClicked);
-          break;
+        // case favoriteWheel:
+        //   handlers.updateWheel(elementClicked);
+        //   break;
       }
       console.log(elementClicked);
     });
@@ -224,7 +228,7 @@ var handlers = {
     listKey.classList.toggle('active');
   },
   selectHero: function(elementClicked) {
-      homePage.classList.add('hide');
+      welcomeText.classList.add('hide');
       selectedHero = elementClicked.innerHTML;
       view.yourFortune(selectedHero);
     // });
@@ -232,7 +236,7 @@ var handlers = {
   mysteryHero: function() {
     selectedHero = heroes[Math.floor(Math.random() * heroes.length)].name;
     mysteryKey = document.getElementById('mysteryKey');
-    homePage.classList.add('hide');
+    welcomeText.classList.add('hide');
     mysteryKey.classList.remove('animate');
     setTimeout(function() {
       mysteryKey.classList.add('animate');
@@ -253,14 +257,14 @@ var handlers = {
       // Position menu at cursor
       var xPos = event.pageX;
       var yPos = event.pageY;
-      var contextMenuWidth = contextMenu.offsetWidth;
+      // var contextMenuWidth = contextMenu.offsetWidth;
 
       // Check if there is enough room to position menu, if not position to right of cursor
-      if (xPos < contextMenuWidth / 2) {
-        contextMenu.style.transform = "none";
-      } else {
-        contextMenu.style.transform = "translate(-50%)";
-      }
+      // if (xPos < contextMenuWidth / 2) {
+      //   contextMenu.style.transform = "none";
+      // } else {
+      //   contextMenu.style.transform = "translate(-50%)";
+      // }
 
       // Position the menu via CSS
       contextMenu.style.left = xPos + "px";
@@ -270,16 +274,13 @@ var handlers = {
       console.log("You right-clicked: " + selectedMenuHero);
       console.log("xpos is " + xPos);
       console.log("width is " + contextMenuWidth);
-
-      // Pass on the right-clicked hero to the add favorite function
-      // handlers.favoriteWheel(selectedMenuHero);
     });
   },
   addFavorite: function() {
     // Close context menu
     contextMenu.classList.remove('active');
     // Show favorite wheel
-    favoriteWheel.classList.add('active');
+    handlers.openFavoriteWheel();
 
     console.log("You've opened the favorites wheel.");
   },
@@ -291,10 +292,21 @@ var handlers = {
       favorite.id = i;
     }
   },
-  updateWheel: function(wheelPosition) {
+  openFavoriteWheel: function() {
+    favoriteWheel.classList.add('active');
+    // Blur other content
+    heroPage.classList.add('blur');
+  },
+  closeFavoriteWheel: function() {
     favoriteWheel.classList.remove('active');
+    // Blur other content
+    heroPage.classList.remove('blur');
+  },
+  updateWheel: function(wheelPosition) {
     wheelPosition = elementClicked.id;
-    elementClicked.innerHTML = selectedMenuHero;
+    if (elementClicked.classList.contains('favorite')) {
+      elementClicked.innerHTML = selectedMenuHero;
+    }
     favoriteHeroes.splice(wheelPosition, wheelPosition + 1, selectedMenuHero);
   },
   tweetFortune: function() {
@@ -308,9 +320,13 @@ var view = {
     socialLinks.classList.add('animate');
   },
   checkKeyPressed: function() {
-    window.addEventListener("keydown", function(e) {
+    document.addEventListener('keydown', function(e) {
       var key = e.keyCode;
       switch(key) {
+        // Esc key to close favorites wheel
+        case 27:
+          handlers.closeFavoriteWheel();
+          break;
         // F key for follow
         case 70:
           if (start === true) {
@@ -323,6 +339,10 @@ var view = {
           if (enableSound === true) {
             clickSound.play();
           }
+          break;
+        // Temporary I key for favorites wheel
+        case 73:
+          handlers.openFavoriteWheel();
           break;
         // M key for mystery hero
         case 77:
@@ -346,6 +366,14 @@ var view = {
           break;
       }
     }, false);
+    // Event listener for held keys
+    document.addEventListener('keyup', function(e) {
+      var key = e.keyCode;
+      switch(key) {
+        case 73:
+          handlers.closeFavoriteWheel();
+      }
+    });
   },
   createHeroList: function() {
     for (var i = 0; i < heroes.length; i++) {

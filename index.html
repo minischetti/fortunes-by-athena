@@ -11,22 +11,17 @@
   </head>
   <body>
     <!-- <img id="logo" src="assets/athena.svg"> -->
-    <div id="particles-js"></div>
-    <div id="homePage">
-      <h1>Fortunes <span>by Athena</span></h1>
-    </div>
-    <ul id="heroList" class="ui">
-    </ul>
     <div id="contextMenu">
       <span id="addFavoriteButton">Add to favorites</span>
     </div>
     <div id="favoriteWheel">
     </div>
     <div id="heroPage">
-      <div id="tint"></div>
-      <div id="image"></div>
-      <h2 id="heroFortune"></h2>
-      <h3 id="heroName"></h3>
+      <h1 id="welcomeText">Fortunes <span>by Athena</span></h1>
+      <div id="particles-js"></div>
+      <ul id="heroList" class="ui">
+      </ul>
+      <span id="mysteryHeroButton" class="ui">Mystery<span id="mysteryKey">M</span></span>
       <div id="socialLinks">
         <span id="toggleSoundButton" class="ui">
           <img onclick="handlers.toggleSound()" src="assets/sound.svg">
@@ -41,9 +36,12 @@
           <span class="tooltip">Follow Me On Twitter</span>
         </a>
       </div>
+      <div id="tint"></div>
+      <div id="image"></div>
+      <h2 id="heroFortune"></h2>
+      <h3 id="heroName"></h3>
+      <span id="menuButton" class="ui">Press <span id="listKey">H</span> to choose a hero</span>
     </div>
-    <span id="mysteryHeroButton" class="ui">Mystery<span id="mysteryKey">M</span></span>
-    <span id="menuButton" class="ui">Press <span id="listKey">H</span> to choose a hero</span>
     <script src="js/howler.core.min.js"></script>
     <script src="js/particles.min.js"></script>
     <script src="js/particles.js"></script>
