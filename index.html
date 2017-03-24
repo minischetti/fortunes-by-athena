@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Fortunes by Athena</title>
-    <meta name="description" content="">
+    <meta name="description" content="Fortunes by Athena: Predict Your Overwatch Hero Performance">
     <meta name="author" content="Dominic Minischetti">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="css/style.css">
@@ -17,15 +17,20 @@
     </div>
     <ul id="heroList" class="ui">
     </ul>
+    <div id="contextMenu">
+      <span id="addFavorite">Add to favorites</span>
+    </div>
+    <div id="favoriteWheel">
+    </div>
     <div id="heroPage">
       <div id="tint"></div>
       <div id="image"></div>
-      <h2 id="heroFortune" onclick="handlers.copyFortune()"></h2>
+      <h2 id="heroFortune">Test</h2>
       <h3 id="heroName"></h3>
       <div id="socialLinks">
         <span id="toggleSound" class="ui">
           <img onclick="handlers.toggleSound()" src="assets/sound.svg">
-          <span class="tooltip">Toggle Sound</span>
+          <span id="toggleSoundTooltip" class="tooltip">Disable Sound</span>
         </span>
         <a id="tweetFortuneButton" class="ui" href="" target="_blank">
           <img src="assets/twitter.svg">

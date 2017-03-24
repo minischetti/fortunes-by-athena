@@ -115,6 +115,37 @@ a:hover .tooltip {
   pointer-events: none;
   z-index: -1;
 }
+#contextMenu {
+  position: absolute;
+  position: absolute;
+  top: 50%;
+  right: initial;
+  bottom: initial;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20rem;
+  height: 5rem;
+  z-index: 1;
+  background-color: #f00;
+  border-radius: 0.4rem;
+  opacity: 0;
+}
+#contextMenu.active {
+  opacity: 1;
+}
+#favoriteWheel {
+  position: absolute;
+  display: flex;
+  right: 0;
+  width: 40rem;
+  height: 10rem;
+  z-index: 1;
+}
+#favoriteWheel span {
+  width: 10rem;
+  height: 10rem;
+  border: 1px solid #00f;
+}
 #homePage {
   position: absolute;
   z-index: 1;

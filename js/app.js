@@ -138,7 +138,7 @@ var zenyatta = {
 }
 
 var heroes = [ana, bastion, dva, genji, hanzo, junkrat, lucio, mccree, mei, mercy, pharah, reaper, reinhardt, roadhog, soldier76, sombra, symmetra, torbjorn, tracer, widowmaker, winston, zarya, zenyatta];
-
+var favoriteHeroes = [];
 selectedHero = '';
 start = false;
 enableSound = true;
@@ -171,9 +171,13 @@ var handlers = {
   toggleSound: function() {
     toggleSoundButton = document.getElementById('toggleSound');
     toggleSoundButton.classList.toggle('animate');
+    toggleSoundTooltip = document.getElementById('toggleSoundTooltip'),
     enableSound = !enableSound;
-    console.log(enableSound);
-
+    if (enableSound === false) {
+      toggleSoundTooltip.innerHTML = 'Enable Sound';
+    } else {
+      toggleSoundTooltip.innerHTML = 'Disable Sound';
+    }
   },
   toggleMenu: function() {
     heroList.classList.toggle('open');
@@ -187,8 +191,70 @@ var handlers = {
       view.yourResults();
     });
   },
+  contextMenu: function() {
+    heroList.addEventListener('contextmenu', function(event) {
+      var elementClicked = event.target;
+      selectedMenuHero = elementClicked.innerHTML;
+
+      //Prevent default context menu
+      event.preventDefault();
+
+      // Console log the right-clicked hero
+      console.log("You right-clicked: " + selectedMenuHero);
+
+      // Toggle the context menu
+      handlers.toggleContextMenu();
+
+      // Pass on the right-clicked hero to the add favorite function
+      handlers.addFavorite(selectedMenuHero);
+      // handlers.favoriteWheel(selectedMenuHero);
+    });
+  },
+  toggleContextMenu: function() {
+    contextMenu = document.getElementById('contextMenu');
+    contextMenu.classList.add('active');
+  },
+  addFavorite: function() {
+    addFavorite = document.getElementById('addFavorite');
+    addFavorite.addEventListener('click', function() {
+      // for (var i = 0; i < 4; i++) {
+      //   favoriteHeroes.splice(i, i % 4, selectedMenuHero);
+      // }
+      console.log("You've opened the favorites wheel.");
+      console.log(favoriteHeroes);
+    });
+  },
+  createFavoriteWheel: function() {
+    var favoriteWheel = document.getElementById('favoriteWheel');
+    favoriteWheel.addEventListener('click', function(event) {
+      var elementClicked = event.target;
+      wheelPosition = elementClicked.id;
+      elementClicked.innerHTML = selectedMenuHero;
+      // handlers.updateWheel(wheelPosition);
+      favoriteHeroes.splice(wheelPosition, wheelPosition + 1, selectedMenuHero);
+      console.log(elementClicked);
+      console.log(favoriteHeroes);
+    });
+    for (var i = 0; i < 4; i++) {
+      favorite = document.createElement('span');
+      favoriteWheel.appendChild(favorite);
+      favorite.classList.add('favorite');
+      favorite.id = i;
+    }
+  },
+  // updateWheel: function(wheelPosition) {
+  //   // switch (wheelPosition) {
+  //   //   case 1:
+  //   //   favoriteHeroes.splice(wheelPosition, wheelPosition + 1, selectedMenuHero);
+  //   //   break;
+  //   // }
+  //   // hero.innerHTML = heroes[i].name;
+  //   // hero.classList.add('favoriteHero');
+  // },
   // copyFortune: function() {
-  //   randomFortune.focus().select();
+  //   heroFortune.setSelectionRange(0, heroFortune.value.length);
+  //   heroFortune.getSelection().toString();
+  //   document.execCommand('copy');
   // },
   mysteryHero: function() {
     selectedHero = heroes[Math.floor(Math.random() * heroes.length)].name;
@@ -256,7 +322,7 @@ var view = {
       var hero = document.createElement('li');
       heroList.appendChild(hero);
       hero.innerHTML = heroes[i].name;
-      hero.classList.add('ui');
+      hero.classList.add('ui', 'hero');
     }
   },
   createBackground: function(hero) {
@@ -389,3 +455,5 @@ view.checkKeyPressed();
 view.createHeroList();
 view.setUpSoundEventListeners();
 handlers.selectHero();
+handlers.contextMenu();
+handlers.createFavoriteWheel();

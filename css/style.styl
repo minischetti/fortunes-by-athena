@@ -139,6 +139,35 @@ a {
   z-index: -1;
 }
 
+#contextMenu {
+  position: absolute;
+  centerElement();
+  width: 20rem;
+  height: 5rem;
+  z-index: 1;
+  background-color: red;
+  border-radius: .4rem;
+  opacity: 0;
+
+  &.active {
+    opacity: 1;
+  }
+}
+
+#favoriteWheel {
+  position: absolute;
+  display: flex;
+  right: 0;
+  width: 40rem;
+  height: 10rem;
+  z-index: 1;
+  span {
+    width: 10rem;
+    height: 10rem;
+    border: 1px solid blue;
+  }
+}
+
 #homePage {
   position: absolute;
   z-index: 1;
