@@ -43,7 +43,7 @@ h3 {
 a {
   text-decoration: none;
 }
-#followLink img {
+#followButton img {
   width: 2.3rem;
   height: 2.3rem;
   border-radius: 50%;
@@ -80,7 +80,7 @@ a:hover .tooltip {
   right: 3.4rem;
   filter: blur(0);
 }
-#tweetFortuneButton {
+#tweetButton {
   display: flex;
   position: relative;
   color: rgba(0,0,0,0.9);
@@ -116,21 +116,25 @@ a:hover .tooltip {
   z-index: -1;
 }
 #contextMenu {
+  cursor: pointer;
   position: absolute;
-  position: absolute;
-  top: 50%;
-  right: initial;
-  bottom: initial;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 20rem;
   height: 5rem;
   z-index: 1;
   background-color: #f00;
   border-radius: 0.4rem;
+  visibility: hidden;
   opacity: 0;
 }
+#contextMenu span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 5rem;
+  text-align: center;
+}
 #contextMenu.active {
+  visibility: visible;
   opacity: 1;
 }
 #favoriteWheel {
@@ -140,6 +144,12 @@ a:hover .tooltip {
   width: 40rem;
   height: 10rem;
   z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+}
+#favoriteWheel.active {
+  visibility: visible;
+  opacity: 1;
 }
 #favoriteWheel span {
   width: 10rem;
@@ -178,7 +188,7 @@ a:hover .tooltip {
   transition: 1s all;
 }
 #mysteryHeroButton,
-#guideText {
+#menuButton {
   z-index: 2;
 }
 #image {
@@ -258,7 +268,7 @@ a:hover .tooltip {
   -webkit-backdrop-filter: blur(0.4rem);
 }
 #mysteryHeroButton:hover,
-#guideText:hover #listKey:not(.active) {
+#menuButton:hover #listKey:not(.active) {
   border-color: rgba(0,0,0,0.5);
 }
 #mysteryHeroButton {
@@ -342,7 +352,7 @@ a:hover .tooltip {
   background-color: #000;
   color: #fff;
 }
-#guideText {
+#menuButton {
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -378,7 +388,7 @@ a:hover .tooltip {
   #mysteryHeroButton {
     top: 2rem;
   }
-  #guideText {
+  #menuButton {
     bottom: 2rem;
   }
   #heroName {
@@ -389,20 +399,20 @@ a:hover .tooltip {
 @media (max-width: 768px) {
   #image,
   #mysteryKey,
-  #guideText {
+  #menuButton {
     display: none;
   }
 }
-#toggleSound {
+#toggleSoundButton {
   position: relative;
   cursor: pointer;
   transform-origin: center;
 }
-#toggleSound img {
+#toggleSoundButton img {
   transform: rotateZ(45deg);
   transition: 0.25s transform;
 }
-#toggleSound.animate img {
+#toggleSoundButton.animate img {
   transform: rotateZ(-45deg);
 }
 @-moz-keyframes orbPulse {

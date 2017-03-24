@@ -69,7 +69,7 @@ a {
   text-decoration: none;
 }
 
-#followLink img {
+#followButton img {
   width: 2.3rem;
   height: 2.3rem;
   border-radius: 50%;
@@ -102,7 +102,7 @@ a {
   filter: blur(0);
 }
 
-#tweetFortuneButton {
+#tweetButton {
   display: flex;
   position: relative;
   color: rgba(0,0,0,.9);
@@ -140,16 +140,26 @@ a {
 }
 
 #contextMenu {
+  cursor: pointer;
   position: absolute;
-  centerElement();
   width: 20rem;
   height: 5rem;
   z-index: 1;
   background-color: red;
   border-radius: .4rem;
+  visibility: hidden;
   opacity: 0;
 
+  span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 5rem;
+    text-align: center;
+  }
+
   &.active {
+    visibility: visible;
     opacity: 1;
   }
 }
@@ -161,6 +171,13 @@ a {
   width: 40rem;
   height: 10rem;
   z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+  }
   span {
     width: 10rem;
     height: 10rem;
@@ -196,7 +213,7 @@ a {
   transition: 1s all;
 }
 
-#mysteryHeroButton, #guideText {
+#mysteryHeroButton, #menuButton {
   z-index: 2;
 }
 
@@ -264,7 +281,7 @@ a {
   -webkit-backdrop-filter: blur(.4rem);
 }
 
-#mysteryHeroButton:hover, #guideText:hover #listKey:not(.active) {
+#mysteryHeroButton:hover, #menuButton:hover #listKey:not(.active) {
   border-color: rgba(0,0,0,.5);
 }
 
@@ -353,7 +370,7 @@ a {
   }
 }
 
-#guideText {
+#menuButton {
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -390,7 +407,7 @@ a {
     top: 2rem;
   }
 
-  #guideText {
+  #menuButton {
     bottom: 2rem;
   }
 
@@ -401,12 +418,12 @@ a {
 }
 
 @media (max-width: 768px) {
-  #image, #mysteryKey, #guideText {
+  #image, #mysteryKey, #menuButton {
     display: none;
   }
 }
 
-#toggleSound {
+#toggleSoundButton {
   position: relative;
   cursor: pointer;
   transform-origin: center;

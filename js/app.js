@@ -169,9 +169,8 @@ var handlers = {
   homePage: document.getElementById('homePage'),
   listKey: document.getElementById('listKey'),
   toggleSound: function() {
-    toggleSoundButton = document.getElementById('toggleSound');
+    var toggleSoundTooltip = document.getElementById('toggleSoundTooltip');
     toggleSoundButton.classList.toggle('animate');
-    toggleSoundTooltip = document.getElementById('toggleSoundTooltip'),
     enableSound = !enableSound;
     if (enableSound === false) {
       toggleSoundTooltip.innerHTML = 'Enable Sound';
@@ -179,83 +178,57 @@ var handlers = {
       toggleSoundTooltip.innerHTML = 'Disable Sound';
     }
   },
+  setUpEventListeners: function() {
+    var menuButton = document.getElementById('menuButton');
+    var toggleSoundButton = document.getElementById('toggleSoundButton');
+    var tweetButton = document.getElementById('tweetButton');
+    var followButton = document.getElementById('followButton');
+    var contextMenu = document.getElementById('contextMenu');
+    var addFavoriteButton = document.getElementById('addFavoriteButton');
+    var favoriteWheel = document.getElementById('favoriteWheel');
+    document.addEventListener('click', function(event) {
+      elementClicked = event.target;
+      // Check if the element clicked was a hero
+      if (elementClicked.classList.contains('hero')) {
+        handlers.selectHero(elementClicked);
+      }
+      if (elementClicked.classList.contains('favorite')) {
+        handlers.updateWheel(elementClicked);
+      }
+      // Check for IDs, then take the appropriate action
+      switch(elementClicked) {
+        case mysteryHeroButton:
+          handlers.mysteryHero();
+          break;
+        case toggleSoundButton:
+          handlers.toggleSound();
+          break;
+        case menuButton:
+          handlers.toggleMenu();
+          break;
+        case tweetButton:
+          handlers.tweetFortune();
+          break;
+        case addFavoriteButton:
+          handlers.addFavorite();
+          break;
+        case favoriteWheel:
+          handlers.updateWheel(elementClicked);
+          break;
+      }
+      console.log(elementClicked);
+    });
+  },
   toggleMenu: function() {
     heroList.classList.toggle('open');
     listKey.classList.toggle('active');
   },
-  selectHero: function() {
-    heroList.addEventListener('click', function(event) {
-      var elementClicked = event.target;
-      selectedHero = elementClicked.innerHTML;
+  selectHero: function(elementClicked) {
       homePage.classList.add('hide');
-      view.yourResults();
-    });
+      selectedHero = elementClicked.innerHTML;
+      view.yourFortune(selectedHero);
+    // });
   },
-  contextMenu: function() {
-    heroList.addEventListener('contextmenu', function(event) {
-      var elementClicked = event.target;
-      selectedMenuHero = elementClicked.innerHTML;
-
-      //Prevent default context menu
-      event.preventDefault();
-
-      // Console log the right-clicked hero
-      console.log("You right-clicked: " + selectedMenuHero);
-
-      // Toggle the context menu
-      handlers.toggleContextMenu();
-
-      // Pass on the right-clicked hero to the add favorite function
-      handlers.addFavorite(selectedMenuHero);
-      // handlers.favoriteWheel(selectedMenuHero);
-    });
-  },
-  toggleContextMenu: function() {
-    contextMenu = document.getElementById('contextMenu');
-    contextMenu.classList.add('active');
-  },
-  addFavorite: function() {
-    addFavorite = document.getElementById('addFavorite');
-    addFavorite.addEventListener('click', function() {
-      // for (var i = 0; i < 4; i++) {
-      //   favoriteHeroes.splice(i, i % 4, selectedMenuHero);
-      // }
-      console.log("You've opened the favorites wheel.");
-      console.log(favoriteHeroes);
-    });
-  },
-  createFavoriteWheel: function() {
-    var favoriteWheel = document.getElementById('favoriteWheel');
-    favoriteWheel.addEventListener('click', function(event) {
-      var elementClicked = event.target;
-      wheelPosition = elementClicked.id;
-      elementClicked.innerHTML = selectedMenuHero;
-      // handlers.updateWheel(wheelPosition);
-      favoriteHeroes.splice(wheelPosition, wheelPosition + 1, selectedMenuHero);
-      console.log(elementClicked);
-      console.log(favoriteHeroes);
-    });
-    for (var i = 0; i < 4; i++) {
-      favorite = document.createElement('span');
-      favoriteWheel.appendChild(favorite);
-      favorite.classList.add('favorite');
-      favorite.id = i;
-    }
-  },
-  // updateWheel: function(wheelPosition) {
-  //   // switch (wheelPosition) {
-  //   //   case 1:
-  //   //   favoriteHeroes.splice(wheelPosition, wheelPosition + 1, selectedMenuHero);
-  //   //   break;
-  //   // }
-  //   // hero.innerHTML = heroes[i].name;
-  //   // hero.classList.add('favoriteHero');
-  // },
-  // copyFortune: function() {
-  //   heroFortune.setSelectionRange(0, heroFortune.value.length);
-  //   heroFortune.getSelection().toString();
-  //   document.execCommand('copy');
-  // },
   mysteryHero: function() {
     selectedHero = heroes[Math.floor(Math.random() * heroes.length)].name;
     mysteryKey = document.getElementById('mysteryKey');
@@ -264,11 +237,68 @@ var handlers = {
     setTimeout(function() {
       mysteryKey.classList.add('animate');
     }, 50);
-    view.yourResults();
+    view.yourFortune(selectedHero);
+  },
+  contextMenu: function() {
+    heroList.addEventListener('contextmenu', function(event) {
+      //Prevent default context menu
+      event.preventDefault();
+
+      // Show custom context menu
+      contextMenu.classList.add('active');
+
+      var elementClicked = event.target;
+      selectedMenuHero = elementClicked.innerHTML;
+
+      // Position menu at cursor
+      var xPos = event.pageX;
+      var yPos = event.pageY;
+      var contextMenuWidth = contextMenu.offsetWidth;
+
+      // Check if there is enough room to position menu, if not position to right of cursor
+      if (xPos < contextMenuWidth / 2) {
+        contextMenu.style.transform = "none";
+      } else {
+        contextMenu.style.transform = "translate(-50%)";
+      }
+
+      // Position the menu via CSS
+      contextMenu.style.left = xPos + "px";
+      contextMenu.style.top = yPos + "px";
+
+      // Console log the right-clicked hero
+      console.log("You right-clicked: " + selectedMenuHero);
+      console.log("xpos is " + xPos);
+      console.log("width is " + contextMenuWidth);
+
+      // Pass on the right-clicked hero to the add favorite function
+      // handlers.favoriteWheel(selectedMenuHero);
+    });
+  },
+  addFavorite: function() {
+    // Close context menu
+    contextMenu.classList.remove('active');
+    // Show favorite wheel
+    favoriteWheel.classList.add('active');
+
+    console.log("You've opened the favorites wheel.");
+  },
+  createFavoriteWheel: function() {
+    for (var i = 0; i < 4; i++) {
+      favorite = document.createElement('span');
+      favoriteWheel.appendChild(favorite);
+      favorite.classList.add('favorite');
+      favorite.id = i;
+    }
+  },
+  updateWheel: function(wheelPosition) {
+    favoriteWheel.classList.remove('active');
+    wheelPosition = elementClicked.id;
+    elementClicked.innerHTML = selectedMenuHero;
+    favoriteHeroes.splice(wheelPosition, wheelPosition + 1, selectedMenuHero);
   },
   tweetFortune: function() {
-    tweetFortuneButton = document.getElementById('tweetFortuneButton');
-    tweetFortuneButton.href = 'https://twitter.com/intent/tweet?url=http://www.fortunesbyathena.com&text=' + randomFortune + ' - ' + selectedHero + '&hashtags=FortunesByAthena';
+    tweetButton.href = 'https://twitter.com/intent/tweet?url=http://www.fortunesbyathena.com&text=' + randomFortune + ' - ' + selectedHero + '&hashtags=FortunesByAthena';
   }
 }
 
@@ -376,7 +406,7 @@ var view = {
       }
     });
   },
-  yourResults: function() {
+  yourFortune: function(selectedHero) {
     start = true;
     switch (selectedHero) {
       case 'Genji':
@@ -454,6 +484,6 @@ var view = {
 view.checkKeyPressed();
 view.createHeroList();
 view.setUpSoundEventListeners();
-handlers.selectHero();
+handlers.setUpEventListeners();
 handlers.contextMenu();
 handlers.createFavoriteWheel();
