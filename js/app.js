@@ -142,16 +142,7 @@ var favoriteHeroes = [];
 selectedHero = '';
 start = false;
 enableSound = true;
-
-var hoverSound = new Howl({
-  src: ['assets/audio/hover.mp3'],
-});
-var clickSound = new Howl({
-  src: ['assets/audio/click.mp3'],
-});
-var swooshSound = new Howl({
-  src: ['assets/audio/swoosh.mp3'],
-});
+editFavorite = false;
 
 // var xhr = new XMLHttpRequest();
 // xhr.open('GET', "https://api.lootbox.eu/pc/us/Dom-12150/quickplay/hero/Zarya/", true);
@@ -216,9 +207,9 @@ var handlers = {
         case addFavoriteButton:
           handlers.addFavorite();
           break;
-        // case favoriteWheel:
-        //   handlers.updateWheel(elementClicked);
-        //   break;
+        case favoriteWheel:
+          handlers.selectFavorite(elementClicked);
+          break;
       }
       console.log(elementClicked);
     });
@@ -228,7 +219,6 @@ var handlers = {
     listKey.classList.toggle('active');
   },
   selectHero: function(elementClicked) {
-      welcomeText.classList.add('hide');
       selectedHero = elementClicked.innerHTML;
       view.yourFortune(selectedHero);
     // });
@@ -236,7 +226,6 @@ var handlers = {
   mysteryHero: function() {
     selectedHero = heroes[Math.floor(Math.random() * heroes.length)].name;
     mysteryKey = document.getElementById('mysteryKey');
-    welcomeText.classList.add('hide');
     mysteryKey.classList.remove('animate');
     setTimeout(function() {
       mysteryKey.classList.add('animate');
@@ -273,10 +262,11 @@ var handlers = {
       // Console log the right-clicked hero
       console.log("You right-clicked: " + selectedMenuHero);
       console.log("xpos is " + xPos);
-      console.log("width is " + contextMenuWidth);
+      // console.log("width is " + contextMenuWidth);
     });
   },
   addFavorite: function() {
+    editFavorite = true;
     // Close context menu
     contextMenu.classList.remove('active');
     // Show favorite wheel
@@ -298,16 +288,25 @@ var handlers = {
     heroPage.classList.add('blur');
   },
   closeFavoriteWheel: function() {
+    editFavorite = false;
     favoriteWheel.classList.remove('active');
     // Blur other content
     heroPage.classList.remove('blur');
   },
   updateWheel: function(wheelPosition) {
     wheelPosition = elementClicked.id;
-    if (elementClicked.classList.contains('favorite')) {
+    selectedHero = elementClicked.innerHTML;
+    if (elementClicked.classList.contains('favorite') && editFavorite == true) {
       elementClicked.innerHTML = selectedMenuHero;
+      favoriteHeroes.splice(wheelPosition, wheelPosition + 1, selectedMenuHero);
     }
-    favoriteHeroes.splice(wheelPosition, wheelPosition + 1, selectedMenuHero);
+    if (elementClicked.classList.contains('favorite') && editFavorite == false) {
+      view.yourFortune(selectedHero);
+      console.log("You've selected: " + selectedHero + ".");
+    }
+  },
+  selectFavorite: function(elementClicked) {
+    selectedHero = elementClicked.innerHTML;
   },
   tweetFortune: function() {
     tweetButton.href = 'https://twitter.com/intent/tweet?url=http://www.fortunesbyathena.com&text=' + randomFortune + ' - ' + selectedHero + '&hashtags=FortunesByAthena';
@@ -388,9 +387,8 @@ var view = {
     var tint = document.getElementById('tint');
     image.classList.remove('animate');
     tint.classList.remove('animate');
-    if (enableSound ===true) {
-      swooshSound.play();
-    }
+    swooshSound.play();
+
     setTimeout(function() {
       image.classList.add('animate');
       tint.classList.add('animate');
@@ -423,19 +421,29 @@ var view = {
     view.fetchName(hero);
   },
   setUpSoundEventListeners: function() {
-    document.addEventListener('click', function(event) {
-      if (enableSound === true && event.target.className === 'ui') {
-        clickSound.play();
-      }
+    hoverSound = new Howl({
+      src: ['assets/audio/hover.mp3'],
+    });
+    clickSound = new Howl({
+      src: ['assets/audio/click.mp3'],
+    });
+    swooshSound = new Howl({
+      src: ['assets/audio/swoosh.mp3'],
     });
     document.addEventListener('mouseover', function(event) {
-      if (enableSound === true && event.target.className === 'ui') {
+      if (enableSound === true && event.target.classList.contains('ui')) {
         hoverSound.play();
+      }
+    });
+    document.addEventListener('click', function(event) {
+      if (enableSound === true && event.target.classList.contains('ui')) {
+        clickSound.play();
       }
     });
   },
   yourFortune: function(selectedHero) {
     start = true;
+    welcomeText.classList.add('hide');
     switch (selectedHero) {
       case 'Genji':
         view.generateHeroPage(genji);
