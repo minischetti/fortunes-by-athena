@@ -177,6 +177,7 @@ var handlers = {
     var contextMenu = document.getElementById('contextMenu');
     var addFavoriteButton = document.getElementById('addFavoriteButton');
     var favoriteWheel = document.getElementById('favoriteWheel');
+    var favoriteWheelContainer = document.getElementById('favoriteWheelContainer');
     document.addEventListener('click', function(event) {
       elementClicked = event.target;
       // Check if the element clicked was a hero
@@ -184,6 +185,7 @@ var handlers = {
         handlers.selectHero(elementClicked);
       }
       if (elementClicked.classList.contains('favorite')) {
+        event.stopImmediatePropagation();
         handlers.updateWheel(elementClicked);
       }
       // If you click outside of the context menu, close it
@@ -276,10 +278,10 @@ var handlers = {
   },
   createFavoriteWheel: function() {
     for (var i = 0; i < 4; i++) {
-      favorite = document.createElement('span');
-      favoriteWheel.appendChild(favorite);
-      favorite.classList.add('favorite');
-      favorite.id = i;
+      // favorite = document.createElement('span');
+      // favoriteWheel.appendChild(favorite);
+      // favorite.classList.add('favorite');
+      // favorite.id = i;
     }
   },
   openFavoriteWheel: function() {
@@ -295,18 +297,20 @@ var handlers = {
   },
   updateWheel: function(wheelPosition) {
     wheelPosition = elementClicked.id;
-    selectedHero = elementClicked.innerHTML;
+    textPosition = 'favoriteText' + elementClicked.id;
+    wheelLabel = document.getElementById(textPosition);
     if (elementClicked.classList.contains('favorite') && editFavorite == true) {
       elementClicked.innerHTML = selectedMenuHero;
+      wheelLabel.innerHTML = elementClicked.innerHTML;
       favoriteHeroes.splice(wheelPosition, wheelPosition + 1, selectedMenuHero);
     }
     if (elementClicked.classList.contains('favorite') && editFavorite == false) {
-      view.yourFortune(selectedHero);
+      view.yourFortune(elementClicked.innerHTML);
       console.log("You've selected: " + selectedHero + ".");
     }
   },
   selectFavorite: function(elementClicked) {
-    selectedHero = elementClicked.innerHTML;
+    selectedHero = elementClicked.dataset.hero;
   },
   tweetFortune: function() {
     tweetButton.href = 'https://twitter.com/intent/tweet?url=http://www.fortunesbyathena.com&text=' + randomFortune + ' - ' + selectedHero + '&hashtags=FortunesByAthena';
