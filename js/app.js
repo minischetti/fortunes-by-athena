@@ -176,8 +176,6 @@ var handlers = {
     var followButton = document.getElementById('followButton');
     var contextMenu = document.getElementById('contextMenu');
     var addFavoriteButton = document.getElementById('addFavoriteButton');
-    var favoriteWheel = document.getElementById('favoriteWheel');
-    var favoriteWheelContainer = document.getElementById('favoriteWheelContainer');
     document.addEventListener('click', function(event) {
       elementClicked = event.target;
       // Check if the element clicked was a hero
@@ -208,9 +206,6 @@ var handlers = {
           break;
         case addFavoriteButton:
           handlers.addFavorite();
-          break;
-        case favoriteWheel:
-          handlers.selectFavorite(elementClicked);
           break;
       }
       console.log(elementClicked);
@@ -243,7 +238,7 @@ var handlers = {
       contextMenu.classList.add('active');
 
       var elementClicked = event.target;
-      selectedMenuHero = elementClicked.innerHTML;
+      selectedHero = elementClicked.innerHTML;
 
       // Position menu at cursor
       var xPos = event.pageX;
@@ -262,7 +257,7 @@ var handlers = {
       contextMenu.style.top = yPos + "px";
 
       // Console log the right-clicked hero
-      console.log("You right-clicked: " + selectedMenuHero);
+      console.log("You right-clicked: " + selectedHero);
       console.log("xpos is " + xPos);
       // console.log("width is " + contextMenuWidth);
     });
@@ -274,6 +269,8 @@ var handlers = {
     // Show favorite wheel
     handlers.openFavoriteWheel();
 
+    chosenHero = document.getElementById('chosenHero');
+    chosenHero.innerHTML = selectedHero;
     console.log("You've opened the favorites wheel.");
   },
   createFavoriteWheel: function() {
@@ -286,6 +283,12 @@ var handlers = {
   },
   openFavoriteWheel: function() {
     favoriteWheel.classList.add('active');
+
+    if (editFavorite == true) {
+      chosenHero.classList.add('active');
+    } else {
+      chosenHero.classList.remove('active');
+    }
     // Blur other content
     heroPage.classList.add('blur');
   },
@@ -300,9 +303,9 @@ var handlers = {
     textPosition = 'favoriteText' + elementClicked.id;
     wheelLabel = document.getElementById(textPosition);
     if (elementClicked.classList.contains('favorite') && editFavorite == true) {
-      elementClicked.innerHTML = selectedMenuHero;
+      elementClicked.innerHTML = selectedHero;
       wheelLabel.innerHTML = elementClicked.innerHTML;
-      favoriteHeroes.splice(wheelPosition, wheelPosition + 1, selectedMenuHero);
+      favoriteHeroes.splice(wheelPosition, wheelPosition + 1, selectedHero);
     }
     if (elementClicked.classList.contains('favorite') && editFavorite == false) {
       view.yourFortune(elementClicked.innerHTML);

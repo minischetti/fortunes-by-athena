@@ -183,7 +183,7 @@ a {
 }
 
 .blur {
-  filter: blur(.5rem);
+  filter: blur(1rem);
   transition: 1s all;
 }
 
@@ -436,22 +436,43 @@ svg {
   transform: translate(-50%, -50%) rotate(-45deg) scale(1.25) !important;
 
   path {
+    transition: .25s fill;
     cursor: pointer;
-    stroke: rgba(255,255,255,.25);
+    // stroke: rgba(255,255,255,.25);
+    stroke: transparent;
 
     &:hover {
       fill: rgba(19,134,191,.5);
     }
   }
+}
 
-  .item .sector {
-    transition: all .1s linear;
-    fill:#fff;
-    stroke:#111;
-  }
-  .item:hover .sector, .item:focus .sector {
-    fill:#eee;
-  }
+.cross {
+    z-index: 5;
+    pointer-events: none;
+    position: absolute;
+    width: 25%;
+    height: 25%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.cross span {
+    width: 2px;
+    height: 50vw;
+    position: absolute;
+    background-color: white;
+    left: 50%;
+    top: 50%;
+
+    &:first-of-type {
+      transform: translate(-50%,-50%)rotate(-45deg);
+    }
+    &:last-of-type {
+      transform: translate(-50%,-50%)rotate(45deg);
+
+    }
 }
 
 #favoriteWheel {
@@ -459,23 +480,31 @@ svg {
   display: flex;
   right: 0;
   fullSize();
+  background-color: rgba(0,0,0,.25);
   z-index: 3;
   opacity: 0;
   visibility: hidden;
-  background-color: rgba(0,0,0,.5);
   transition: .5s all;
 
   &.active {
     visibility: visible;
     opacity: 1;
   }
-  // span {
-  //   display: block;
-  //   margin: auto;
-  //   width: 25%;
-  //   height: 25%;
-  //   border: 1px solid blue;
-  // }
+}
+
+#chosenHero {
+  position: absolute;
+  top: 4rem;
+  left: 50%;
+  font-size: 4.8rem;
+  color: #fff;
+  transform: translateX(-50%);
+  z-index: 5;
+  visibility: hidden;
+
+  &.active {
+    visibility: visible;
+  }
 }
 
 .favorite:hover path {
@@ -490,26 +519,27 @@ svg {
 
   .favoriteText {
     position: absolute;
+    color: rgba(255,255,255,.75);
+    border: 2px solid rgba(255,255,255,.75);
+    border-radius: .4rem;
+    background-color: rgba(0,0,0,.25);
+    padding: 1rem 2rem;
+    box-sizing: border-box;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
   }
 
   #favoriteText0 {
-    top: 25%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin-top: -10vw;
   }
   #favoriteText1 {
-    top: 50%;
-    left: 40%;
-    transform: translate(-50%, -50%);
+    margin-left: -10vw;
   }
   #favoriteText2 {
-    bottom: 25%;
-    left: 50%;
-    transform: translate(-50%, 50%);
+    margin-top: 10vw;
   }
   #favoriteText3 {
-    top: 50%;
-    right: 40%;
-    transform: translate(50%, -50%);
+    margin-left: 10vw;
   }
 }
