@@ -168,7 +168,7 @@ a:hover .tooltip {
   transition: 0.5s all;
 }
 #mysteryHeroButton,
-#menuButton {
+.hint {
   z-index: 2;
 }
 #image {
@@ -243,12 +243,12 @@ a:hover .tooltip {
   transform: translateY(0);
 }
 #mysteryHeroButton,
-#listKey,
+.key,
 #heroList {
   -webkit-backdrop-filter: blur(0.4rem);
 }
 #mysteryHeroButton:hover,
-#menuButton:hover #listKey:not(.active) {
+.hint:hover .key:not(.active) {
   border-color: rgba(0,0,0,0.5);
 }
 #mysteryHeroButton {
@@ -332,7 +332,7 @@ a:hover .tooltip {
   background-color: #000;
   color: #fff;
 }
-#menuButton {
+.hint {
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -343,8 +343,17 @@ a:hover .tooltip {
   left: 50%;
   transform: translateX(-50%);
 }
-#listKey {
-  width: 4rem;
+.hint.right {
+  visibility: hidden;
+  left: initial;
+  right: 4rem;
+  transform: none;
+}
+.hint.right.active {
+  visibility: visible;
+}
+.key {
+  min-width: 4rem;
   height: 4rem;
   line-height: 4rem;
   text-align: center;
@@ -354,7 +363,10 @@ a:hover .tooltip {
   transition: 0.5s all;
   pointer-events: none;
 }
-#listKey.active {
+.key.wide {
+  padding: 0 1rem;
+}
+.key.active {
   border-color: #000;
 }
 @media (max-width: 1440px) {
@@ -368,7 +380,7 @@ a:hover .tooltip {
   #mysteryHeroButton {
     top: 2rem;
   }
-  #menuButton {
+  .hint {
     bottom: 2rem;
   }
   #heroName {
@@ -379,7 +391,7 @@ a:hover .tooltip {
 @media (max-width: 768px) {
   #image,
   #mysteryKey,
-  #menuButton {
+  .hint {
     display: none;
   }
 }
@@ -457,6 +469,9 @@ svg path:hover {
   visibility: visible;
   opacity: 1;
 }
+#favoriteWheel .hint {
+  pointer-events: none;
+}
 #chosenHero {
   position: absolute;
   top: 4rem;
@@ -491,6 +506,9 @@ svg path:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+#favoriteTextContainer .favoriteText.active {
+  background-color: #f00;
 }
 #favoriteTextContainer #favoriteText0 {
   margin-top: -10vw;

@@ -193,7 +193,7 @@ a {
   transition: .5s all;
 }
 
-#mysteryHeroButton, #menuButton {
+#mysteryHeroButton, .hint {
   z-index: 2;
 }
 
@@ -257,11 +257,11 @@ a {
   }
 }
 
-#mysteryHeroButton, #listKey, #heroList {
+#mysteryHeroButton, .key, #heroList {
   -webkit-backdrop-filter: blur(.4rem);
 }
 
-#mysteryHeroButton:hover, #menuButton:hover #listKey:not(.active) {
+#mysteryHeroButton:hover, .hint:hover .key:not(.active) {
   border-color: rgba(0,0,0,.5);
 }
 
@@ -350,16 +350,27 @@ a {
   }
 }
 
-#menuButton {
+.hint {
   cursor: pointer;
   display: flex;
   align-items: center;
   absolute(initial, initial, 4rem, 50%);
   transform: translateX(-50%);
+
+  &.right {
+    visibility: hidden;
+    left: initial;
+    right: 4rem;
+    transform: none;
+
+    &.active {
+      visibility: visible;
+    }
+  }
 }
 
-#listKey {
-  width: 4rem;
+.key {
+  min-width: 4rem;
   height: 4rem;
   line-height: 4rem;
   text-align: center;
@@ -368,6 +379,10 @@ a {
   border-radius: .4rem;
   transition: .5s all;
   pointer-events: none;
+
+  &.wide {
+    padding: 0 1rem;
+  }
 
   &.active {
     border-color: #000;
@@ -387,7 +402,7 @@ a {
     top: 2rem;
   }
 
-  #menuButton {
+  .hint {
     bottom: 2rem;
   }
 
@@ -398,7 +413,7 @@ a {
 }
 
 @media (max-width: 768px) {
-  #image, #mysteryKey, #menuButton {
+  #image, #mysteryKey, .hint {
     display: none;
   }
 }
@@ -490,6 +505,11 @@ svg {
     visibility: visible;
     opacity: 1;
   }
+
+  .hint {
+    pointer-events: none;
+    // color: #fff;
+  }
 }
 
 #chosenHero {
@@ -528,6 +548,9 @@ svg {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%)
+    &.active {
+      background-color: red;
+    }
   }
 
   #favoriteText0 {

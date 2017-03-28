@@ -158,7 +158,7 @@ editFavorite = false;
 var handlers = {
   heroList: document.getElementById('heroList'),
   welcomeText: document.getElementById('welcomeText'),
-  listKey: document.getElementById('listKey'),
+  menuKey: document.getElementById('menuKey'),
   toggleSound: function() {
     var toggleSoundTooltip = document.getElementById('toggleSoundTooltip');
     toggleSoundButton.classList.toggle('animate');
@@ -183,7 +183,6 @@ var handlers = {
         handlers.selectHero(elementClicked);
       }
       if (elementClicked.classList.contains('favorite')) {
-        event.stopImmediatePropagation();
         handlers.updateWheel(elementClicked);
       }
       // If you click outside of the context menu, close it
@@ -213,7 +212,11 @@ var handlers = {
   },
   toggleMenu: function() {
     heroList.classList.toggle('open');
-    listKey.classList.toggle('active');
+    menuKey.classList.toggle('active');
+  },
+  closeMenu: function() {
+    heroList.classList.remove('open');
+    menuKey.classList.remove('active');
   },
   selectHero: function(elementClicked) {
       selectedHero = elementClicked.innerHTML;
@@ -266,27 +269,34 @@ var handlers = {
     editFavorite = true;
     // Close context menu
     contextMenu.classList.remove('active');
+    // Close menu
+    handlers.closeMenu();
     // Show favorite wheel
     handlers.openFavoriteWheel();
-
+    // Set helper text at top to the chosen hero
     chosenHero = document.getElementById('chosenHero');
     chosenHero.innerHTML = selectedHero;
+
     console.log("You've opened the favorites wheel.");
   },
-  createFavoriteWheel: function() {
-    for (var i = 0; i < 4; i++) {
-      // favorite = document.createElement('span');
-      // favoriteWheel.appendChild(favorite);
-      // favorite.classList.add('favorite');
-      // favorite.id = i;
-    }
-  },
+  // createFavoriteWheel: function() {
+  //   for (var i = 0; i < 4; i++) {
+  //     // favorite = document.createElement('span');
+  //     // favoriteWheel.appendChild(favorite);
+  //     // favorite.classList.add('favorite');
+  //     // favorite.id = i;
+  //   }
+  // },
   openFavoriteWheel: function() {
+    backHint = document.getElementById('backHint');
     favoriteWheel.classList.add('active');
 
     if (editFavorite == true) {
       chosenHero.classList.add('active');
+      backHint.classList.add('active');
+
     } else {
+      backHint.classList.remove('active');
       chosenHero.classList.remove('active');
     }
     // Blur other content
@@ -295,10 +305,14 @@ var handlers = {
   closeFavoriteWheel: function() {
     editFavorite = false;
     favoriteWheel.classList.remove('active');
-    // Blur other content
+    // Disable blur
     heroPage.classList.remove('blur');
   },
+  // populateFavorites: function() {
+  //   document.getElementById()
+  // },
   updateWheel: function(wheelPosition) {
+    localStorage.setItem('favoriteHeroes', favoriteHeroes);
     wheelPosition = elementClicked.id;
     textPosition = 'favoriteText' + elementClicked.id;
     wheelLabel = document.getElementById(textPosition);
@@ -306,14 +320,10 @@ var handlers = {
       elementClicked.innerHTML = selectedHero;
       wheelLabel.innerHTML = elementClicked.innerHTML;
       favoriteHeroes.splice(wheelPosition, wheelPosition + 1, selectedHero);
-    }
-    if (elementClicked.classList.contains('favorite') && editFavorite == false) {
+    } else {
       view.yourFortune(elementClicked.innerHTML);
       console.log("You've selected: " + selectedHero + ".");
     }
-  },
-  selectFavorite: function(elementClicked) {
-    selectedHero = elementClicked.dataset.hero;
   },
   tweetFortune: function() {
     tweetButton.href = 'https://twitter.com/intent/tweet?url=http://www.fortunesbyathena.com&text=' + randomFortune + ' - ' + selectedHero + '&hashtags=FortunesByAthena';
@@ -321,6 +331,9 @@ var handlers = {
 }
 
 var view = {
+  getLocalStorage: function() {
+    localStorage.getItem('favoriteHeroes')
+  },
   showSocialLinks: function() {
     var socialLinks = document.getElementById('socialLinks');
     socialLinks.classList.add('animate');
@@ -449,6 +462,7 @@ var view = {
     });
   },
   yourFortune: function(selectedHero) {
+    handlers.closeMenu();
     start = true;
     welcomeText.classList.add('hide');
     switch (selectedHero) {
@@ -524,9 +538,10 @@ var view = {
     }
   }
 }
+view.getLocalStorage();
 view.checkKeyPressed();
 view.createHeroList();
 view.setUpSoundEventListeners();
 handlers.setUpEventListeners();
 handlers.contextMenu();
-handlers.createFavoriteWheel();
+// handlers.createFavoriteWheel();
