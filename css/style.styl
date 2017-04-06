@@ -184,7 +184,7 @@ a {
 
 .blur {
   filter: blur(1rem);
-  transition: 1s all;
+  transition: .25s all;
 }
 
 #heroPage {
@@ -452,12 +452,15 @@ svg {
 
   path {
     transition: .25s fill;
-    cursor: pointer;
     // stroke: rgba(255,255,255,.25);
     stroke: transparent;
 
     &:hover {
       fill: rgba(19,134,191,.5);
+    }
+
+    &.active {
+      cursor: pointer;
     }
   }
 }
@@ -471,26 +474,32 @@ svg {
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
+
+    &.active span {
+      height: 50vw;
+    }
 }
 
 .cross span {
     width: 2px;
-    height: 50vw;
+    height: 40vw;
     position: absolute;
-    background-color: white;
+    background-color: rgba(255,255,255,.5);
     left: 50%;
     top: 50%;
+    transition: .25s height;
 
     &:first-of-type {
-      transform: translate(-50%,-50%)rotate(-45deg);
+      transform: translate(-50%,-50%) rotate(-45deg);
     }
     &:last-of-type {
-      transform: translate(-50%,-50%)rotate(45deg);
+      transform: translate(-50%,-50%) rotate(45deg);
 
     }
 }
 
 #favoriteWheel {
+  // cursor: pointer;
   position: absolute;
   display: flex;
   right: 0;
@@ -499,7 +508,7 @@ svg {
   z-index: 3;
   opacity: 0;
   visibility: hidden;
-  transition: .5s all;
+  transition: .25s all;
 
   &.active {
     visibility: visible;
@@ -527,6 +536,12 @@ svg {
   }
 }
 
+.favorite {
+  // &:not(.active) {
+  //   pointer-events: none;
+  // }
+}
+
 .favorite:hover path {
   fill: blue;
 }
@@ -539,17 +554,18 @@ svg {
 
   .favoriteText {
     position: absolute;
-    color: rgba(255,255,255,.75);
-    border: 2px solid rgba(255,255,255,.75);
-    border-radius: .4rem;
-    background-color: rgba(0,0,0,.25);
+    color: rgba(255,255,255,.5);
     padding: 1rem 2rem;
     box-sizing: border-box;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%)
+
     &.active {
-      background-color: red;
+      color: rgba(255,255,255,.75);
+      border: 2px solid rgba(255,255,255,.75);
+      border-radius: .4rem;
+      background-color: rgba(0,0,0,.25);
     }
   }
 

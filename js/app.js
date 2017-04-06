@@ -144,16 +144,22 @@ start = false;
 enableSound = true;
 editFavorite = false;
 
-// var xhr = new XMLHttpRequest();
-// xhr.open('GET', "https://api.lootbox.eu/pc/us/Dom-12150/quickplay/hero/Zarya/", true);
-// xhr.send();
-// xhr.addEventListener("readystatechange", processRequest, false);
-// function processRequest(e) {
-//     if (xhr.readyState == 4 && xhr.status == 200) {
-//         var response = JSON.parse(xhr.responseText);
-//         alert(response.DamageBlocked);
-//     }
-// }
+var wheelFirst = {
+  name: "Empty",
+  position: "0"
+}
+var wheelSecond = {
+  name: "Empty",
+  position: "1"
+}
+var wheelThird = {
+  name: "Empty",
+  position: "2"
+}
+var wheelFourth = {
+  name: "Empty",
+  position: "3"
+}
 
 var handlers = {
   heroList: document.getElementById('heroList'),
@@ -176,6 +182,20 @@ var handlers = {
     var followButton = document.getElementById('followButton');
     var contextMenu = document.getElementById('contextMenu');
     var addFavoriteButton = document.getElementById('addFavoriteButton');
+    var favoriteWheel = document.getElementById('favoriteWheel');
+
+      favoriteWheel.addEventListener('mouseover', function(event) {
+
+        // if (elementHovered.classList.contains('favorite') && elementHovered.innerHTML != 'Empty') {
+        //   elementHovered.style.pointerEvents = "cursor";
+        // }
+        elementHovered = event.target;
+        if (editFavorite == false && elementHovered.classList.contains('active')) {
+          console.log(elementHovered);
+          selectedHero = elementHovered.innerHTML;
+        }
+      });
+
     document.addEventListener('click', function(event) {
       elementClicked = event.target;
       // Check if the element clicked was a hero
@@ -288,41 +308,85 @@ var handlers = {
   //   }
   // },
   openFavoriteWheel: function() {
+    favoriteList = document.getElementsByClassName('favorite');
+    if (editFavorite == true) {
+      for (var i = 0; i < favoriteList.length; i++) {
+        favoriteList[i].style.pointerEvents = 'auto';
+      }
+    } else {
+        for (var i = 0; i < favoriteList.length; i++) {
+          if (favoriteList[i].classList.contains('active')) {
+            favoriteList[i].style.pointerEvents = 'auto';
+          } else {
+            favoriteList[i].style.pointerEvents = 'none';
+          }
+        }
+      }
     backHint = document.getElementById('backHint');
+
+    cross = document.getElementById('cross');
+    cross.classList.add('active');
+
+    // Open the wheel
     favoriteWheel.classList.add('active');
 
+    // If adding a favorite and the wheel is persistent, give the user addition hints and a pointer
     if (editFavorite == true) {
       chosenHero.classList.add('active');
       backHint.classList.add('active');
+      // favoriteWheel.style.cursor = "pointer";
 
     } else {
-      backHint.classList.remove('active');
       chosenHero.classList.remove('active');
+      backHint.classList.remove('active');
+      // favoriteWheel.style.cursor = "none";
+
     }
     // Blur other content
     heroPage.classList.add('blur');
   },
   closeFavoriteWheel: function() {
-    editFavorite = false;
+    // Close the wheel
     favoriteWheel.classList.remove('active');
+    cross.classList.remove('active');
     // Disable blur
     heroPage.classList.remove('blur');
   },
-  // populateFavorites: function() {
-  //   document.getElementById()
-  // },
   updateWheel: function(wheelPosition) {
-    localStorage.setItem('favoriteHeroes', favoriteHeroes);
     wheelPosition = elementClicked.id;
     textPosition = 'favoriteText' + elementClicked.id;
     wheelLabel = document.getElementById(textPosition);
-    if (elementClicked.classList.contains('favorite') && editFavorite == true) {
+
+    if (editFavorite == true && elementClicked.classList.contains('favorite')) {
       elementClicked.innerHTML = selectedHero;
+      // elementClicked.classList.add('active');
+      wheelLabel.classList.add('active');
+      elementClicked.classList.add('active');
       wheelLabel.innerHTML = elementClicked.innerHTML;
-      favoriteHeroes.splice(wheelPosition, wheelPosition + 1, selectedHero);
-    } else {
-      view.yourFortune(elementClicked.innerHTML);
-      console.log("You've selected: " + selectedHero + ".");
+      editFavorite = false;
+      switch(wheelPosition) {
+        case "0": {
+          wheelFirst.name = selectedHero;
+          localStorage.setItem('wheel0', wheelFirst.name);
+          break;
+        }
+        case "1": {
+          wheelSecond.name = selectedHero;
+          localStorage.setItem('wheel1', wheelSecond.name);
+          break;
+        }
+        case "2": {
+          wheelThird.name = selectedHero;
+          localStorage.setItem('wheel2', wheelThird.name);
+          break;
+        }
+        case "3": {
+          wheelFourth.name = selectedHero;
+          localStorage.setItem('wheel3', wheelFourth.name);
+          break;
+        }
+      }
+      handlers.closeFavoriteWheel();
     }
   },
   tweetFortune: function() {
@@ -332,7 +396,21 @@ var handlers = {
 
 var view = {
   getLocalStorage: function() {
-    localStorage.getItem('favoriteHeroes')
+    wheelHeroes = [wheelFirst, wheelSecond, wheelThird, wheelFourth];
+    for (var i = 0; i < wheelHeroes.length; i++) {
+      var wheelRef = document.getElementById(i);
+      var wheelText = document.getElementById('favoriteText' + i);
+
+      // If favorite hero exists in localStorage, add their name to the appropriate object
+      if (localStorage.getItem('wheel' + i) !== null) {
+        wheelRef.classList.add('active');
+        wheelText.classList.add('active');
+        wheelHeroes[i].name = localStorage.getItem('wheel' + i);
+      }
+      // Set SVG and text to locally stored heroes and/or empty accordingly
+      wheelRef.innerHTML = wheelHeroes[i].name;
+      wheelText.innerHTML = wheelHeroes[i].name;
+    }
   },
   showSocialLinks: function() {
     var socialLinks = document.getElementById('socialLinks');
@@ -387,13 +465,23 @@ var view = {
     }, false);
     // Event listener for held keys
     document.addEventListener('keyup', function(e) {
+      x = e.clientX;
+      y = e.clientY;
       var key = e.keyCode;
+      hoveredHero = false;
       switch(key) {
         case 73:
-          handlers.closeFavoriteWheel();
+        // if (editFavorite == false) {
+
+          // view.yourFortune(selectedHero);
+          console.log("You've hovered over " + selectedHero + ".");
+          if (elementHovered.classList.contains('active')) {
+            view.yourFortune(selectedHero);
+          }
+        // }
+        handlers.closeFavoriteWheel();
       }
     });
-  },
   createHeroList: function() {
     for (var i = 0; i < heroes.length; i++) {
       var hero = document.createElement('li');
@@ -544,4 +632,3 @@ view.createHeroList();
 view.setUpSoundEventListeners();
 handlers.setUpEventListeners();
 handlers.contextMenu();
-// handlers.createFavoriteWheel();
