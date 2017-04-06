@@ -482,6 +482,7 @@ var view = {
         handlers.closeFavoriteWheel();
       }
     });
+  },
   createHeroList: function() {
     for (var i = 0; i < heroes.length; i++) {
       var hero = document.createElement('li');
