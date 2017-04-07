@@ -324,8 +324,8 @@ var handlers = {
       }
     backHint = document.getElementById('backHint');
 
-    cross = document.getElementById('cross');
-    cross.classList.add('active');
+    divider = document.getElementById('divider');
+    divider.classList.add('active');
 
     // Open the wheel
     favoriteWheel.classList.add('active');
@@ -348,7 +348,7 @@ var handlers = {
   closeFavoriteWheel: function() {
     // Close the wheel
     favoriteWheel.classList.remove('active');
-    cross.classList.remove('active');
+    divider.classList.remove('active');
     // Disable blur
     heroPage.classList.remove('blur');
   },

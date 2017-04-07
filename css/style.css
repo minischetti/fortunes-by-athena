@@ -401,6 +401,7 @@ a:hover .tooltip {
   transform-origin: center;
 }
 #toggleSoundButton img {
+  pointer-events: none;
   transform: rotateZ(45deg);
   transition: 0.25s transform;
 }
@@ -431,7 +432,7 @@ svg path:hover {
 svg path.active {
   cursor: pointer;
 }
-.cross {
+.divider {
   z-index: 5;
   pointer-events: none;
   position: absolute;
@@ -441,10 +442,10 @@ svg path.active {
   top: 50%;
   transform: translate(-50%, -50%);
 }
-.cross.active span {
+.divider.active span {
   height: 50vw;
 }
-.cross span {
+.divider span {
   width: 2px;
   height: 40vw;
   position: absolute;
@@ -453,10 +454,10 @@ svg path.active {
   top: 50%;
   transition: 0.25s height;
 }
-.cross span:first-of-type {
+.divider span:first-of-type {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
-.cross span:last-of-type {
+.divider span:last-of-type {
   transform: translate(-50%, -50%) rotate(45deg);
 }
 #favoriteWheel {

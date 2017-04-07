@@ -44,6 +44,10 @@ html {
   font-size: 10px;
 }
 
+* {
+  // cursor: url('../assets/cursor.svg'), auto;
+}
+
 body {
   font-family: 'Big Noodle Oblique';
   font-size: 2.4rem;
@@ -424,6 +428,7 @@ a {
   transform-origin: center;
 
   img {
+    pointer-events: none;
     transform: rotateZ(45deg);
     transition: .25s transform;
   }
@@ -465,7 +470,7 @@ svg {
   }
 }
 
-.cross {
+.divider {
     z-index: 5;
     pointer-events: none;
     position: absolute;
@@ -480,7 +485,7 @@ svg {
     }
 }
 
-.cross span {
+.divider span {
     width: 2px;
     height: 40vw;
     position: absolute;
