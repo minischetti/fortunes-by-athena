@@ -116,26 +116,85 @@ a:hover .tooltip {
   z-index: -1;
 }
 #contextMenu {
+  display: flex;
   cursor: pointer;
   position: absolute;
-  width: 20rem;
-  height: 5rem;
+  width: 22rem;
+  height: 1rem;
   z-index: 2;
-  background-color: #f00;
+  color: #fff;
+  font-size: 1.8rem;
   border-radius: 0.4rem;
   visibility: hidden;
   opacity: 0;
+  box-shadow: 0 0 4rem rgba(0,0,0,0.5);
 }
-#contextMenu span {
+#contextMenu #addFavoriteButton {
   display: block;
   width: 100%;
   height: 100%;
-  line-height: 5rem;
+  line-height: 4rem;
   text-align: center;
+  opacity: 0;
 }
 #contextMenu.active {
   visibility: visible;
   opacity: 1;
+  height: 4rem;
+  transition: 0.25s height;
+}
+#contextMenu.active #addFavoriteButton {
+  opacity: 1;
+  transition: 0.25s opacity;
+}
+.corner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.corner:before,
+.corner:after {
+  position: absolute;
+  content: "";
+  width: 0.75rem;
+  height: 0.75rem;
+  z-index: 1;
+}
+.corner.top:before {
+  top: -2px;
+  left: -2px;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-top-left-radius: 0.4rem;
+}
+.corner.top:after {
+  top: -2px;
+  right: -2px;
+  border-top: 2px solid #fff;
+  border-right: 2px solid #fff;
+  border-top-right-radius: 0.4rem;
+}
+.corner.bottom:before {
+  bottom: -2px;
+  left: -2px;
+  border-bottom: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-bottom-left-radius: 0.4rem;
+}
+.corner.bottom:after {
+  bottom: -2px;
+  right: -2px;
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid #fff;
+  border-bottom-right-radius: 0.4rem;
+}
+.menuInner {
+  position: relative;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: rgba(0,0,0,0.5);
 }
 #welcomeText {
   position: absolute;
@@ -244,7 +303,8 @@ a:hover .tooltip {
 }
 #mysteryHeroButton,
 .key,
-#heroList {
+#heroList,
+#contextMenu {
   -webkit-backdrop-filter: blur(0.4rem);
 }
 #mysteryHeroButton:hover,

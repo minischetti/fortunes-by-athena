@@ -143,29 +143,96 @@ a {
   z-index: -1;
 }
 
+// Remove comments and box shadow for native Overwatch style
 #contextMenu {
+  display: flex;
   cursor: pointer;
   position: absolute;
-  width: 20rem;
-  height: 5rem;
+  width: 22rem;
+  height: 1rem;
   z-index: 2;
-  background-color: red;
+  color: #fff;
+  font-size: 1.8rem;
   border-radius: .4rem;
+  // -webkit-backdrop-filter: blur(4px);
+  // background-color: rgba(0,0,0,.25);
   visibility: hidden;
   opacity: 0;
+  // padding: 1rem;
+  box-shadow: 0 0 4rem rgba(0,0,0,.5);
 
-  span {
+  #addFavoriteButton {
     display: block;
     width: 100%;
     height: 100%;
-    line-height: 5rem;
+    line-height: 4rem;
     text-align: center;
+    opacity: 0;
   }
 
   &.active {
     visibility: visible;
     opacity: 1;
+    height: 4rem;
+    transition: .25s height;
+
+
+    & #addFavoriteButton {
+      opacity: 1;
+      transition: .25s opacity;
+    }
   }
+}
+
+.corner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.corner:before, .corner:after {
+  position: absolute;
+  content: "";
+  width: .75rem;
+  height: .75rem;
+  z-index: 1;
+}
+
+.corner.top:before {
+  top: -2px;
+  left: -2px;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-top-left-radius: .4rem;
+}
+.corner.top:after {
+  top: -2px;
+  right: -2px;
+  border-top: 2px solid #fff;
+  border-right: 2px solid #fff;
+  border-top-right-radius: .4rem;
+}
+.corner.bottom:before {
+  bottom: -2px;
+  left: -2px;
+  border-bottom: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-bottom-left-radius: .4rem;
+}
+.corner.bottom:after {
+  bottom: -2px;
+  right: -2px;
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid #fff;
+  border-bottom-right-radius: .4rem;
+}
+
+.menuInner {
+  position: relative;
+  margin: auto;
+  fullSize();
+  box-sizing: border-box;
+  background-color: rgba(0,0,0,.5);
 }
 
 #welcomeText {
@@ -261,7 +328,7 @@ a {
   }
 }
 
-#mysteryHeroButton, .key, #heroList {
+#mysteryHeroButton, .key, #heroList, #contextMenu {
   -webkit-backdrop-filter: blur(.4rem);
 }
 

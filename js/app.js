@@ -82,6 +82,12 @@ var dva = {
   image: "url('assets/dva.jpg')",
   color: "#ed93c9"
 }
+var orisa = {
+  name: "Orisa",
+  line: ["Your ability to lead targets effectively yields many kills.", "You will utilize Halt! to contain enemies within friendly ultimates.", "You will utilize Halt! to achieve many environmental kills.", "You will fail to use Halt! effectively to achieve environmental kills.", "Your Protective Barrier will shield friendlies from incoming weapon fire.", "Your ultimate will directly result in victory.", "Your ultimate will be destroyed immediately after placement.", "Your timing of Fortify is poor and will net no benefit.", "You will successfully block an anticipated action-impairing effect with Fortify."],
+  image: "url('assets/orisa.jpg')",
+  color: "#dc9a00"
+}
 var reinhardt = {
   name: "Reinhardt",
   line: ["Your desire to play offensively proves of little use to the team.", "You will absorb high amounts of damage with your barrier, allowing your team to push with success.", "You will successfully kill every enemy you charge.", "You are unable to hit any enemies with your fire strike.", "Your Earthshatter will result in a team wipe."],
@@ -137,7 +143,7 @@ var zenyatta = {
   color: "#ebe380"
 }
 
-var heroes = [ana, bastion, dva, genji, hanzo, junkrat, lucio, mccree, mei, mercy, pharah, reaper, reinhardt, roadhog, soldier76, sombra, symmetra, torbjorn, tracer, widowmaker, winston, zarya, zenyatta];
+var heroes = [ana, bastion, dva, genji, hanzo, junkrat, lucio, mccree, mei, mercy, orisa, pharah, reaper, reinhardt, roadhog, soldier76, sombra, symmetra, torbjorn, tracer, widowmaker, winston, zarya, zenyatta];
 var favoriteHeroes = [];
 selectedHero = '';
 start = false;
@@ -258,7 +264,6 @@ var handlers = {
       event.preventDefault();
 
       // Show custom context menu
-      contextMenu.classList.add('active');
 
       var elementClicked = event.target;
       selectedHero = elementClicked.innerHTML;
@@ -278,6 +283,13 @@ var handlers = {
       // Position the menu via CSS
       contextMenu.style.left = xPos + "px";
       contextMenu.style.top = yPos + "px";
+
+      // Reset open animation with each right-click
+      contextMenu.classList.remove('active');
+
+      setTimeout(function() {
+        contextMenu.classList.add('active');
+      }, 25);
 
       // Console log the right-clicked hero
       console.log("You right-clicked: " + selectedHero);
@@ -596,6 +608,9 @@ var view = {
       break;
       case 'D.VA':
         view.generateHeroPage(dva);
+      break;
+      case 'Orisa':
+        view.generateHeroPage(orisa);
       break;
       case 'Reinhardt':
         view.generateHeroPage(reinhardt);
