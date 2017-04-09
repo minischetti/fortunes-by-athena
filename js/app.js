@@ -190,22 +190,18 @@ var handlers = {
     var addFavoriteButton = document.getElementById('addFavoriteButton');
     var favoriteWheel = document.getElementById('favoriteWheel');
 
-      favoriteWheel.addEventListener('mouseover', function(event) {
-
-        // if (elementHovered.classList.contains('favorite') && elementHovered.innerHTML != 'Empty') {
-        //   elementHovered.style.pointerEvents = "cursor";
-        // }
-        elementHovered = event.target;
-        if (editFavorite == false && elementHovered.classList.contains('active')) {
-          console.log(elementHovered);
-          selectedHero = elementHovered.innerHTML;
-        }
-      });
+    favoriteWheel.addEventListener('mouseover', function(event) {
+      elementHovered = event.target;
+      if (editFavorite == false && elementHovered.classList.contains('active')) {
+        console.log(elementHovered);
+        selectedHero = elementHovered.innerHTML;
+      }
+    });
 
     document.addEventListener('click', function(event) {
       elementClicked = event.target;
-      // Check if the element clicked was a hero
-      if (elementClicked.classList.contains('hero')) {
+      // Check if the element clicked was a hero and for Firefox, don't select hero if right-clicked
+      if (event.which == 1 && elementClicked.classList.contains('hero')) {
         handlers.selectHero(elementClicked);
       }
       if (elementClicked.classList.contains('favorite')) {
@@ -264,21 +260,12 @@ var handlers = {
       event.preventDefault();
 
       // Show custom context menu
-
       var elementClicked = event.target;
       selectedHero = elementClicked.innerHTML;
 
       // Position menu at cursor
       var xPos = event.pageX;
       var yPos = event.pageY;
-      // var contextMenuWidth = contextMenu.offsetWidth;
-
-      // Check if there is enough room to position menu, if not position to right of cursor
-      // if (xPos < contextMenuWidth / 2) {
-      //   contextMenu.style.transform = "none";
-      // } else {
-      //   contextMenu.style.transform = "translate(-50%)";
-      // }
 
       // Position the menu via CSS
       contextMenu.style.left = xPos + "px";
@@ -293,7 +280,7 @@ var handlers = {
 
       // Console log the right-clicked hero
       console.log("You right-clicked: " + selectedHero);
-      console.log("xpos is " + xPos);
+      // console.log("xpos is " + xPos);
       // console.log("width is " + contextMenuWidth);
     });
   },
@@ -311,14 +298,6 @@ var handlers = {
 
     console.log("You've opened the favorites wheel.");
   },
-  // createFavoriteWheel: function() {
-  //   for (var i = 0; i < 4; i++) {
-  //     // favorite = document.createElement('span');
-  //     // favoriteWheel.appendChild(favorite);
-  //     // favorite.classList.add('favorite');
-  //     // favorite.id = i;
-  //   }
-  // },
   openFavoriteWheel: function() {
     favoriteList = document.getElementsByClassName('favorite');
     if (editFavorite == true) {
@@ -342,7 +321,7 @@ var handlers = {
     // Open the wheel
     favoriteWheel.classList.add('active');
 
-    // If adding a favorite and the wheel is persistent, give the user addition hints and a pointer
+    // If adding a favorite and the wheel is persistent, give the user additional hints and a pointer
     if (editFavorite == true) {
       chosenHero.classList.add('active');
       backHint.classList.add('active');
