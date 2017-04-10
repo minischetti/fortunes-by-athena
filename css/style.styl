@@ -133,15 +133,75 @@ a {
   z-index: 1;
 }
 
-#particles-js {
+#settingsPage {
+  z-index: 3;
   position: absolute;
+  display: flex;
+  flex-direction: column;
   fullSize();
-  filter: blur(3px);
-  mix-blend-mode: multiply;
-  transform: scale(1.25) skew(-25deg);
-  pointer-events: none;
-  z-index: -1;
+  background-color: #fff;
+
+  .settingsContainer {
+    width: 50%;
+    margin: auto;
+
+    h2 {
+      margin: 4rem 0 2rem;
+    }
+  }
+
+  span {
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    padding: 0 2rem;
+    background-color: rgba(0,0,0,.1);
+    border-radius: .2rem;
+    &:first-child {
+      width: 85%;
+    }
+    &:last-child {
+      width: 15%;
+    }
+  }
 }
+
+.setting {
+  display: flex;
+  margin: auto;
+  height: 4rem;
+  line-height: 4rem;
+
+  &:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+}
+
+.toggle, .keybind {
+  margin-left: 2rem;
+}
+
+.toggle {
+  background-color: red;
+
+  &.active {
+    background-color: green;
+  }
+}
+
+.keybind {
+  text-align: center;
+}
+
+// #particles-js {
+//   position: absolute;
+//   fullSize();
+//   filter: blur(3px);
+//   mix-blend-mode: multiply;
+//   transform: scale(1.25) skew(-25deg);
+//   pointer-events: none;
+//   z-index: -1;
+// }
 
 // Remove comments and box shadow for native Overwatch style
 #contextMenu {

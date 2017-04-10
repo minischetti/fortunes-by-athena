@@ -8,9 +8,48 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="assets/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   </head>
   <body>
     <!-- <img id="logo" src="assets/athena.svg"> -->
+    <div id="settingsPage">
+      <div class="settingsContainer">
+        <h2>Application</h2>
+        <div id="rememberFavorites" class="setting">
+          <span>Remember favorite heroes</span>
+          <span id="rememberHeroesToggle" class="toggle">Yes</span>
+        </div>
+        <div id="Sound" class="setting">
+          <span>Enable sounds</span>
+          <span id="toggleSoundSetting" class="toggle">Yes</span>
+        </div>
+        <h2>Keybinds</h2>
+        <div class="setting">
+          <span>Select a hero</span>
+          <span class="keybind">H</span>
+        </div>
+        <div class="setting">
+          <span>Mystery Hero</span>
+          <span class="keybind">M</span>
+        </div>
+        <div class="setting">
+          <span>Favorites Wheel</span>
+          <span class="keybind">I (Hold)</span>
+        </div>
+        <div class="setting">
+          <span>Toggle sound</span>
+          <span class="keybind">S</span>
+        </div>
+        <div class="setting">
+          <span>Tweet fortune</span>
+          <span class="keybind">T</span>
+        </div>
+        <div class="setting">
+          <span>Follow on Twitter</span>
+          <span class="keybind">F</span>
+        </div>
+      </div>
+    </div>
     <div id="contextMenu">
       <div class="menuInner">
         <span class="corner top"></span>
@@ -68,8 +107,8 @@
       <span id="menuButton" class="hint ui">Press <span id="menuKey" class="key">H</span> to choose a hero</span>
     </div>
     <script src="js/howler.core.min.js"></script>
-    <script src="js/particles.min.js"></script>
-    <script src="js/particles.js"></script>
+    <!-- <script src="js/particles.min.js"></script>
+    <script src="js/particles.js"></script> -->
     <script src="js/app.js"></script>
     <script src="js/ga.js"></script>
   </body>

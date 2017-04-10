@@ -147,8 +147,9 @@ var heroes = [ana, bastion, dva, genji, hanzo, junkrat, lucio, mccree, mei, merc
 var favoriteHeroes = [];
 selectedHero = '';
 start = false;
-enableSound = true;
+soundStatus = true;
 editFavorite = false;
+rememberHeroes = true;
 
 var wheelFirst = {
   name: "Empty",
@@ -171,28 +172,20 @@ var handlers = {
   heroList: document.getElementById('heroList'),
   welcomeText: document.getElementById('welcomeText'),
   menuKey: document.getElementById('menuKey'),
-  toggleSound: function() {
-    var toggleSoundTooltip = document.getElementById('toggleSoundTooltip');
-    toggleSoundButton.classList.toggle('animate');
-    enableSound = !enableSound;
-    if (enableSound === false) {
-      toggleSoundTooltip.innerHTML = 'Enable Sound';
-    } else {
-      toggleSoundTooltip.innerHTML = 'Disable Sound';
-    }
-  },
   setUpEventListeners: function() {
     var menuButton = document.getElementById('menuButton');
     var toggleSoundButton = document.getElementById('toggleSoundButton');
+    var toggleSoundSetting = document.getElementById('toggleSoundSetting')
     var tweetButton = document.getElementById('tweetButton');
     var followButton = document.getElementById('followButton');
     var contextMenu = document.getElementById('contextMenu');
     var addFavoriteButton = document.getElementById('addFavoriteButton');
     var favoriteWheel = document.getElementById('favoriteWheel');
+    var rememberHeroesToggle = document.getElementById('rememberHeroesToggle');
 
     favoriteWheel.addEventListener('mouseover', function(event) {
       elementHovered = event.target;
-      if (editFavorite == false && elementHovered.classList.contains('active')) {
+      if (editFavorite === false && elementHovered.classList.contains('active')) {
         console.log(elementHovered);
         selectedHero = elementHovered.innerHTML;
       }
@@ -201,7 +194,7 @@ var handlers = {
     document.addEventListener('click', function(event) {
       elementClicked = event.target;
       // Check if the element clicked was a hero and for Firefox, don't select hero if right-clicked
-      if (event.which == 1 && elementClicked.classList.contains('hero')) {
+      if (event.which === 1 && elementClicked.classList.contains('hero')) {
         handlers.selectHero(elementClicked);
       }
       if (elementClicked.classList.contains('favorite')) {
@@ -217,7 +210,10 @@ var handlers = {
           handlers.mysteryHero();
           break;
         case toggleSoundButton:
-          handlers.toggleSound();
+          settings.toggleSound();
+          break;
+        case toggleSoundSetting:
+          settings.toggleSound();
           break;
         case menuButton:
           handlers.toggleMenu();
@@ -227,6 +223,9 @@ var handlers = {
           break;
         case addFavoriteButton:
           handlers.addFavorite();
+          break;
+        case rememberHeroesToggle:
+          settings.rememberHeroes();
           break;
       }
       console.log(elementClicked);
@@ -300,7 +299,7 @@ var handlers = {
   },
   openFavoriteWheel: function() {
     favoriteList = document.getElementsByClassName('favorite');
-    if (editFavorite == true) {
+    if (editFavorite === true) {
       for (var i = 0; i < favoriteList.length; i++) {
         favoriteList[i].style.pointerEvents = 'auto';
       }
@@ -322,7 +321,7 @@ var handlers = {
     favoriteWheel.classList.add('active');
 
     // If adding a favorite and the wheel is persistent, give the user additional hints and a pointer
-    if (editFavorite == true) {
+    if (editFavorite === true) {
       chosenHero.classList.add('active');
       backHint.classList.add('active');
       // favoriteWheel.style.cursor = "pointer";
@@ -348,7 +347,7 @@ var handlers = {
     textPosition = 'favoriteText' + elementClicked.id;
     wheelLabel = document.getElementById(textPosition);
 
-    if (editFavorite == true && elementClicked.classList.contains('favorite')) {
+    if (editFavorite === true && elementClicked.classList.contains('favorite')) {
       elementClicked.innerHTML = selectedHero;
       // elementClicked.classList.add('active');
       wheelLabel.classList.add('active');
@@ -358,22 +357,30 @@ var handlers = {
       switch(wheelPosition) {
         case "0": {
           wheelFirst.name = selectedHero;
-          localStorage.setItem('wheel0', wheelFirst.name);
+          if (rememberHeroes === true) {
+            localStorage.setItem('wheel0', wheelFirst.name);
+          }
           break;
         }
         case "1": {
           wheelSecond.name = selectedHero;
-          localStorage.setItem('wheel1', wheelSecond.name);
+          if(rememberHeroes === true) {
+            localStorage.setItem('wheel1', wheelSecond.name);
+          }
           break;
         }
         case "2": {
           wheelThird.name = selectedHero;
-          localStorage.setItem('wheel2', wheelThird.name);
+          if(rememberHeroes === true) {
+            localStorage.setItem('wheel2', wheelThird.name);
+          }
           break;
         }
         case "3": {
           wheelFourth.name = selectedHero;
-          localStorage.setItem('wheel3', wheelFourth.name);
+          if(rememberHeroes === true) {
+            localStorage.setItem('wheel3', wheelFourth.name);
+          }
           break;
         }
       }
@@ -386,7 +393,7 @@ var handlers = {
 }
 
 var view = {
-  getLocalStorage: function() {
+  getFavoriteHeroes: function() {
     wheelHeroes = [wheelFirst, wheelSecond, wheelThird, wheelFourth];
     for (var i = 0; i < wheelHeroes.length; i++) {
       var wheelRef = document.getElementById(i);
@@ -424,7 +431,7 @@ var view = {
         // H key for menu
         case 72:
           handlers.toggleMenu();
-          if (enableSound === true) {
+          if (soundStatus === true) {
             clickSound.play();
           }
           break;
@@ -435,14 +442,14 @@ var view = {
         // M key for mystery hero
         case 77:
           handlers.mysteryHero();
-          if (enableSound === true) {
+          if (soundStatus === true) {
             clickSound.play();
           }
           break;
         // S key for sound
         case 83:
-          handlers.toggleSound();
-          if (enableSound === true) {
+          settings.toggleSound();
+          if (soundStatus === true) {
             clickSound.play();
           }
           break;
@@ -462,7 +469,7 @@ var view = {
       hoveredHero = false;
       switch(key) {
         case 73:
-        // if (editFavorite == false) {
+        // if (editFavorite === false) {
 
           // view.yourFortune(selectedHero);
           console.log("You've hovered over " + selectedHero + ".");
@@ -487,8 +494,9 @@ var view = {
     var tint = document.getElementById('tint');
     image.classList.remove('animate');
     tint.classList.remove('animate');
-    swooshSound.play();
-
+    if (soundStatus === true) {
+      swooshSound.play();
+    }
     setTimeout(function() {
       image.classList.add('animate');
       tint.classList.add('animate');
@@ -531,12 +539,12 @@ var view = {
       src: ['assets/audio/swoosh.mp3'],
     });
     document.addEventListener('mouseover', function(event) {
-      if (enableSound === true && event.target.classList.contains('ui')) {
+      if (soundStatus === true && event.target.classList.contains('ui')) {
         hoverSound.play();
       }
     });
     document.addEventListener('click', function(event) {
-      if (enableSound === true && event.target.classList.contains('ui')) {
+      if (soundStatus === true && event.target.classList.contains('ui')) {
         clickSound.play();
       }
     });
@@ -621,7 +629,56 @@ var view = {
     }
   }
 }
-view.getLocalStorage();
+var settings = {
+  checkSettings: function() {
+    // Get settings from localStorage
+    rememberHeroes = JSON.parse(localStorage.getItem('rememberHeroes'));
+    soundStatus = JSON.parse(localStorage.getItem('soundStatus'));
+
+    // Apply any changes necessary
+    if(rememberHeroes === true) {
+      view.getFavoriteHeroes();
+    }
+    if (soundStatus === false) {
+      toggleSoundTooltip.innerHTML = 'Enable Sound';
+      toggleSoundSetting.innerHTML = 'No';
+    } else {
+      toggleSoundTooltip.innerHTML = 'Disable Sound';
+      toggleSoundSetting.innerHTML = 'Yes';
+    }
+    if (rememberHeroes === false) {
+      rememberHeroesToggle.innerHTML = 'No';
+    } else {
+      rememberHeroesToggle.innerHTML = 'Yes';
+    }
+  },
+  rememberHeroes: function() {
+    rememberHeroes = !rememberHeroes;
+    localStorage.setItem('rememberHeroes', rememberHeroes);
+    if (rememberHeroes === false) {
+      rememberHeroesToggle.innerHTML = 'No';
+    } else {
+      rememberHeroesToggle.innerHTML = 'Yes';
+    }
+    console.log(rememberHeroes);
+
+  },
+  toggleSound: function() {
+    var toggleSoundTooltip = document.getElementById('toggleSoundTooltip');
+    toggleSoundButton.classList.toggle('animate');
+    soundStatus = !soundStatus;
+    localStorage.setItem('soundStatus', soundStatus);
+    if (soundStatus === false) {
+      toggleSoundTooltip.innerHTML = 'Enable Sound';
+      toggleSoundSetting.innerHTML = 'No';
+    } else {
+      toggleSoundTooltip.innerHTML = 'Disable Sound';
+      toggleSoundSetting.innerHTML = 'Yes';
+    }
+    console.log(soundStatus);
+  }
+}
+settings.checkSettings();
 view.checkKeyPressed();
 view.createHeroList();
 view.setUpSoundEventListeners();

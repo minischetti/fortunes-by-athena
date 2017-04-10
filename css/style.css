@@ -105,15 +105,57 @@ a:hover .tooltip {
   transition: 0.25s all ease-in-out;
   z-index: 1;
 }
-#particles-js {
+#settingsPage {
+  z-index: 3;
   position: absolute;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
-  filter: blur(3px);
-  mix-blend-mode: multiply;
-  transform: scale(1.25) skew(-25deg);
-  pointer-events: none;
-  z-index: -1;
+  background-color: #fff;
+}
+#settingsPage .settingsContainer {
+  width: 50%;
+  margin: auto;
+}
+#settingsPage .settingsContainer h2 {
+  margin: 4rem 0 2rem;
+}
+#settingsPage span {
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  padding: 0 2rem;
+  background-color: rgba(0,0,0,0.1);
+  border-radius: 0.2rem;
+}
+#settingsPage span:first-child {
+  width: 85%;
+}
+#settingsPage span:last-child {
+  width: 15%;
+}
+.setting {
+  display: flex;
+  margin: auto;
+  height: 4rem;
+  line-height: 4rem;
+}
+.setting:not(:last-child) {
+  margin-bottom: 2rem;
+}
+.toggle,
+.keybind {
+  margin-left: 2rem;
+}
+.toggle {
+  background-color: #f00;
+}
+.toggle.active {
+  background-color: #008000;
+}
+.keybind {
+  text-align: center;
 }
 #contextMenu {
   display: flex;
