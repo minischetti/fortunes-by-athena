@@ -172,14 +172,19 @@ var handlers = {
   heroList: document.getElementById('heroList'),
   welcomeText: document.getElementById('welcomeText'),
   menuKey: document.getElementById('menuKey'),
+  app: document.getElementById('app'),
+  heroPage: document.getElementById('heroPage'),
+  settingsPage: document.getElementById('settingsPage'),
   setUpEventListeners: function() {
     var menuButton = document.getElementById('menuButton');
+    var toggleSettings = document.getElementById('toggleSettings');
     var toggleSoundButton = document.getElementById('toggleSoundButton');
     var toggleSoundSetting = document.getElementById('toggleSoundSetting')
     var tweetButton = document.getElementById('tweetButton');
     var followButton = document.getElementById('followButton');
     var contextMenu = document.getElementById('contextMenu');
     var addFavoriteButton = document.getElementById('addFavoriteButton');
+    var quickFavoriteButton = document.getElementById('quickFavorite');
     var favoriteWheel = document.getElementById('favoriteWheel');
     var rememberHeroesToggle = document.getElementById('rememberHeroesToggle');
 
@@ -206,6 +211,9 @@ var handlers = {
       }
       // Check for IDs, then take the appropriate action
       switch(elementClicked) {
+        case settingsButton:
+          handlers.toggleSettings();
+          break;
         case mysteryHeroButton:
           handlers.mysteryHero();
           break;
@@ -224,12 +232,20 @@ var handlers = {
         case addFavoriteButton:
           handlers.addFavorite();
           break;
+        case quickFavoriteButton:
+          handlers.addFavorite();
+          handlers.openFavoriteWheel();
+          break;
         case rememberHeroesToggle:
           settings.rememberHeroes();
           break;
       }
       console.log(elementClicked);
     });
+  },
+  toggleSettings: function() {
+    settingsPage.classList.toggle('active');
+    app.classList.toggle('active');
   },
   toggleMenu: function() {
     heroList.classList.toggle('open');
@@ -292,8 +308,8 @@ var handlers = {
     // Show favorite wheel
     handlers.openFavoriteWheel();
     // Set helper text at top to the chosen hero
-    chosenHero = document.getElementById('chosenHero');
-    chosenHero.innerHTML = selectedHero;
+    chosenHeroLabel = document.getElementById('chosenHero');
+    chosenHeroLabel.innerHTML = selectedHero;
 
     console.log("You've opened the favorites wheel.");
   },
@@ -638,18 +654,17 @@ var settings = {
     // Apply any changes necessary
     if(rememberHeroes === true) {
       view.getFavoriteHeroes();
+      rememberHeroesToggle.innerHTML = 'Yes';
+    } else {
+      rememberHeroesToggle.innerHTML = 'No';
     }
     if (soundStatus === false) {
+      toggleSoundButton.classList.toggle('animate');
       toggleSoundTooltip.innerHTML = 'Enable Sound';
       toggleSoundSetting.innerHTML = 'No';
     } else {
       toggleSoundTooltip.innerHTML = 'Disable Sound';
       toggleSoundSetting.innerHTML = 'Yes';
-    }
-    if (rememberHeroes === false) {
-      rememberHeroesToggle.innerHTML = 'No';
-    } else {
-      rememberHeroesToggle.innerHTML = 'Yes';
     }
   },
   rememberHeroes: function() {

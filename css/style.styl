@@ -52,8 +52,6 @@ body {
   font-family: 'Big Noodle Oblique';
   font-size: 2.4rem;
   letter-spacing: .1rem;
-  background: url("../assets/bg.jpg") no-repeat;
-  background-size: cover;
   overflow: hidden;
 }
 
@@ -84,12 +82,13 @@ a {
   z-index: -1;
 }
 
-#socialLinks {
+#socialLinks, #appLinks {
   display: flex;
   absolute(2rem, 2rem, initial, initial);
-  opacity: 0;
+  opacity: 1;
   transition: 1s opacity;
   transition-delay: .5s;
+  z-index: 4;
 
   img {
     display: block;
@@ -98,6 +97,10 @@ a {
   &.animate {
     opacity: 1;
   }
+}
+
+#appLinks {
+  absolute(2rem, initial, initial, 2rem);
 }
 
 #socialLinks span:hover .tooltip, a:hover .tooltip {
@@ -134,12 +137,18 @@ a {
 }
 
 #settingsPage {
+  top: -100vh;
   z-index: 3;
   position: absolute;
   display: flex;
   flex-direction: column;
   fullSize();
   background-color: #fff;
+  transition: .5s all;
+
+  &.active {
+    top: 0;
+  }
 
   .settingsContainer {
     width: 50%;
@@ -319,10 +328,30 @@ a {
   transition: .25s all;
 }
 
+#app {
+  position: absolute;
+  top: 0;
+  fullSize();
+  transition: .5s all;
+  &.active {
+    top: 100vh;
+  }
+}
+
 #heroPage {
+  top: 0;
   position: absolute;
   fullSize();
   transition: .5s all;
+}
+
+#heroPage:after {
+  content: "";
+  position: absolute;
+  fullSize();
+  background: url("../assets/bg.jpg") no-repeat;
+  background-size: cover;
+  z-index: -5;
 }
 
 #mysteryHeroButton, .hint {
@@ -374,7 +403,7 @@ a {
   }
 }
 #heroName {
-  absolute(initial, 4rem, 4rem, initial);
+  absolute(initial, 6rem, 4rem, initial);
   transform: translateY(100%);
   color: rgba(0,0,0,.9);
   filter: blur(1rem);
@@ -387,6 +416,13 @@ a {
     filter: blur(0);
     transform: translateY(0);
   }
+}
+
+#quickFavorite {
+  background-color: red;
+  width: 2rem;
+  height: 2rem;
+  absolute(initial, 2rem, 4rem, initial);
 }
 
 #mysteryHeroButton, .key, #heroList, #contextMenu {
@@ -539,7 +575,7 @@ a {
   }
 
   #heroName {
-    right: 2rem;
+    right: 4rem;
     bottom: 2rem;
   }
 }

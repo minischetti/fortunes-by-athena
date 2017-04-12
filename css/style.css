@@ -24,8 +24,6 @@ body {
   font-family: 'Big Noodle Oblique';
   font-size: 2.4rem;
   letter-spacing: 0.1rem;
-  background: url("../assets/bg.jpg") no-repeat;
-  background-size: cover;
   overflow: hidden;
 }
 h1 {
@@ -57,22 +55,33 @@ a {
   transform: translate(-50%, -50%);
   z-index: -1;
 }
-#socialLinks {
+#socialLinks,
+#appLinks {
   display: flex;
   position: absolute;
   top: 2rem;
   right: 2rem;
   bottom: initial;
   left: initial;
-  opacity: 0;
+  opacity: 1;
   transition: 1s opacity;
   transition-delay: 0.5s;
+  z-index: 4;
 }
-#socialLinks img {
+#socialLinks img,
+#appLinks img {
   display: block;
 }
-#socialLinks.animate {
+#socialLinks.animate,
+#appLinks.animate {
   opacity: 1;
+}
+#appLinks {
+  position: absolute;
+  top: 2rem;
+  right: initial;
+  bottom: initial;
+  left: 2rem;
 }
 #socialLinks span:hover .tooltip,
 a:hover .tooltip {
@@ -106,6 +115,7 @@ a:hover .tooltip {
   z-index: 1;
 }
 #settingsPage {
+  top: -100vh;
   z-index: 3;
   position: absolute;
   display: flex;
@@ -113,6 +123,10 @@ a:hover .tooltip {
   width: 100%;
   height: 100%;
   background-color: #fff;
+  transition: 0.5s all;
+}
+#settingsPage.active {
+  top: 0;
 }
 #settingsPage .settingsContainer {
   width: 50%;
@@ -263,11 +277,31 @@ a:hover .tooltip {
   filter: blur(1rem);
   transition: 0.25s all;
 }
+#app {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transition: 0.5s all;
+}
+#app.active {
+  top: 100vh;
+}
 #heroPage {
+  top: 0;
   position: absolute;
   width: 100%;
   height: 100%;
   transition: 0.5s all;
+}
+#heroPage:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url("../assets/bg.jpg") no-repeat;
+  background-size: cover;
+  z-index: -5;
 }
 #mysteryHeroButton,
 .hint {
@@ -329,7 +363,7 @@ a:hover .tooltip {
 #heroName {
   position: absolute;
   top: initial;
-  right: 4rem;
+  right: 6rem;
   bottom: 4rem;
   left: initial;
   transform: translateY(100%);
@@ -343,6 +377,16 @@ a:hover .tooltip {
   opacity: 1;
   filter: blur(0);
   transform: translateY(0);
+}
+#quickFavorite {
+  background-color: #f00;
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: initial;
+  right: 2rem;
+  bottom: 4rem;
+  left: initial;
 }
 #mysteryHeroButton,
 .key,
@@ -487,7 +531,7 @@ a:hover .tooltip {
     bottom: 2rem;
   }
   #heroName {
-    right: 2rem;
+    right: 4rem;
     bottom: 2rem;
   }
 }
