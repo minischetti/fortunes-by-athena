@@ -19,63 +19,61 @@
         <span id="addFavoriteButton">Add to favorites</span>
       </div>
     </div>
-    <div id="persistentUI">
-      <div id="appLinks">
-        <span id="settingsButton">Settings</span>
-        <span id="toggleSoundButton" class="ui">
-          <img src="assets/sound.svg">
-          <span id="toggleSoundTooltip" class="tooltip">Disable Sound</span>
-        </span>
+    <div id="appLinks" class="persistent">
+      <span id="settingsButton">Settings</span>
+      <span id="toggleSoundButton" class="ui">
+        <img src="assets/sound.svg">
+        <span id="toggleSoundTooltip" class="tooltip">Disable Sound</span>
+      </span>
+    </div>
+    <div id="socialLinks" class="persistent">
+      <a id="tweetButton" class="ui" href="" target="_blank">
+        <img src="assets/twitter.svg">
+        <span class="tooltip">Tweet Your Fortune</span>
+      </a>
+      <a id="followButton" class="ui" href="https://twitter.com/DomMinischetti" target="_blank">
+        <img src="assets/dom.png">
+        <span class="tooltip">Follow Me On Twitter</span>
+      </a>
+    </div>
+    <div id="favoriteWheel">
+      <span id="chosenHero"></span>
+      <div id="favoriteTextContainer">
+        <span class="favoriteText" id="favoriteText0">Empty</span>
+        <span class="favoriteText" id="favoriteText1">Empty</span>
+        <span class="favoriteText" id="favoriteText2">Empty</span>
+        <span class="favoriteText" id="favoriteText3">Empty</span>
       </div>
-      <div id="socialLinks">
-        <a id="tweetButton" class="ui" href="" target="_blank">
-          <img src="assets/twitter.svg">
-          <span class="tooltip">Tweet Your Fortune</span>
-        </a>
-        <a id="followButton" class="ui" href="https://twitter.com/DomMinischetti" target="_blank">
-          <img src="assets/dom.png">
-          <span class="tooltip">Follow Me On Twitter</span>
-        </a>
+      <div id="divider" class="divider">
+        <span></span>
+        <span></span>
       </div>
+      <svg id="favoriteWheelContainer" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-2 -2 504 504">
+        <g>
+          <path class="favorite ui" id="0" transform="matrix(1,0,0,1,0,0)" data-svg-origin="250 250" fill="transparent" stroke-width=".5" d="M250,250 l250,0 A250,250 0 0,0 250.00000000000003,0 z">Empty</path>
+          <path class="favorite ui" id="1" transform="matrix(0,-1,1,0,0,500)" data-svg-origin="250 250" fill="transparent" stroke-width=".5" d="M250,250 l250,0 A250,250 0 0,0 250.00000000000003,0 z">Empty</path>
+          <path class="favorite ui" id="2" transform="matrix(-1,0,0,-1,500,500)" data-svg-origin="250 250" fill="transparent" stroke-width=".5" d="M250,250 l250,0 A250,250 0 0,0 250.00000000000003,0 z">Empty</path>
+          <path class="favorite ui" id="3" transform="matrix(0,1,-1,0,500.00000000000006,0)" data-svg-origin="250 250" fill="transparent" stroke-width=".5" d="M250,250 l250,0 A250,250 0 0,0 250.00000000000003,0 z">Empty</path>
+        </g>
+      </svg>
+      <span class="hint">Favorite wheel bound to <span class="key">I</span></span>
+      <span id="backHint" class="hint right ui"><span class="key wide">Escape</span>Back</span>
     </div>
     <div id="app">
       <!-- Favorites Wheel -->
-      <div id="favoriteWheel">
-        <span id="chosenHero"></span>
-        <div id="favoriteTextContainer">
-          <span class="favoriteText" id="favoriteText0">Empty</span>
-          <span class="favoriteText" id="favoriteText1">Empty</span>
-          <span class="favoriteText" id="favoriteText2">Empty</span>
-          <span class="favoriteText" id="favoriteText3">Empty</span>
-        </div>
-        <div id="divider" class="divider">
-          <span></span>
-          <span></span>
-        </div>
-        <svg id="favoriteWheelContainer" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-2 -2 504 504">
-          <g>
-            <path class="favorite ui" id="0" transform="matrix(1,0,0,1,0,0)" data-svg-origin="250 250" fill="transparent" stroke-width=".5" d="M250,250 l250,0 A250,250 0 0,0 250.00000000000003,0 z">Empty</path>
-            <path class="favorite ui" id="1" transform="matrix(0,-1,1,0,0,500)" data-svg-origin="250 250" fill="transparent" stroke-width=".5" d="M250,250 l250,0 A250,250 0 0,0 250.00000000000003,0 z">Empty</path>
-            <path class="favorite ui" id="2" transform="matrix(-1,0,0,-1,500,500)" data-svg-origin="250 250" fill="transparent" stroke-width=".5" d="M250,250 l250,0 A250,250 0 0,0 250.00000000000003,0 z">Empty</path>
-            <path class="favorite ui" id="3" transform="matrix(0,1,-1,0,500.00000000000006,0)" data-svg-origin="250 250" fill="transparent" stroke-width=".5" d="M250,250 l250,0 A250,250 0 0,0 250.00000000000003,0 z">Empty</path>
-          </g>
-        </svg>
-        <span class="hint">Favorite wheel bound to <span class="key">I</span></span>
-        <span id="backHint" class="hint right ui"><span class="key wide">Escape</span>Back</span>
-      </div>
       <h1 id="welcomeText">Fortunes <span>by Athena</span></h1>
       <!-- <div id="particles-js"></div> -->
       <ul id="heroList" class="ui">
       </ul>
-      <span id="mysteryHeroButton" class="ui">Mystery<span id="mysteryKey">M</span></span>
-      <span id="menuButton" class="hint ui">Press <span id="menuKey" class="key">H</span> to choose a hero</span>
       <!-- Fortune Page -->
       <div id="heroPage">
         <div id="tint"></div>
         <div id="image"></div>
         <h2 id="heroFortune"></h2>
         <h3 id="heroName"></h3>
-        <span id="quickFavorite"></span>
+        <span id="mysteryHeroButton" class="ui">Mystery<span id="mysteryKey">M</span></span>
+        <span id="menuButton" class="hint ui">Press <span id="menuKey" class="key">H</span> to choose a hero</span>
+        <span id="quickFavoriteButton"></span>
       </div>
     </div>
     <!-- Settings Page -->

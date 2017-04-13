@@ -56,6 +56,14 @@ a {
   z-index: -1;
 }
 #socialLinks,
+#quickFavoriteButton {
+  opacity: 0;
+}
+#socialLinks.active,
+#quickFavoriteButton.active {
+  opacity: 1;
+}
+#socialLinks,
 #appLinks {
   display: flex;
   position: absolute;
@@ -63,18 +71,12 @@ a {
   right: 2rem;
   bottom: initial;
   left: initial;
-  opacity: 1;
   transition: 1s opacity;
   transition-delay: 0.5s;
-  z-index: 4;
 }
 #socialLinks img,
 #appLinks img {
   display: block;
-}
-#socialLinks.animate,
-#appLinks.animate {
-  opacity: 1;
 }
 #appLinks {
   position: absolute;
@@ -116,7 +118,7 @@ a:hover .tooltip {
 }
 #settingsPage {
   top: -100vh;
-  z-index: 3;
+  z-index: -1;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -177,7 +179,7 @@ a:hover .tooltip {
   position: absolute;
   width: 22rem;
   height: 1rem;
-  z-index: 2;
+  z-index: 0;
   color: #fff;
   font-size: 1.8rem;
   border-radius: 0.4rem;
@@ -287,6 +289,9 @@ a:hover .tooltip {
 #app.active {
   top: 100vh;
 }
+.persistent {
+  z-index: 1;
+}
 #heroPage {
   top: 0;
   position: absolute;
@@ -295,17 +300,14 @@ a:hover .tooltip {
   transition: 0.5s all;
 }
 #heroPage:after {
+  pointer-events: none;
   content: "";
   position: absolute;
   width: 100%;
   height: 100%;
   background: url("../assets/bg.jpg") no-repeat;
   background-size: cover;
-  z-index: -5;
-}
-#mysteryHeroButton,
-.hint {
-  z-index: 2;
+  z-index: -2;
 }
 #image {
   position: absolute;
@@ -319,9 +321,9 @@ a:hover .tooltip {
   background-color: #fff;
   background-position: right;
   background-repeat: no-repeat;
-  z-index: -2;
   transition: 1s opacity;
   opacity: 0;
+  z-index: -1;
 }
 #image.animate {
   opacity: 0.5;
@@ -334,7 +336,6 @@ a:hover .tooltip {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
   opacity: 0;
   transition: 1s all;
 }
@@ -378,7 +379,7 @@ a:hover .tooltip {
   filter: blur(0);
   transform: translateY(0);
 }
-#quickFavorite {
+#quickFavoriteButton {
   background-color: #f00;
   width: 2rem;
   height: 2rem;
@@ -614,7 +615,7 @@ svg path.active {
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0,0.25);
-  z-index: 3;
+  z-index: 1;
   opacity: 0;
   visibility: hidden;
   transition: 0.25s all;

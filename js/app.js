@@ -175,6 +175,7 @@ var handlers = {
   app: document.getElementById('app'),
   heroPage: document.getElementById('heroPage'),
   settingsPage: document.getElementById('settingsPage'),
+  quickFavoriteButton: document.getElementById('quickFavoriteButton'),
   setUpEventListeners: function() {
     var menuButton = document.getElementById('menuButton');
     var toggleSettings = document.getElementById('toggleSettings');
@@ -184,7 +185,6 @@ var handlers = {
     var followButton = document.getElementById('followButton');
     var contextMenu = document.getElementById('contextMenu');
     var addFavoriteButton = document.getElementById('addFavoriteButton');
-    var quickFavoriteButton = document.getElementById('quickFavorite');
     var favoriteWheel = document.getElementById('favoriteWheel');
     var rememberHeroesToggle = document.getElementById('rememberHeroesToggle');
 
@@ -349,14 +349,14 @@ var handlers = {
 
     }
     // Blur other content
-    heroPage.classList.add('blur');
+    app.classList.add('blur');
   },
   closeFavoriteWheel: function() {
     // Close the wheel
     favoriteWheel.classList.remove('active');
     divider.classList.remove('active');
     // Disable blur
-    heroPage.classList.remove('blur');
+    app.classList.remove('blur');
   },
   updateWheel: function(wheelPosition) {
     wheelPosition = elementClicked.id;
@@ -426,9 +426,12 @@ var view = {
       wheelText.innerHTML = wheelHeroes[i].name;
     }
   },
-  showSocialLinks: function() {
+  showHiddenElements: function() {
     var socialLinks = document.getElementById('socialLinks');
-    socialLinks.classList.add('animate');
+    if(start === true) {
+      socialLinks.classList.add('active');
+      quickFavoriteButton.classList.add('active');
+    }
   },
   checkKeyPressed: function() {
     document.addEventListener('keydown', function(e) {
@@ -539,7 +542,7 @@ var view = {
     }, 1000);
   },
   generateHeroPage: function(hero) {
-    view.showSocialLinks();
+    view.showHiddenElements();
     view.createBackground(hero);
     view.fetchFortune(hero);
     view.fetchName(hero);
