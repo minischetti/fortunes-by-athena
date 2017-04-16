@@ -90,8 +90,7 @@ a {
 }
 #socialLinks #quickFavoriteButton,
 #socialLinks #toggleSoundButton,
-#socialLinks #tweetButton,
-#socialLinks #followButton {
+#socialLinks #tweetButton {
   margin-right: 2rem;
 }
 #socialLinks img {

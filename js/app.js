@@ -435,7 +435,7 @@ var view = {
         // F key for follow
         case 70:
           if (start === true) {
-            followLink.click();
+            followButton.click();
           }
           break;
         // H key for menu
@@ -466,7 +466,7 @@ var view = {
         // T key for tweet
         case 84:
           if (start === true) {
-            tweetFortuneButton.click();
+            tweetButton.click();
           }
           break;
       }
