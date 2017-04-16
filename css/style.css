@@ -88,6 +88,12 @@ a {
   transition: 1s opacity;
   transition-delay: 0.5s;
 }
+#socialLinks #quickFavoriteButton,
+#socialLinks #toggleSoundButton,
+#socialLinks #tweetButton,
+#socialLinks #followButton {
+  margin-right: 2rem;
+}
 #socialLinks img {
   display: block;
 }
@@ -101,7 +107,6 @@ a:hover .tooltip {
   display: flex;
   position: relative;
   color: rgba(0,0,0,0.9);
-  margin: 0 2rem;
 }
 .tooltip {
   pointer-events: none;
@@ -124,7 +129,6 @@ a:hover .tooltip {
 }
 #settingsPage {
   top: -100vh;
-  z-index: -1;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -353,6 +357,7 @@ a:hover .tooltip {
   opacity: 0.25;
 }
 #heroFortune {
+  cursor: text;
   user-select: auto;
   position: absolute;
   top: 45%;
@@ -391,14 +396,9 @@ a:hover .tooltip {
   transform: translateY(0);
 }
 #quickFavoriteButton {
-  background-color: #f00;
-  width: 2rem;
-  height: 2rem;
-  position: absolute;
-  top: initial;
-  right: 2rem;
-  bottom: 4rem;
-  left: initial;
+  position: relative;
+  width: 22px;
+  height: 23px;
 }
 #mysteryHeroButton,
 .key,

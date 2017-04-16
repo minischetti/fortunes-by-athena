@@ -17,7 +17,7 @@
       <div class="menuInner">
         <span class="corner top"></span>
         <span class="corner bottom"></span>
-        <span id="addFavoriteButton">Add to favorites</span>
+        <span id="addFavoriteButton" class="ui">Add to favorites</span>
       </div>
     </div>
     <div id="favoriteWheel">
@@ -45,6 +45,10 @@
     </div>
     <div id="app">
       <div id="socialLinks">
+        <span id="quickFavoriteButton" class="ui">
+          <img src="assets/quickFav.svg">
+          <span class="tooltip">Add to Favorites</span>
+        </span>
         <span id="toggleSoundButton" class="ui">
           <img src="assets/sound.svg">
           <span id="toggleSoundTooltip" class="tooltip">Disable Sound</span>
@@ -71,7 +75,6 @@
         <h3 id="heroName"></h3>
         <span id="mysteryHeroButton" class="ui">Mystery<span id="mysteryKey">M</span></span>
         <span id="menuButton" class="hint ui">Press <span id="menuKey" class="key">H</span> to choose a hero</span>
-        <span id="quickFavoriteButton" class="ui"></span>
       </div>
     </div>
     <!-- Settings Page -->
@@ -80,11 +83,11 @@
         <h2>Application</h2>
         <div id="rememberFavorites" class="setting">
           <span>Remember favorite heroes</span>
-          <span id="rememberHeroesToggle" class="toggle">Yes</span>
+          <span id="rememberHeroesToggle" class="toggle ui">Yes</span>
         </div>
         <div id="Sound" class="setting">
           <span>Enable sounds</span>
-          <span id="toggleSoundSetting" class="toggle">Yes</span>
+          <span id="toggleSoundSetting" class="toggle ui">Yes</span>
         </div>
         <h2>Keybinds</h2>
         <div class="setting">

@@ -109,6 +109,10 @@ a {
   transition: 1s opacity;
   transition-delay: .5s;
 
+  #quickFavoriteButton, #toggleSoundButton, #tweetButton, #followButton {
+    margin-right: 2rem;
+  }
+
   img {
     display: block;
   }
@@ -124,7 +128,6 @@ a {
   display: flex;
   position: relative;
   color: rgba(0,0,0,.9);
-  margin: 0 2rem;
 }
 
 .tooltip {
@@ -149,7 +152,6 @@ a {
 
 #settingsPage {
   top: -100vh;
-  z-index: -1;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -402,6 +404,7 @@ a {
 }
 
 #heroFortune {
+  cursor: text;
   user-select: auto;
   absolute(45%, initial, initial,  50%);
   transform: translate(-50%, -50%);
@@ -435,10 +438,9 @@ a {
 }
 
 #quickFavoriteButton {
-  background-color: red;
-  width: 2rem;
-  height: 2rem;
-  absolute(initial, 2rem, 4rem, initial);
+  position: relative;
+  width: 22px;
+  height: 23px;
 }
 
 #mysteryHeroButton, .key, #heroList, #contextMenu {
