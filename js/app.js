@@ -149,7 +149,6 @@ selectedHero = '';
 start = false;
 soundStatus = true;
 editFavorite = false;
-rememberHeroes = true;
 
 var wheelFirst = {
   name: "Empty",
@@ -186,12 +185,11 @@ var handlers = {
     var contextMenu = document.getElementById('contextMenu');
     var addFavoriteButton = document.getElementById('addFavoriteButton');
     var favoriteWheel = document.getElementById('favoriteWheel');
-    var rememberHeroesToggle = document.getElementById('rememberHeroesToggle');
 
     favoriteWheel.addEventListener('mouseover', function(event) {
       elementHovered = event.target;
       if (editFavorite === false && elementHovered.classList.contains('active')) {
-        console.log(elementHovered);
+        console.log("You've hovered over " + elementHovered.innerHTML + ".");
         selectedHero = elementHovered.innerHTML;
       }
     });
@@ -240,11 +238,8 @@ var handlers = {
           handlers.addFavorite();
           handlers.openFavoriteWheel();
           break;
-        case rememberHeroesToggle:
-          settings.rememberHeroes();
-          break;
       }
-      console.log(elementClicked);
+      // console.log(elementClicked);
     });
   },
   toggleSettings: function() {
@@ -298,7 +293,7 @@ var handlers = {
       }, 25);
 
       // Console log the right-clicked hero
-      console.log("You right-clicked: " + selectedHero);
+      console.log("You've right-clicked: " + selectedHero + ".");
       // console.log("xpos is " + xPos);
       // console.log("width is " + contextMenuWidth);
     });
@@ -377,30 +372,22 @@ var handlers = {
       switch(wheelPosition) {
         case "0": {
           wheelFirst.name = selectedHero;
-          if (rememberHeroes === true) {
-            localStorage.setItem('wheel0', wheelFirst.name);
-          }
+          localStorage.setItem('wheel0', wheelFirst.name);
           break;
         }
         case "1": {
           wheelSecond.name = selectedHero;
-          if(rememberHeroes === true) {
-            localStorage.setItem('wheel1', wheelSecond.name);
-          }
+          localStorage.setItem('wheel1', wheelSecond.name);
           break;
         }
         case "2": {
           wheelThird.name = selectedHero;
-          if(rememberHeroes === true) {
-            localStorage.setItem('wheel2', wheelThird.name);
-          }
+          localStorage.setItem('wheel2', wheelThird.name);
           break;
         }
         case "3": {
           wheelFourth.name = selectedHero;
-          if(rememberHeroes === true) {
-            localStorage.setItem('wheel3', wheelFourth.name);
-          }
+          localStorage.setItem('wheel3', wheelFourth.name);
           break;
         }
       }
@@ -495,8 +482,8 @@ var view = {
         // if (editFavorite === false) {
 
           // view.yourFortune(selectedHero);
-          console.log("You've hovered over " + selectedHero + ".");
           if (elementHovered.classList.contains('active')) {
+            console.log("You've selected " + selectedHero + ".");
             view.yourFortune(selectedHero);
           }
         // }
@@ -655,39 +642,23 @@ var view = {
 var settings = {
   checkSettings: function() {
     // Get settings from localStorage
-    rememberHeroes = JSON.parse(localStorage.getItem('rememberHeroes'));
     soundStatus = JSON.parse(localStorage.getItem('soundStatus'));
 
     // Apply any changes necessary
-    if(rememberHeroes === true) {
-      view.getFavoriteHeroes();
-      rememberHeroesToggle.innerHTML = 'Yes';
-    } else {
-      rememberHeroesToggle.innerHTML = 'No';
-    }
     if (soundStatus === false) {
-      toggleSoundButton.classList.toggle('animate');
+      toggleSoundButton.classList.add('animate');
       toggleSoundTooltip.innerHTML = 'Enable Sound';
       toggleSoundSetting.innerHTML = 'No';
     } else {
       toggleSoundTooltip.innerHTML = 'Disable Sound';
       toggleSoundSetting.innerHTML = 'Yes';
+      toggleSoundSetting.classList.add('active');
     }
-  },
-  rememberHeroes: function() {
-    rememberHeroes = !rememberHeroes;
-    localStorage.setItem('rememberHeroes', rememberHeroes);
-    if (rememberHeroes === false) {
-      rememberHeroesToggle.innerHTML = 'No';
-    } else {
-      rememberHeroesToggle.innerHTML = 'Yes';
-    }
-    console.log(rememberHeroes);
-
   },
   toggleSound: function() {
     var toggleSoundTooltip = document.getElementById('toggleSoundTooltip');
     toggleSoundButton.classList.toggle('animate');
+    toggleSoundSetting.classList.toggle('active');
     soundStatus = !soundStatus;
     localStorage.setItem('soundStatus', soundStatus);
     if (soundStatus === false) {
@@ -697,12 +668,13 @@ var settings = {
       toggleSoundTooltip.innerHTML = 'Disable Sound';
       toggleSoundSetting.innerHTML = 'Yes';
     }
-    console.log(soundStatus);
+    console.log("Enable Sounds: " + soundStatus);
   }
 }
 settings.checkSettings();
 view.checkKeyPressed();
 view.createHeroList();
 view.setUpSoundEventListeners();
+view.getFavoriteHeroes();
 handlers.setUpEventListeners();
 handlers.contextMenu();

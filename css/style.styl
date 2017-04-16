@@ -181,13 +181,18 @@ a {
     text-transform: uppercase;
     font-size: 1.4rem;
     padding: 0 2rem;
-    background-color: rgba(0,0,0,.1);
     border-radius: .2rem;
+
     &:first-child {
       width: 85%;
     }
+
     &:last-child {
       width: 15%;
+    }
+
+    &:not(.toggle) {
+      background-color: rgba(0,0,0,.1);
     }
   }
 }
@@ -208,6 +213,7 @@ a {
 }
 
 .toggle {
+  text-align: center;
   background-color: red;
 
   &.active {
