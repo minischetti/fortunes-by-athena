@@ -20,6 +20,13 @@ body {
 html {
   font-size: 10px;
 }
+* {
+  user-select: none;
+  cursor: default;
+}
+.ui {
+  cursor: pointer;
+}
 body {
   font-family: 'Big Noodle Oblique';
   font-size: 2.4rem;
@@ -40,6 +47,13 @@ h3 {
 }
 a {
   text-decoration: none;
+}
+#settingsButton {
+  position: absolute;
+  top: 2rem;
+  right: initial;
+  bottom: initial;
+  left: 2rem;
 }
 #followButton img {
   width: 2.3rem;
@@ -63,8 +77,8 @@ a {
 #quickFavoriteButton.active {
   opacity: 1;
 }
-#socialLinks,
-#appLinks {
+#socialLinks {
+  z-index: 1;
   display: flex;
   position: absolute;
   top: 2rem;
@@ -74,16 +88,8 @@ a {
   transition: 1s opacity;
   transition-delay: 0.5s;
 }
-#socialLinks img,
-#appLinks img {
+#socialLinks img {
   display: block;
-}
-#appLinks {
-  position: absolute;
-  top: 2rem;
-  right: initial;
-  bottom: initial;
-  left: 2rem;
 }
 #socialLinks span:hover .tooltip,
 a:hover .tooltip {
@@ -126,9 +132,13 @@ a:hover .tooltip {
   height: 100%;
   background-color: #fff;
   transition: 0.5s all;
+  visibility: hidden;
+  pointer-events: none;
 }
 #settingsPage.active {
   top: 0;
+  visibility: visible;
+  pointer-events: auto;
 }
 #settingsPage .settingsContainer {
   width: 50%;
@@ -179,7 +189,7 @@ a:hover .tooltip {
   position: absolute;
   width: 22rem;
   height: 1rem;
-  z-index: 0;
+  z-index: 2;
   color: #fff;
   font-size: 1.8rem;
   border-radius: 0.4rem;
@@ -343,6 +353,7 @@ a:hover .tooltip {
   opacity: 0.25;
 }
 #heroFortune {
+  user-select: auto;
   position: absolute;
   top: 45%;
   right: initial;
@@ -543,13 +554,16 @@ a:hover .tooltip {
     display: none;
   }
 }
+span img,
+a img {
+  pointer-events: none;
+}
 #toggleSoundButton {
   position: relative;
   cursor: pointer;
   transform-origin: center;
 }
 #toggleSoundButton img {
-  pointer-events: none;
   transform: rotateZ(45deg);
   transition: 0.25s transform;
 }
@@ -618,11 +632,13 @@ svg path.active {
   z-index: 1;
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
   transition: 0.25s all;
 }
 #favoriteWheel.active {
-  visibility: visible;
   opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 #favoriteWheel .hint {
   pointer-events: none;

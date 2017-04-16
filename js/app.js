@@ -209,6 +209,10 @@ var handlers = {
       if (elementClicked != 'contextMenu') {
         contextMenu.classList.remove('active');
       }
+      // If you click outside of the hero menu, close it
+      // if (elementClicked != 'heroList') {
+      //   heroList.classList.remove('open');
+      // }
       // Check for IDs, then take the appropriate action
       switch(elementClicked) {
         case settingsButton:

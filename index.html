@@ -12,29 +12,13 @@
   </head>
   <body>
     <!-- <img id="logo" src="assets/athena.svg"> -->
+    <span id="settingsButton" class="persistent ui">Settings</span>
     <div id="contextMenu">
       <div class="menuInner">
         <span class="corner top"></span>
         <span class="corner bottom"></span>
         <span id="addFavoriteButton">Add to favorites</span>
       </div>
-    </div>
-    <div id="appLinks" class="persistent">
-      <span id="settingsButton">Settings</span>
-      <span id="toggleSoundButton" class="ui">
-        <img src="assets/sound.svg">
-        <span id="toggleSoundTooltip" class="tooltip">Disable Sound</span>
-      </span>
-    </div>
-    <div id="socialLinks" class="persistent">
-      <a id="tweetButton" class="ui" href="" target="_blank">
-        <img src="assets/twitter.svg">
-        <span class="tooltip">Tweet Your Fortune</span>
-      </a>
-      <a id="followButton" class="ui" href="https://twitter.com/DomMinischetti" target="_blank">
-        <img src="assets/dom.png">
-        <span class="tooltip">Follow Me On Twitter</span>
-      </a>
     </div>
     <div id="favoriteWheel">
       <span id="chosenHero"></span>
@@ -60,6 +44,20 @@
       <span id="backHint" class="hint right ui"><span class="key wide">Escape</span>Back</span>
     </div>
     <div id="app">
+      <div id="socialLinks">
+        <span id="toggleSoundButton" class="ui">
+          <img src="assets/sound.svg">
+          <span id="toggleSoundTooltip" class="tooltip">Disable Sound</span>
+        </span>
+        <a id="tweetButton" class="ui" href="" target="_blank">
+          <img src="assets/twitter.svg">
+          <span class="tooltip">Tweet Your Fortune</span>
+        </a>
+        <a id="followButton" class="ui" href="https://twitter.com/DomMinischetti" target="_blank">
+          <img src="assets/dom.png">
+          <span class="tooltip">Follow Me On Twitter</span>
+        </a>
+      </div>
       <!-- Favorites Wheel -->
       <h1 id="welcomeText">Fortunes <span>by Athena</span></h1>
       <!-- <div id="particles-js"></div> -->
@@ -73,7 +71,7 @@
         <h3 id="heroName"></h3>
         <span id="mysteryHeroButton" class="ui">Mystery<span id="mysteryKey">M</span></span>
         <span id="menuButton" class="hint ui">Press <span id="menuKey" class="key">H</span> to choose a hero</span>
-        <span id="quickFavoriteButton"></span>
+        <span id="quickFavoriteButton" class="ui"></span>
       </div>
     </div>
     <!-- Settings Page -->
