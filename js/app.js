@@ -372,22 +372,30 @@ var handlers = {
       switch(wheelPosition) {
         case "0": {
           wheelFirst.name = selectedHero;
+          favoriteHeroes[0] = wheelFirst.name;
           localStorage.setItem('wheel0', wheelFirst.name);
+          view.checkFavorite(selectedHero);
           break;
         }
         case "1": {
           wheelSecond.name = selectedHero;
+          favoriteHeroes[1] = wheelSecond.name;
           localStorage.setItem('wheel1', wheelSecond.name);
+          view.checkFavorite(selectedHero);
           break;
         }
         case "2": {
           wheelThird.name = selectedHero;
+          favoriteHeroes[2] = wheelThird.name;
           localStorage.setItem('wheel2', wheelThird.name);
+          view.checkFavorite(selectedHero);
           break;
         }
         case "3": {
           wheelFourth.name = selectedHero;
+          favoriteHeroes[3] = wheelFourth.name;
           localStorage.setItem('wheel3', wheelFourth.name);
+          view.checkFavorite(selectedHero);
           break;
         }
       }
@@ -415,6 +423,7 @@ var view = {
       // Set SVG and text to locally stored heroes and/or empty accordingly
       wheelRef.innerHTML = wheelHeroes[i].name;
       wheelText.innerHTML = wheelHeroes[i].name;
+      favoriteHeroes[i] = wheelHeroes[i].name;
     }
   },
   showHiddenElements: function() {
@@ -445,8 +454,8 @@ var view = {
             clickSound.play();
           }
           break;
-        // Temporary I key for favorites wheel
-        case 73:
+        // W key for favorites wheel
+        case 87:
           handlers.openFavoriteWheel();
           break;
         // M key for mystery hero
@@ -469,6 +478,13 @@ var view = {
             tweetButton.click();
           }
           break;
+          // Q key for quick favorite
+        case 81:
+          if (start === true) {
+            handlers.addFavorite();
+            handlers.openFavoriteWheel();
+          }
+          break;
       }
     }, false);
     // Event listener for held keys
@@ -478,7 +494,7 @@ var view = {
       var key = e.keyCode;
       hoveredHero = false;
       switch(key) {
-        case 73:
+        case 87:
         // if (editFavorite === false) {
 
           // view.yourFortune(selectedHero);
@@ -499,7 +515,7 @@ var view = {
       hero.classList.add('ui', 'hero');
     }
   },
-  createBackground: function(hero) {
+  createBackground: function(selectedHero) {
     var image = document.getElementById('image');
     var tint = document.getElementById('tint');
     image.classList.remove('animate');
@@ -510,13 +526,13 @@ var view = {
     setTimeout(function() {
       image.classList.add('animate');
       tint.classList.add('animate');
-      image.style.backgroundImage = hero.image;
-      tint.style.backgroundColor = hero.color;
+      image.style.backgroundImage = selectedHero.image;
+      tint.style.backgroundColor = selectedHero.color;
     }, 1000);
   },
-  fetchFortune: function(hero) {
+  fetchFortune: function(selectedHero) {
     heroFortune = document.getElementById('heroFortune');
-    randomFortune = hero.line[Math.floor(Math.random() * hero.line.length)];
+    randomFortune = selectedHero.line[Math.floor(Math.random() * selectedHero.line.length)];
     heroFortune.classList.remove('animate');
     setTimeout(function() {
       heroFortune.classList.add('animate');
@@ -524,19 +540,26 @@ var view = {
     }, 1000);
     handlers.tweetFortune();
   },
-  fetchName: function(hero) {
+  fetchName: function(selectedHero) {
     var heroName = document.getElementById('heroName');
     heroName.classList.remove('animate');
     setTimeout(function() {
       heroName.classList.add('animate');
-      heroName.innerHTML = hero.name;
+      heroName.innerHTML = selectedHero.name;
     }, 1000);
   },
-  generateHeroPage: function(hero) {
+  checkFavorite: function(selectedHero) {
+    if (favoriteHeroes.includes(selectedHero)) {
+      quickFavoriteButton.classList.add('isFavorite');
+    } else {
+      quickFavoriteButton.classList.remove('isFavorite');
+    }
+  },
+  generateHeroPage: function(selectedHero) {
     view.showHiddenElements();
-    view.createBackground(hero);
-    view.fetchFortune(hero);
-    view.fetchName(hero);
+    view.createBackground(selectedHero);
+    view.fetchFortune(selectedHero);
+    view.fetchName(selectedHero);
   },
   setUpSoundEventListeners: function() {
     hoverSound = new Howl({
@@ -560,6 +583,7 @@ var view = {
     });
   },
   yourFortune: function(selectedHero) {
+    view.checkFavorite(selectedHero);
     handlers.closeMenu();
     start = true;
     welcomeText.classList.add('hide');

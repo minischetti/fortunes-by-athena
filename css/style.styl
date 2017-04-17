@@ -428,7 +428,7 @@ a {
   }
 }
 #heroName {
-  absolute(initial, 6rem, 4rem, initial);
+  absolute(initial, 4rem, 4rem, initial);
   transform: translateY(100%);
   color: rgba(0,0,0,.9);
   filter: blur(1rem);
@@ -447,6 +447,17 @@ a {
   position: relative;
   width: 22px;
   height: 23px;
+
+  svg {
+    fill: transparent;
+    stroke: #f2b423;
+    transition: 1s all;
+  }
+
+  &.isFavorite svg {
+    fill: #f2b423;
+    transition-delay: 1s;
+  }
 }
 
 #mysteryHeroButton, .key, #heroList, #contextMenu {
@@ -599,7 +610,7 @@ a {
   }
 
   #heroName {
-    right: 4rem;
+    right: 2rem;
     bottom: 2rem;
   }
 }
@@ -639,7 +650,7 @@ body {
   overflow: hidden;
 }
 
-svg {
+#favoriteWheelContainer {
   position: absolute;
   left: 50%;
   top: 50%;

@@ -382,7 +382,7 @@ a:hover .tooltip {
 #heroName {
   position: absolute;
   top: initial;
-  right: 6rem;
+  right: 4rem;
   bottom: 4rem;
   left: initial;
   transform: translateY(100%);
@@ -401,6 +401,15 @@ a:hover .tooltip {
   position: relative;
   width: 22px;
   height: 23px;
+}
+#quickFavoriteButton svg {
+  fill: transparent;
+  stroke: #f2b423;
+  transition: 1s all;
+}
+#quickFavoriteButton.isFavorite svg {
+  fill: #f2b423;
+  transition-delay: 1s;
 }
 #mysteryHeroButton,
 .key,
@@ -545,7 +554,7 @@ a:hover .tooltip {
     bottom: 2rem;
   }
   #heroName {
-    right: 4rem;
+    right: 2rem;
     bottom: 2rem;
   }
 }
@@ -579,21 +588,21 @@ body {
   height: 100vh;
   overflow: hidden;
 }
-svg {
+#favoriteWheelContainer {
   position: absolute;
   left: 50%;
   top: 50%;
   display: block;
   transform: translate(-50%, -50%) rotate(-45deg) scale(3);
 }
-svg path {
+#favoriteWheelContainer path {
   transition: 0.25s fill;
   stroke: transparent;
 }
-svg path:hover {
+#favoriteWheelContainer path:hover {
   fill: rgba(19,134,191,0.5);
 }
-svg path.active {
+#favoriteWheelContainer path.active {
   cursor: pointer;
 }
 .divider {
