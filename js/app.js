@@ -244,6 +244,7 @@ var handlers = {
   },
   toggleSettings: function() {
     settingsPage.classList.toggle('active');
+    settingsButton.classList.toggle('active');
     app.classList.toggle('active');
   },
   toggleMenu: function() {

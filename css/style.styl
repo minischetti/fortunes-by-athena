@@ -82,6 +82,34 @@ a {
 
 #settingsButton {
   absolute(2rem, initial, initial, 2rem);
+  transform-origin: center;
+
+  svg {
+    display: block;
+    circle {
+      transition: 1s all;
+      fill: transparent;
+    }
+  }
+
+  &.active {
+    animation: 1s revGears;
+    circle {
+      fill: green;
+    }
+  }
+}
+
+@keyframes revGears {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  25% {
+    transform: rotateZ(-45deg);
+  }
+  100% {
+    transform: rotateZ(180deg);
+  }
 }
 
 #followButton img {
@@ -616,12 +644,12 @@ a {
 }
 
 @media (max-width: 768px) {
-  #image, #mysteryKey, .hint {
+  #image, #mysteryKey, #toggleSoundButton, #settingsButton, .hint {
     display: none;
   }
 }
 
-span img, a img {
+span img, a img, span svg {
   pointer-events: none;
 }
 

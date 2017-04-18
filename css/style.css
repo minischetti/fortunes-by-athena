@@ -54,6 +54,20 @@ a {
   right: initial;
   bottom: initial;
   left: 2rem;
+  transform-origin: center;
+}
+#settingsButton svg {
+  display: block;
+}
+#settingsButton svg circle {
+  transition: 1s all;
+  fill: transparent;
+}
+#settingsButton.active {
+  animation: 1s revGears;
+}
+#settingsButton.active circle {
+  fill: #008000;
 }
 #followButton img {
   width: 2.3rem;
@@ -561,12 +575,15 @@ a:hover .tooltip {
 @media (max-width: 768px) {
   #image,
   #mysteryKey,
+  #toggleSoundButton,
+  #settingsButton,
   .hint {
     display: none;
   }
 }
 span img,
-a img {
+a img,
+span svg {
   pointer-events: none;
 }
 #toggleSoundButton {
@@ -703,6 +720,50 @@ body {
 }
 #favoriteTextContainer #favoriteText3 {
   margin-left: 10vw;
+}
+@-moz-keyframes revGears {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  25% {
+    transform: rotateZ(-45deg);
+  }
+  100% {
+    transform: rotateZ(180deg);
+  }
+}
+@-webkit-keyframes revGears {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  25% {
+    transform: rotateZ(-45deg);
+  }
+  100% {
+    transform: rotateZ(180deg);
+  }
+}
+@-o-keyframes revGears {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  25% {
+    transform: rotateZ(-45deg);
+  }
+  100% {
+    transform: rotateZ(180deg);
+  }
+}
+@keyframes revGears {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  25% {
+    transform: rotateZ(-45deg);
+  }
+  100% {
+    transform: rotateZ(180deg);
+  }
 }
 @-moz-keyframes orbPulse {
   50% {
