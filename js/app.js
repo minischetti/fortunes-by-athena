@@ -246,6 +246,9 @@ var handlers = {
     settingsPage.classList.toggle('active');
     settingsButton.classList.toggle('active');
     app.classList.toggle('active');
+    // if (soundStatus === true) {
+    //     swooshSound.play();
+    // }
   },
   toggleMenu: function() {
     heroList.classList.toggle('open');
@@ -346,7 +349,6 @@ var handlers = {
       chosenHero.classList.remove('active');
       backHint.classList.remove('active');
       // favoriteWheel.style.cursor = "none";
-
     }
     // Blur other content
     app.classList.add('blur');
@@ -451,6 +453,12 @@ var view = {
         // H key for menu
         case 72:
           handlers.toggleMenu();
+          if (soundStatus === true) {
+            clickSound.play();
+          }
+          break;
+        case 79:
+          handlers.toggleSettings();
           if (soundStatus === true) {
             clickSound.play();
           }

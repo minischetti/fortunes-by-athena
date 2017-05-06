@@ -60,14 +60,14 @@ a {
   display: block;
 }
 #settingsButton svg circle {
-  transition: 1s all;
+  transition: 0.5s all;
   fill: transparent;
 }
 #settingsButton.active {
-  animation: 1s revGears;
+  animation: 0.5s revForward;
 }
 #settingsButton.active circle {
-  fill: #008000;
+  fill: #00a1e2;
 }
 #followButton img {
   width: 2.3rem;
@@ -141,7 +141,6 @@ a:hover .tooltip {
   z-index: 1;
 }
 #settingsPage {
-  top: -100vh;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -151,9 +150,14 @@ a:hover .tooltip {
   transition: 0.5s all;
   visibility: hidden;
   pointer-events: none;
+  filter: blur(1rem);
+  opacity: 0;
+  transform: scale(1.5);
 }
 #settingsPage.active {
-  top: 0;
+  filter: blur(0);
+  opacity: 1;
+  transform: scale(1);
   visibility: visible;
   pointer-events: auto;
 }
@@ -164,21 +168,29 @@ a:hover .tooltip {
 #settingsPage .settingsContainer h2 {
   margin: 4rem 0 2rem;
 }
+#settingsPage .toggle {
+  text-align: center;
+}
+#settingsPage .toggle.active {
+  color: #fff;
+  background-color: #00a1e2;
+}
 #settingsPage span {
   font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
+  text-align: center;
   font-size: 1.4rem;
+  margin-left: 2rem;
   padding: 0 2rem;
   border-radius: 0.2rem;
+  background-color: rgba(0,0,0,0.1);
+  transition: 0.25s all;
 }
 #settingsPage span:first-child {
   width: 85%;
 }
 #settingsPage span:last-child {
   width: 15%;
-}
-#settingsPage span:not(.toggle) {
-  background-color: rgba(0,0,0,0.1);
 }
 .setting {
   display: flex;
@@ -188,20 +200,6 @@ a:hover .tooltip {
 }
 .setting:not(:last-child) {
   margin-bottom: 2rem;
-}
-.toggle,
-.keybind {
-  margin-left: 2rem;
-}
-.toggle {
-  text-align: center;
-  background-color: #f00;
-}
-.toggle.active {
-  background-color: #008000;
-}
-.keybind {
-  text-align: center;
 }
 #contextMenu {
   display: flex;
@@ -317,7 +315,9 @@ a:hover .tooltip {
   transition: 0.5s all;
 }
 #app.active {
-  top: 100vh;
+  opacity: 0;
+  transform: scale(0.5);
+  filter: blur(1rem);
 }
 .persistent {
   z-index: 1;
@@ -498,9 +498,11 @@ a:hover .tooltip {
   overflow: auto;
   transition: 0.5s left;
   z-index: 1;
+  visibility: hidden;
 }
 #heroList.open {
   left: 0;
+  visibility: visible;
 }
 #heroList li {
   cursor: pointer;
@@ -721,7 +723,7 @@ body {
 #favoriteTextContainer #favoriteText3 {
   margin-left: 10vw;
 }
-@-moz-keyframes revGears {
+@-moz-keyframes revForward {
   0% {
     transform: rotateZ(0deg);
   }
@@ -732,7 +734,7 @@ body {
     transform: rotateZ(180deg);
   }
 }
-@-webkit-keyframes revGears {
+@-webkit-keyframes revForward {
   0% {
     transform: rotateZ(0deg);
   }
@@ -743,7 +745,7 @@ body {
     transform: rotateZ(180deg);
   }
 }
-@-o-keyframes revGears {
+@-o-keyframes revForward {
   0% {
     transform: rotateZ(0deg);
   }
@@ -754,7 +756,7 @@ body {
     transform: rotateZ(180deg);
   }
 }
-@keyframes revGears {
+@keyframes revForward {
   0% {
     transform: rotateZ(0deg);
   }

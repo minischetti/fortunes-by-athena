@@ -1,6 +1,7 @@
 // out: style.css, sourcemap: true, nib: true
 
 // Variables
+accent = #00a1e2;
 
 @font-face {
   font-family: 'Big Noodle';
@@ -87,20 +88,20 @@ a {
   svg {
     display: block;
     circle {
-      transition: 1s all;
+      transition: .5s all;
       fill: transparent;
     }
   }
 
   &.active {
-    animation: 1s revGears;
+    animation: .5s revForward;
     circle {
-      fill: green;
+      fill: accent;
     }
   }
 }
 
-@keyframes revGears {
+@keyframes revForward {
   0% {
     transform: rotateZ(0deg);
   }
@@ -179,7 +180,6 @@ a {
 }
 
 #settingsPage {
-  top: -100vh;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -188,9 +188,14 @@ a {
   transition: .5s all;
   visibility: hidden;
   pointer-events: none;
+  filter: blur(1rem);
+  opacity: 0;
+  transform: scale(1.5);
 
   &.active {
-    top: 0;
+    filter: blur(0);
+    opacity: 1;
+    transform: scale(1);
     visibility: visible;
     pointer-events: auto;
   }
@@ -204,12 +209,25 @@ a {
     }
   }
 
+  .toggle {
+    text-align: center;
+
+    &.active {
+      color: #fff;
+      background-color: accent;
+    }
+  }
+
   span {
     font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
+    text-align: center;
     font-size: 1.4rem;
+    margin-left: 2rem;
     padding: 0 2rem;
     border-radius: .2rem;
+    background-color: rgba(0,0,0,.1);
+    transition: .25s all;
 
     &:first-child {
       width: 85%;
@@ -217,10 +235,6 @@ a {
 
     &:last-child {
       width: 15%;
-    }
-
-    &:not(.toggle) {
-      background-color: rgba(0,0,0,.1);
     }
   }
 }
@@ -234,23 +248,6 @@ a {
   &:not(:last-child) {
     margin-bottom: 2rem;
   }
-}
-
-.toggle, .keybind {
-  margin-left: 2rem;
-}
-
-.toggle {
-  text-align: center;
-  background-color: red;
-
-  &.active {
-    background-color: green;
-  }
-}
-
-.keybind {
-  text-align: center;
 }
 
 // #particles-js {
@@ -385,7 +382,9 @@ a {
   fullSize();
   transition: .5s all;
   &.active {
-    top: 100vh;
+    opacity: 0;
+    transform: scale(.5);
+    filter: blur(1rem);
   }
 }
 
@@ -560,9 +559,11 @@ a {
   overflow: auto;
   transition: .5s left;
   z-index: 1;
+  visibility: hidden;
 
   &.open {
     left: 0;
+    visibility: visible;
   }
 
   li {
