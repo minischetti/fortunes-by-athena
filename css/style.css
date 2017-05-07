@@ -498,11 +498,9 @@ a:hover .tooltip {
   overflow: auto;
   transition: 0.5s left;
   z-index: 1;
-  visibility: hidden;
 }
 #heroList.open {
   left: 0;
-  visibility: visible;
 }
 #heroList li {
   cursor: pointer;

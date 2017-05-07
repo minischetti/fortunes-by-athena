@@ -196,9 +196,11 @@ var handlers = {
 
     document.addEventListener('click', function(event) {
       elementClicked = event.target;
+
       // Check if the element clicked was a hero and for Firefox, don't select hero if right-clicked
       if (event.which === 1 && elementClicked.classList.contains('hero')) {
-        handlers.selectHero(elementClicked);
+        selectedHero = eval(elementClicked.dataset.hero);
+        view.generateFortune(selectedHero);
       }
       if (elementClicked.classList.contains('favorite')) {
         handlers.updateWheel(elementClicked);
@@ -208,9 +210,9 @@ var handlers = {
         contextMenu.classList.remove('active');
       }
       // If you click outside of the hero menu, close it
-      // if (elementClicked != 'heroList') {
-      //   heroList.classList.remove('open');
-      // }
+      if (elementClicked != 'heroList') {
+        heroList.classList.remove('open');
+      }
       // Check for IDs, then take the appropriate action
       switch(elementClicked) {
         case settingsButton:
@@ -258,19 +260,19 @@ var handlers = {
     heroList.classList.remove('open');
     menuKey.classList.remove('active');
   },
-  selectHero: function(elementClicked) {
-      selectedHero = elementClicked.innerHTML;
-      view.yourFortune(selectedHero);
+  selectHero: function(selectedHero) {
+      // selectedHero = elementClicked.innerHTML;
+      view.generateFortune(selectedHero);
     // });
   },
   mysteryHero: function() {
-    selectedHero = heroes[Math.floor(Math.random() * heroes.length)].name;
+    selectedHero = heroes[Math.floor(Math.random() * heroes.length)];
     mysteryKey = document.getElementById('mysteryKey');
     mysteryKey.classList.remove('animate');
     setTimeout(function() {
       mysteryKey.classList.add('animate');
     }, 50);
-    view.yourFortune(selectedHero);
+    view.generateFortune(selectedHero);
   },
   contextMenu: function() {
     heroList.addEventListener('contextmenu', function(event) {
@@ -437,8 +439,8 @@ var view = {
     }
   },
   checkKeyPressed: function() {
-    document.addEventListener('keydown', function(e) {
-      var key = e.keyCode;
+    document.addEventListener('keydown', function(event) {
+      var key = event.keyCode;
       switch(key) {
         // Esc key to close favorites wheel
         case 27:
@@ -497,19 +499,19 @@ var view = {
       }
     }, false);
     // Event listener for held keys
-    document.addEventListener('keyup', function(e) {
-      x = e.clientX;
-      y = e.clientY;
-      var key = e.keyCode;
+    document.addEventListener('keyup', function(event) {
+      x = event.clientX;
+      y = event.clientY;
+      var key = event.keyCode;
       hoveredHero = false;
       switch(key) {
         case 87:
         // if (editFavorite === false) {
 
-          // view.yourFortune(selectedHero);
+          // view.generateFortune(selectedHero);
           if (elementHovered.classList.contains('active')) {
             console.log("You've selected " + selectedHero + ".");
-            view.yourFortune(selectedHero);
+            view.generateFortune(selectedHero);
           }
         // }
         handlers.closeFavoriteWheel();
@@ -521,6 +523,7 @@ var view = {
       var hero = document.createElement('li');
       heroList.appendChild(hero);
       hero.innerHTML = heroes[i].name;
+      hero.dataset.hero = heroes[i].name.replace(/\W/g, '').toLowerCase();
       hero.classList.add('ui', 'hero');
     }
   },
@@ -591,85 +594,86 @@ var view = {
       }
     });
   },
-  yourFortune: function(selectedHero) {
+  generateFortune: function(selectedHero) {
     view.checkFavorite(selectedHero);
+    view.generateHeroPage(selectedHero);
     handlers.closeMenu();
     start = true;
     welcomeText.classList.add('hide');
-    switch (selectedHero) {
-      case 'Genji':
-        view.generateHeroPage(genji);
-      break;
-      case 'McCree':
-        view.generateHeroPage(mccree);
-      break;
-      case 'Pharah':
-        view.generateHeroPage(pharah);
-      break;
-      case 'Reaper':
-        view.generateHeroPage(reaper);
-      break;
-      case 'Soldier: 76':
-        view.generateHeroPage(soldier76);
-      break;
-      case 'Sombra':
-        view.generateHeroPage(sombra);
-      break;
-      case 'Tracer':
-        view.generateHeroPage(tracer);
-      break;
-      case 'Bastion':
-        view.generateHeroPage(bastion);
-      break;
-      case 'Hanzo':
-        view.generateHeroPage(hanzo);
-      break;
-      case 'Junkrat':
-        view.generateHeroPage(junkrat);
-      break;
-      case 'Mei':
-        view.generateHeroPage(mei);
-      break;
-      case 'Torbjorn':
-        view.generateHeroPage(torbjorn);
-      break;
-      case 'Widowmaker':
-        view.generateHeroPage(widowmaker);
-      break;
-      case 'D.VA':
-        view.generateHeroPage(dva);
-      break;
-      case 'Orisa':
-        view.generateHeroPage(orisa);
-      break;
-      case 'Reinhardt':
-        view.generateHeroPage(reinhardt);
-      break;
-      case 'Roadhog':
-        view.generateHeroPage(roadhog);
-      break;
-      case 'Winston':
-        view.generateHeroPage(winston);
-      break;
-      case 'Zarya':
-        view.generateHeroPage(zarya);
-      break;
-      case 'Ana':
-        view.generateHeroPage(ana);
-      break;
-      case 'Lucio':
-        view.generateHeroPage(lucio);
-      break;
-      case 'Mercy':
-        view.generateHeroPage(mercy);
-      break;
-      case 'Symmetra':
-        view.generateHeroPage(symmetra);
-      break;
-      case 'Zenyatta':
-        view.generateHeroPage(zenyatta);
-      break;
-    }
+    // switch (selectedHero) {
+    //   case 'Genji':
+    //     view.generateHeroPage(genji);
+    //   break;
+    //   case 'McCree':
+    //     view.generateHeroPage(mccree);
+    //   break;
+    //   case 'Pharah':
+    //     view.generateHeroPage(pharah);
+    //   break;
+    //   case 'Reaper':
+    //     view.generateHeroPage(reaper);
+    //   break;
+    //   case 'Soldier: 76':
+    //     view.generateHeroPage(soldier76);
+    //   break;
+    //   case 'Sombra':
+    //     view.generateHeroPage(sombra);
+    //   break;
+    //   case 'Tracer':
+    //     view.generateHeroPage(tracer);
+    //   break;
+    //   case 'Bastion':
+    //     view.generateHeroPage(bastion);
+    //   break;
+    //   case 'Hanzo':
+    //     view.generateHeroPage(hanzo);
+    //   break;
+    //   case 'Junkrat':
+    //     view.generateHeroPage(junkrat);
+    //   break;
+    //   case 'Mei':
+    //     view.generateHeroPage(mei);
+    //   break;
+    //   case 'Torbjorn':
+    //     view.generateHeroPage(torbjorn);
+    //   break;
+    //   case 'Widowmaker':
+    //     view.generateHeroPage(widowmaker);
+    //   break;
+    //   case 'D.VA':
+    //     view.generateHeroPage(dva);
+    //   break;
+    //   case 'Orisa':
+    //     view.generateHeroPage(orisa);
+    //   break;
+    //   case 'Reinhardt':
+    //     view.generateHeroPage(reinhardt);
+    //   break;
+    //   case 'Roadhog':
+    //     view.generateHeroPage(roadhog);
+    //   break;
+    //   case 'Winston':
+    //     view.generateHeroPage(winston);
+    //   break;
+    //   case 'Zarya':
+    //     view.generateHeroPage(zarya);
+    //   break;
+    //   case 'Ana':
+    //     view.generateHeroPage(ana);
+    //   break;
+    //   case 'Lucio':
+    //     view.generateHeroPage(lucio);
+    //   break;
+    //   case 'Mercy':
+    //     view.generateHeroPage(mercy);
+    //   break;
+    //   case 'Symmetra':
+    //     view.generateHeroPage(symmetra);
+    //   break;
+    //   case 'Zenyatta':
+    //     view.generateHeroPage(zenyatta);
+    //   break;
+    // }
   }
 }
 var settings = {
